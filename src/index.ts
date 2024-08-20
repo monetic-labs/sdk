@@ -8,11 +8,11 @@ export { PylonApiClient } from '@/client';
 export { ClientType } from '@/client';
 
 // Export individual API endpoints for users who want to use them directly
-export { AuthApi } from '@/routes/auth';
-export { BridgeApi } from '@/routes/bridge';
-export { MerchantApi } from '@/routes/merchant';
-export { TransactionApi } from '@/routes/transaction';
-export { WorldpayApi } from '@/routes/worldpay';
+export { AuthApi } from '@/api/auth';
+export { BridgeApi } from '@/api/bridge';
+export { MerchantApi } from '@/api/merchant';
+export { TransactionApi } from '@/api/transaction';
+export { WorldpayApi } from '@/api/worldpay';
 
 // Export all schemas from the schemas directory
 export * from '@/schemas/auth';

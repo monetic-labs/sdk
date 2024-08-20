@@ -1,14 +1,14 @@
 // schemas/auth.ts
 import { z } from 'zod';
 
-export const AuthSchema = {
-  generateChallenge: {
+
+  export const generateChallenge = {
     response: z.object({
       challenge: z.string(),
     }),
-  },
+  };
 
-  registerPasskey: {
+  export const registerPasskey = {
     body: z.object({
       passkeyName: z.string().optional(),
       username: z.string(),
@@ -33,9 +33,9 @@ export const AuthSchema = {
       }),
       token: z.string(),
     }),
-  },
+  };
 
-  authenticatePasskey: {
+  export const authenticatePasskey = {
     body: z.object({
       credentialId: z.string(),
       authenticatorData: z.string(),
@@ -54,18 +54,18 @@ export const AuthSchema = {
       }),
       token: z.string(),
     }),
-  },
+  };
 
-  initiatePasskeyRegistration: {
+  export const initiatePasskeyRegistration = {
     body: z.object({
       email: z.string().email(),
     }),
     response: z.object({
       message: z.string(),
     }),
-  },
+  };
 
-  registerPasskeyForExistingUser: {
+  export const registerPasskeyForExistingUser = {
     body: z.object({
       passkeyName: z.string().optional(),
       credential: z.object({
@@ -81,18 +81,18 @@ export const AuthSchema = {
     response: z.object({
       message: z.string(),
     }),
-  },
+  };
 
-  removePasskey: {
+  export const removePasskey = {
     params: z.object({
       id: z.number(),
     }),
     response: z.object({
       message: z.string(),
     }),
-  },
+  };
 
-  findPasskeysForUser: {
+  export const findPasskeysForUser = {
     response: z.object({
       passkeys: z.array(z.object({
         id: z.number(),
@@ -101,18 +101,18 @@ export const AuthSchema = {
         // Add other passkey fields as needed
       })),
     }),
-  },
+  };
 
-  issueOTP: {
+  export const issueOTP = {
     body: z.object({
       email: z.string().email(),
     }),
     response: z.object({
       message: z.string(),
     }),
-  },
+  };
 
-  verifyOTP: {
+  export const verifyOTP = {
     body: z.object({
       email: z.string().email(),
       otp: z.string().length(6),
@@ -120,27 +120,23 @@ export const AuthSchema = {
     response: z.object({
       message: z.string(),
     }),
-  },
+  };
 
-  generateFarcasterJWT: {
+  export const generateFarcasterJWT = {
     body: z.object({
       fid: z.number(),
       signerUuid: z.string(),
-      signer_uuid: z.string().optional(),
     }).transform(data => ({
       fid: data.fid,
-      signerUuid: data.signerUuid || data.signer_uuid,
+      signerUuid: data.signerUuid
     })),
     response: z.object({
       message: z.string(),
     }),
-  },
+  };
 
-  deleteFarcasterJWT: {
+  export const deleteFarcasterJWT = {
     response: z.object({
       message: z.string(),
     }),
-  },
-};
-
-export type AuthSchemaType = typeof AuthSchema;
+  };

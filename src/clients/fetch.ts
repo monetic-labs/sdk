@@ -1,22 +1,16 @@
-import { HttpClient } from './http';
+import { CreateHttpClient, HttpClient } from './http';
 
-export class FetchClient implements HttpClient {
-  private baseURL: string;
-  private headers: HeadersInit;
 
-  constructor(baseURL: string, token?: string) {
-    this.baseURL = baseURL;
-    this.headers = {
-      'Content-Type': 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` }),
-    };
-  }
+export const createFetchClient: CreateHttpClient = (baseURL, token) => {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+    ...(token && { Authorization: `Bearer ${token}` }),
+  };
 
-  private async request<T>(url: string, options: RequestInit): Promise<T> {
-    const response = await fetch(`${this.baseURL}${url}`, {
+  const request = async <T>(url: string, options: RequestInit): Promise<T> => {
+    const response = await fetch(`${baseURL}${url}`, {
       ...options,
-      headers: { ...this.headers, ...options.headers },
-      next: { revalidate: 60 }, // Enable revalidation every 60 seconds
+      headers: { ...headers, ...options.headers },
     });
 
     if (!response.ok) {
@@ -24,28 +18,32 @@ export class FetchClient implements HttpClient {
     }
 
     return response.json();
-  }
+  };
 
-  async get<T>(url: string, params?: object): Promise<T> {
-    const queryString = params ? `?${new URLSearchParams(params as Record<string, string>)}` : '';
-    return this.request<T>(`${url}${queryString}`, { method: 'GET' });
-  }
+  const client: HttpClient = {
+    get: async <T>(url: string, params?: object): Promise<T> => {
+      const queryString = params ? `?${new URLSearchParams(params as Record<string, string>)}` : '';
+      return request<T>(`${url}${queryString}`, { method: 'GET' });
+    },
 
-  async post<T>(url: string, data: object): Promise<T> {
-    return this.request<T>(url, {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-  }
+    post: async <T>(url: string, data: object): Promise<T> => {
+      return request<T>(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+    },
 
-  async put<T>(url: string, data: object): Promise<T> {
-    return this.request<T>(url, {
-      method: 'PUT',
-      body: JSON.stringify(data),
-    });
-  }
+    put: async <T>(url: string, data: object): Promise<T> => {
+      return request<T>(url, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      });
+    },
 
-  async delete<T>(url: string): Promise<T> {
-    return this.request<T>(url, { method: 'DELETE' });
-  }
-}
+    delete: async <T>(url: string): Promise<T> => {
+      return request<T>(url, { method: 'DELETE' });
+    },
+  };
+
+  return client;
+};

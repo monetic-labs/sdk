@@ -1,36 +1,36 @@
 import axios, { AxiosInstance } from 'axios';
-import { HttpClient } from './http';
+import { CreateHttpClient, HttpClient } from './http';
 
-export class AxiosClient implements HttpClient {
-  private client: AxiosInstance;
+export const createAxiosClient: CreateHttpClient = (baseURL, token) => {
+  const axiosInstance: AxiosInstance = axios.create({
+    baseURL,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
 
-  constructor(baseURL: string, token?: string) {
-    this.client = axios.create({
-      baseURL,
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }),
-      },
-    });
-  }
+  const client: HttpClient = {
+    get: async <T>(url: string, params?: object): Promise<T> => {
+      const response = await axiosInstance.get<T>(url, { params });
+      return response.data;
+    },
 
-  async get<T>(url: string, params?: object): Promise<T> {
-    const response = await this.client.get<T>(url, { params });
-    return response.data;
-  }
+    post: async <T>(url: string, data: object): Promise<T> => {
+      const response = await axiosInstance.post<T>(url, data);
+      return response.data;
+    },
 
-  async post<T>(url: string, data: object): Promise<T> {
-    const response = await this.client.post<T>(url, data);
-    return response.data;
-  }
+    put: async <T>(url: string, data: object): Promise<T> => {
+      const response = await axiosInstance.put<T>(url, data);
+      return response.data;
+    },
 
-  async put<T>(url: string, data: object): Promise<T> {
-    const response = await this.client.put<T>(url, data);
-    return response.data;
-  }
+    delete: async <T>(url: string): Promise<T> => {
+      const response = await axiosInstance.delete<T>(url);
+      return response.data;
+    },
+  };
 
-  async delete<T>(url: string): Promise<T> {
-    const response = await this.client.delete<T>(url);
-    return response.data;
-  }
-}
+  return client;
+};
