@@ -1,6 +1,6 @@
 // src/routes/auth.ts
 import { PylonApiClient } from '@/client';
-import { AuthSchemaType } from '@/schemas/auth';
+import { AuthSchema, AuthSchemaType } from '@/schemas/auth';
 
 export class AuthApi {
   constructor(private client: PylonApiClient) {}
@@ -42,7 +42,8 @@ export class AuthApi {
   }
 
   async generateFarcasterJWT(data: AuthSchemaType['generateFarcasterJWT']['body']) {
-    return this.client.post<AuthSchemaType['generateFarcasterJWT']['response']>('/auth/generate-farcaster-jwt', data);
+    const transformedData = AuthSchema.generateFarcasterJWT.body.parse(data);
+    return this.client.post<AuthSchemaType['generateFarcasterJWT']['response']>('/auth/generate-farcaster-jwt', transformedData);
   }
 
   async deleteFarcasterJWT() {

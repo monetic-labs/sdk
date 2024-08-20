@@ -126,7 +126,11 @@ export const AuthSchema = {
     body: z.object({
       fid: z.number(),
       signerUuid: z.string(),
-    }),
+      signer_uuid: z.string().optional(),
+    }).transform(data => ({
+      fid: data.fid,
+      signerUuid: data.signerUuid || data.signer_uuid,
+    })),
     response: z.object({
       message: z.string(),
     }),
