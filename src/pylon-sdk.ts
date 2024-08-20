@@ -43,6 +43,7 @@ export function createPylonSDK(baseURL: string, token?: string, clientType: Clie
       authorizePayment: WorldpayApi.authorizePayment(client),
       queryPaymentStatus: WorldpayApi.queryPaymentStatus(client),
       performRiskAssessment: WorldpayApi.performRiskAssessment(client),
+      createVerifiedToken: WorldpayApi.createVerifiedToken(client),
       // ... other worldpay methods ...
     },
   };
