@@ -1,7 +1,7 @@
 // schemas/auth.ts
 import { z } from 'zod';
 
-export const V1 = '/v1';
+const V1 = '/v1';
 
 export const AUTH_ENDPOINTS = {
   DIR: `${V1}/auth`,
