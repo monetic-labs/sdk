@@ -1,11 +1,5 @@
-// Export the main PylonSDK class
-export { PylonSDK } from '@/pylon-sdk';
-
-// Export the PylonApiClient for advanced usage scenarios
-export { PylonApiClient } from '@/client';
-
-// Export the ClientType for users who need to specify the client type
-export { ClientType } from '@/client';
+export { ClientType, PylonApiClient } from './client';
+export { PylonSDK, createPylonSDK } from './pylon-sdk';
 
 // Export individual API endpoints for users who want to use them directly
 export { AuthApi } from '@/api/auth';

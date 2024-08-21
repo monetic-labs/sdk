@@ -24,3 +24,4 @@ export type WorldpayApi = {
   performRiskAssessment: ReturnType<typeof performRiskAssessment>;
   createVerifiedToken: ReturnType<typeof createVerifiedToken>;
 };
+

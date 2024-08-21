@@ -242,4 +242,20 @@ export const WorldpaySchema = {
   }),
 };
 
+// Export individual schemas
+export const {
+  authorizePayment,
+  queryPaymentStatus,
+  riskAssessment,
+  verifiedToken,
+} = WorldpaySchema;
+
+// Export types
 export type WorldpaySchemaType = typeof WorldpaySchema;
+export type AuthorizePaymentRequest = z.infer<typeof authorizePayment.request>;
+export type AuthorizePaymentResponse = z.infer<typeof authorizePayment.response>;
+export type QueryPaymentStatusResponse = z.infer<typeof queryPaymentStatus.response>;
+export type RiskAssessmentRequest = z.infer<typeof riskAssessment.request>;
+export type RiskAssessmentResponse = z.infer<typeof riskAssessment.response>;
+export type VerifiedTokenRequest = z.infer<typeof verifiedToken.request>;
+export type VerifiedTokenResponse = z.infer<typeof verifiedToken.response>;

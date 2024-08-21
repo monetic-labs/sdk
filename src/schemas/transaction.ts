@@ -122,6 +122,21 @@ export const TransactionStatusOutputSchema = z.object({
   }),
 });
 
-export type TransactionStatusOutput = z.infer<typeof TransactionStatusOutputSchema>;
+// Export types
 export type TransactionProcessInput = z.infer<typeof TransactionProcessInputSchema>;
 export type TransactionProcessOutput = z.infer<typeof TransactionProcessOutputSchema>;
+export type TransactionStatusOutput = z.infer<typeof TransactionStatusOutputSchema>;
+
+// Export schemas
+export const TransactionSchema = {
+  TransactionProcessInputSchema,
+  TransactionProcessOutputSchema,
+  TransactionStatusOutputSchema,
+};
+
+// Export enums
+export const TransactionStatus = TransactionProcessOutputSchema.shape.data.shape.status;
+export const PaymentProcessor = TransactionProcessInputSchema.shape.paymentProcessor;
+
+// Export a type for the entire schema
+export type TransactionSchemaType = typeof TransactionSchema;

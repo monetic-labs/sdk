@@ -48,4 +48,20 @@ export const BridgeSchema = {
   },
 };
 
+// Export individual schemas
+export const {
+  getPrefundedAccountBalance,
+  createPrefundedAccountTransfer,
+  processWebhook,
+} = BridgeSchema;
+
+// Export types
 export type BridgeSchemaType = typeof BridgeSchema;
+export type BridgePaymentRail = z.infer<typeof BridgePaymentRailEnum>;
+export type BridgeCurrency = z.infer<typeof BridgeCurrencyEnum>;
+
+export type GetPrefundedAccountBalanceResponse = z.infer<typeof getPrefundedAccountBalance.response>;
+export type CreatePrefundedAccountTransferBody = z.infer<typeof createPrefundedAccountTransfer.body>;
+export type CreatePrefundedAccountTransferResponse = z.infer<typeof createPrefundedAccountTransfer.response>;
+export type ProcessWebhookBody = z.infer<typeof processWebhook.body>;
+export type ProcessWebhookResponse = z.infer<typeof processWebhook.response>;

@@ -39,8 +39,6 @@ export const generateFarcasterJWT = (client: PylonApiClient) =>
   (data: z.infer<typeof AuthSchema.generateFarcasterJWT.body>) => 
     client.post<z.infer<typeof AuthSchema.generateFarcasterJWT.response>>('/auth/generate-farcaster-jwt', data);
 
-
-
 export const deleteFarcasterJWT = (client: PylonApiClient) => 
   () => client.post<z.infer<typeof AuthSchema.deleteFarcasterJWT.response>>('/auth/delete-farcaster-jwt', {});
 

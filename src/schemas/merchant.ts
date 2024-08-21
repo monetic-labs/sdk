@@ -99,3 +99,19 @@ export type MerchantCreateInput = z.infer<typeof MerchantCreateInputSchema>;
 export type MerchantCreateOutput = z.infer<typeof MerchantCreateOutputSchema>;
 export type TransferStatusInput = z.infer<typeof TransferStatusInputSchema>;
 export type TransferStatusOutput = z.infer<typeof TransferStatusOutputSchema>;
+
+// Export additional types that might be useful for SDK users
+export type PhysicalAddress = z.infer<typeof PhysicalAddressSchema>;
+export type Company = z.infer<typeof CompanySchema>;
+export type Compliance = z.infer<typeof ComplianceSchema>;
+
+// Export the schemas for users who might want to extend or modify them
+export const MerchantSchemas = {
+  PhysicalAddressSchema,
+  CompanySchema,
+  ComplianceSchema,
+  MerchantCreateInputSchema,
+  MerchantCreateOutputSchema,
+  TransferStatusInputSchema,
+  TransferStatusOutputSchema,
+};
