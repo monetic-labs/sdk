@@ -1,12 +1,30 @@
 // schemas/auth.ts
 import { z } from 'zod';
 
+  export const API_ENDPOINTS = {
+    AUTH: {
+      CHALLENGE: '/challenge',
+      PASSKEY_REGISTER: '/passkey/register',
+      PASSKEY_AUTHENTICATE: '/passkey',
+      PASSKEY_ADD_TOKEN: '/passkey/add/send-token',
+      PASSKEY_ADD: '/add',
+      PASSKEY_LIST: '/passkey',
+      PASSKEY_REMOVE: '/passkey/:id',
+      OTP_ISSUE: '/otp/issue',
+      OTP_VERIFY: '/otp/verify',
+      JWT_GENERATE: '/jwt',
+      JWT_DELETE: '/jwt',
+    },
+    // Add other endpoint categories as needed
+  };
+
 
   export const generateChallenge = {
     response: z.object({
       challenge: z.string(),
     }),
   };
+  
 
   export const registerPasskey = {
     body: z.object({
@@ -34,6 +52,7 @@ import { z } from 'zod';
       token: z.string(),
     }),
   };
+  
 
   export const authenticatePasskey = {
     body: z.object({
@@ -55,6 +74,8 @@ import { z } from 'zod';
       token: z.string(),
     }),
   };
+  
+  
 
   export const initiatePasskeyRegistration = {
     body: z.object({
@@ -64,6 +85,7 @@ import { z } from 'zod';
       message: z.string(),
     }),
   };
+  
 
   export const registerPasskeyForExistingUser = {
     body: z.object({
@@ -82,6 +104,8 @@ import { z } from 'zod';
       message: z.string(),
     }),
   };
+  
+  
 
   export const removePasskey = {
     params: z.object({
@@ -91,6 +115,7 @@ import { z } from 'zod';
       message: z.string(),
     }),
   };
+  
 
   export const findPasskeysForUser = {
     response: z.object({
@@ -102,6 +127,7 @@ import { z } from 'zod';
       })),
     }),
   };
+  
 
   export const issueOTP = {
     body: z.object({
@@ -111,6 +137,7 @@ import { z } from 'zod';
       message: z.string(),
     }),
   };
+  
 
   export const verifyOTP = {
     body: z.object({
@@ -121,6 +148,7 @@ import { z } from 'zod';
       message: z.string(),
     }),
   };
+  
 
   export const generateFarcasterJWT = {
     body: z.object({
@@ -134,9 +162,30 @@ import { z } from 'zod';
       message: z.string(),
     }),
   };
+  
 
   export const deleteFarcasterJWT = {
     response: z.object({
       message: z.string(),
     }),
   };
+
+  // Export types
+  export type GenerateChallengeResponse = z.infer<typeof generateChallenge.response>;
+  export type RegisterPasskeyResponse = z.infer<typeof registerPasskey.response>;
+  export type AuthenticatePasskeyResponse = z.infer<typeof authenticatePasskey.response>;
+  export type AuthenticatePasskeyBody = z.infer<typeof authenticatePasskey.body>;
+  export type InitiatePasskeyRegistrationResponse = z.infer<typeof initiatePasskeyRegistration.response>;
+  export type RegisterPasskeyForExistingUserResponse = z.infer<typeof registerPasskeyForExistingUser.response>;
+  export type RegisterPasskeyForExistingUserBody = z.infer<typeof registerPasskeyForExistingUser.body>;
+  export type RemovePasskeyResponse = z.infer<typeof removePasskey.response>;
+  export type FindPasskeysForUserResponse = z.infer<typeof findPasskeysForUser.response>;
+  export type IssueOTPResponse = z.infer<typeof issueOTP.response>;
+  export type VerifyOTPResponse = z.infer<typeof verifyOTP.response>;
+  export type GenerateFarcasterJWTResponse = z.infer<typeof generateFarcasterJWT.response>;
+  export type GenerateFarcasterJWTBody = z.infer<typeof generateFarcasterJWT.body>;
+  export type DeleteFarcasterJWTResponse = z.infer<typeof deleteFarcasterJWT.response>;
+  
+
+
+

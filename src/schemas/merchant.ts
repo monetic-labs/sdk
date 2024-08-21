@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+export const MERCHANT_ENDPOINTS = {
+  CREATE: '/create',
+  TRANSFER_STATUS: '/transfer/:transferId',
+};
+
 // Enum for compliance KYC status
 const BridgeComplianceKycStatusEnum = z.enum(['APPROVED', 'REJECTED', 'PENDING']);
 

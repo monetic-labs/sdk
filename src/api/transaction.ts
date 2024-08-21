@@ -1,5 +1,6 @@
 import { PylonApiClient } from '@/client';
 import {
+  TRANSACTION_ENDPOINTS,
   TransactionProcessInput,
   TransactionProcessInputSchema,
   TransactionProcessOutput,
@@ -13,7 +14,7 @@ export const processTransaction = (client: PylonApiClient) =>
     // Validate input
     TransactionProcessInputSchema.parse(data);
 
-    const response = await client.post<TransactionProcessOutput>('/transaction/process', data);
+    const response = await client.post<TransactionProcessOutput>(TRANSACTION_ENDPOINTS.PROCESS, data);
 
     // Validate output
     return TransactionProcessOutputSchema.parse(response);

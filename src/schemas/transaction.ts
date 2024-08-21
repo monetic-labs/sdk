@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+export const TRANSACTION_ENDPOINTS = {
+  PROCESS: '/process',
+};
+
 export const TransactionProcessInputSchema = z.object({
   paymentProcessor: z.enum(['WORLDPAY']),
   sessionUrl: z.string().url(),

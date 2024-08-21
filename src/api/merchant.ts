@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 // Import the merchant schemas
 import {
+  MERCHANT_ENDPOINTS,
   MerchantCreateInput,
   MerchantCreateOutput,
   MerchantCreateOutputSchema,
@@ -13,7 +14,7 @@ import {
 
 export const createMerchant = (client: PylonApiClient) => 
   async (data: MerchantCreateInput): Promise<MerchantCreateOutput> => {
-    const response = await client.post<z.infer<typeof MerchantCreateOutputSchema>>('/merchant/create', data);
+    const response = await client.post<z.infer<typeof MerchantCreateOutputSchema>>(MERCHANT_ENDPOINTS.CREATE, data);
     return {
       statusCode: response.statusCode,
       data: response.data
@@ -22,7 +23,7 @@ export const createMerchant = (client: PylonApiClient) =>
 
 export const getTransferStatus = (client: PylonApiClient) => 
   async (data: TransferStatusInput): Promise<TransferStatusOutput> => {
-    const response = await client.get<z.infer<typeof TransferStatusOutputSchema>>(`/merchant/transfer/${data.transferId}/status`);
+    const response = await client.get<z.infer<typeof TransferStatusOutputSchema>>(`${MERCHANT_ENDPOINTS.TRANSFER_STATUS}/${data.transferId}/status`);
     return {
       statusCode: response.statusCode,
       data: response.data

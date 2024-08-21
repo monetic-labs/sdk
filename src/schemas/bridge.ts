@@ -4,6 +4,12 @@ import { z } from 'zod';
 const BridgePaymentRailEnum = z.enum(['ach', 'wire', 'internal_transfer', 'crypto']);
 const BridgeCurrencyEnum = z.enum(['USD', 'USDC']);
 
+export const BRIDGE_ENDPOINTS = {
+  PREFUNDED_ACCOUNT_BALANCE: '/prefunded-account-balance',
+  PREFUNDED_ACCOUNT_TRANSFER: '/prefunded-account-transfer',
+  WEBHOOK: '/webhook',
+};
+
 export const BridgeSchema = {
   getPrefundedAccountBalance: {
     response: z.object({
