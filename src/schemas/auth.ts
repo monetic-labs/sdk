@@ -16,9 +16,8 @@ export const AUTH_ENDPOINTS = {
     OTP_VERIFY: '/otp/verify',
     JWT_GENERATE: '/jwt',
     JWT_DELETE: '/jwt',
-  };
+  } as const;
   
-
 
   export const generateChallenge = {
     response: z.object({
@@ -172,6 +171,7 @@ export const AUTH_ENDPOINTS = {
   };
 
   // Export types
+  export type AuthEndpoints = typeof AUTH_ENDPOINTS;
   export type GenerateChallengeResponse = z.infer<typeof generateChallenge.response>;
   export type RegisterPasskeyResponse = z.infer<typeof registerPasskey.response>;
   export type AuthenticatePasskeyResponse = z.infer<typeof authenticatePasskey.response>;
