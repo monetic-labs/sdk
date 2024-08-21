@@ -1,22 +1,23 @@
 // schemas/auth.ts
 import { z } from 'zod';
 
-  export const API_ENDPOINTS = {
-    AUTH: {
-      CHALLENGE: '/challenge',
-      PASSKEY_REGISTER: '/passkey/register',
-      PASSKEY_AUTHENTICATE: '/passkey',
-      PASSKEY_ADD_TOKEN: '/passkey/add/send-token',
-      PASSKEY_ADD: '/add',
-      PASSKEY_LIST: '/passkey',
-      PASSKEY_REMOVE: '/passkey/:id',
-      OTP_ISSUE: '/otp/issue',
-      OTP_VERIFY: '/otp/verify',
-      JWT_GENERATE: '/jwt',
-      JWT_DELETE: '/jwt',
-    },
-    // Add other endpoint categories as needed
+export const V1 = '/v1';
+
+export const AUTH_ENDPOINTS = {
+  DIR: `${V1}/auth`,
+    CHALLENGE: '/challenge',
+    PASSKEY_REGISTER: '/passkey/register',
+    PASSKEY_AUTHENTICATE: '/passkey',
+    PASSKEY_ADD_TOKEN: '/passkey/add/send-token',
+    PASSKEY_ADD: '/add',
+    PASSKEY_LIST: '/passkey',
+    PASSKEY_REMOVE: '/passkey/:id',
+    OTP_ISSUE: '/otp/issue',
+    OTP_VERIFY: '/otp/verify',
+    JWT_GENERATE: '/jwt',
+    JWT_DELETE: '/jwt',
   };
+  
 
 
   export const generateChallenge = {

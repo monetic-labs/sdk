@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
+export const V1 = '/v1';
+
 export const MERCHANT_ENDPOINTS = {
+  DIR: `${V1}/merchant`,
   CREATE: '/create',
   TRANSFER_STATUS: '/transfer/:transferId',
 };
