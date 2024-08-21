@@ -2,7 +2,7 @@ import { PylonApiClient } from '@/client';
 import * as AuthSchema from "@/schemas/auth";
 import { z } from 'zod';
 
-const PATH = (path: keyof typeof AuthSchema.AUTH_ENDPOINTS) => `${AuthSchema.AUTH_ENDPOINTS.DIR}${path}`;
+const PATH = (path: keyof AuthSchema.AuthEndpoints) => `${AuthSchema.AUTH_ENDPOINTS.DIR}${AuthSchema.AUTH_ENDPOINTS[path]}`;
 
 export const generateChallenge = (client: PylonApiClient) => 
   () => client.get<z.infer<typeof AuthSchema.generateChallenge.response>>(PATH('CHALLENGE'));
