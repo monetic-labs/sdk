@@ -1,12 +1,17 @@
-export { ClientType, PylonApiClient } from './client';
-export { PylonSDK, createPylonSDK } from './pylon-sdk';
+// Client and SDK exports
+export type { ClientType, PylonApiClient } from './client';
+export { createPylonSDK } from './pylon-sdk';
+export type { PylonSDK } from './pylon-sdk';
+
+// HTTP client exports
+export type { HttpClient, HttpResponse, CreateHttpClient } from '@/clients/http';
 
 // Export individual API endpoints for users who want to use them directly
-export { AuthApi } from '@/api/auth';
-export { BridgeApi } from '@/api/bridge';
-export { MerchantApi } from '@/api/merchant';
-export { TransactionApi } from '@/api/transaction';
-export { WorldpayApi } from '@/api/worldpay';
+export type { AuthApi } from '@/api/auth';
+export type { BridgeApi } from '@/api/bridge';
+export type { MerchantApi } from '@/api/merchant';
+export type { TransactionApi } from '@/api/transaction';
+export type { WorldpayApi } from '@/api/worldpay';
 
 // Export all schemas from the schemas directory
 export * from '@/schemas/auth';

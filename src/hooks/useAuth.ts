@@ -6,6 +6,36 @@ export function useAuth(sdk: PylonSDK) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
+  const generateFarcasterJWT = useCallback(async (data: Parameters<typeof sdk.auth.generateFarcasterJWT>[0]) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await sdk.auth.generateFarcasterJWT(data);
+      
+      window.location.reload();
+      return response;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('An error occurred'));
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [sdk]);
+
+  const deleteFarcasterJWT = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await sdk.auth.deleteFarcasterJWT();
+      return response;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('An error occurred'));
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [sdk]);
+
   const generateChallenge = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -81,36 +111,6 @@ export function useAuth(sdk: PylonSDK) {
     setError(null);
     try {
       const response = await sdk.auth.verifyOTP(data);
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  const generateFarcasterJWT = useCallback(async (data: Parameters<typeof sdk.auth.generateFarcasterJWT>[0]) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.generateFarcasterJWT(data);
-      
-      window.location.reload();
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  const deleteFarcasterJWT = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.deleteFarcasterJWT();
       return response;
     } catch (err) {
       setError(err instanceof Error ? err : new Error('An error occurred'));
