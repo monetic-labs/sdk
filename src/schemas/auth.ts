@@ -2,20 +2,20 @@
 import { z } from 'zod';
 
 const v1 = '/v1';
-const module = `${v1}/auth`;
+const directory = `${v1}/auth`;
 
 export const authEndpoints = {
-    challenge: `${module}/challenge`,
-    passkeyRegister: `${module}/passkey/register`,
-    passkeyAuthenticate: `${module}/passkey`,
-    passkeyAddToken: `${module}/add/send-token`,
-    passkeyAdd: `${module}/add`,
-    passkeyList: `${module}/passkey`,
-    passkeyRemove: `${module}/passkey/:id`,
-    otpIssue: `${module}/otp/issue`,
-    otpVerify: `${module}/otp/verify`,
-    jwtGenerate: `${module}/jwt`,
-    jwtDelete: `${module}/jwt`,
+    challenge: `${directory}/challenge`,
+    passkeyRegister: `${directory}/passkey/register`,
+    passkeyAuthenticate: `${directory}/passkey`,
+    passkeyAddToken: `${directory}/add/send-token`,
+    passkeyAdd: `${directory}/add`,
+    passkeyList: `${directory}/passkey`,
+    passkeyRemove: `${directory}/passkey/:id`,
+    otpIssue: `${directory}/otp/issue`,
+    otpVerify: `${directory}/otp/verify`,
+    jwtGenerate: `${directory}/jwt`,
+    jwtDelete: `${directory}/jwt`,
   } as const;
   
 

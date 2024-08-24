@@ -5,12 +5,12 @@ const BridgePaymentRailEnum = z.enum(['ach', 'wire', 'internal_transfer', 'crypt
 const BridgeCurrencyEnum = z.enum(['USD', 'USDC']);
 
 const v1 = '/v1';
-const module = `${v1}/bridge`;
+const directory = `${v1}/bridge`;
 
 export const bridgeEndpoints = {
-  prefundedAccountBalance: `${module}/prefunded-account-balance`,
-  prefundedAccountTransfer: `${module}/prefunded-account-transfer`,
-  webhook: `${module}/webhook`,
+  prefundedAccountBalance: `${directory}/prefunded-account-balance`,
+  prefundedAccountTransfer: `${directory}/prefunded-account-transfer`,
+  webhook: `${directory}/webhook`,
 } as const;
 
 export const BridgeSchema = {

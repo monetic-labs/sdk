@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
 const v1 = '/v1';
-const module = `${v1}/merchant`;
+const directory = `${v1}/merchant`;
 
 export const merchantEndpoints = {
-  create: `${module}/create`,
-  transferStatus: `${module}/transfer/:transferId`,
+  create: `${directory}/create`,
+  transferStatus: `${directory}/transfer/:transferId`,
 } as const;
 
 // Enum for compliance KYC status

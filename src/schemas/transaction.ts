@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 const v1 = '/v1';
-const module = `${v1}/transaction`;
+const directory = `${v1}/transaction`;
 
 export const transactionEndpoints = {
-  process: `${module}/process`,
+  process: `${directory}/process`,
 } as const;
 
 export const TransactionProcessInputSchema = z.object({
