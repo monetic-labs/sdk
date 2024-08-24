@@ -95,6 +95,8 @@ export function useAuth(sdk: PylonSDK) {
     setError(null);
     try {
       const response = await sdk.auth.generateFarcasterJWT(data);
+      
+      window.location.reload();
       return response;
     } catch (err) {
       setError(err instanceof Error ? err : new Error('An error occurred'));

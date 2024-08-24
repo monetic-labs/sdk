@@ -1,5 +1,6 @@
 export interface HttpResponse<T> {
   data: T;
+  cookies?: string[];
   // You can add other properties here if needed, like status, headers, etc.
 }
 

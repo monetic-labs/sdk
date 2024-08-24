@@ -1,34 +1,45 @@
-import axios, { AxiosInstance } from 'axios';
-import { CreateHttpClient, HttpClient } from './http';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { CreateHttpClient, HttpClient, HttpResponse } from './http';
 
 export const createAxiosClient: CreateHttpClient = (baseURL, token) => {
   const axiosInstance: AxiosInstance = axios.create({
     baseURL,
     headers: {
       'Content-Type': 'application/json',
-      ...(token && { Authorization: `Bearer ${token}` }),
     },
+    withCredentials: true,
   });
 
+  if (token) {
+    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+
+  const handleResponse = <T>(response: AxiosResponse<T>): HttpResponse<T> => {
+    return {
+      data: response.data,
+      cookies: response.headers['set-cookie'],
+    };
+  };
+
   const client: HttpClient = {
-    get: async <T>(url: string, params?: object): Promise<T> => {
+    get: async <T>(url: string, params?: object): Promise<HttpResponse<T>> => {
       const response = await axiosInstance.get<T>(url, { params });
-      return response.data;
+      return handleResponse(response);
     },
 
-    post: async <T>(url: string, data: object): Promise<T> => {
+    post: async <T>(url: string, data: object): Promise<HttpResponse<T>> => {
       const response = await axiosInstance.post<T>(url, data);
-      return response.data;
+      return handleResponse(response);
     },
 
-    put: async <T>(url: string, data: object): Promise<T> => {
+    put: async <T>(url: string, data: object): Promise<HttpResponse<T>> => {
       const response = await axiosInstance.put<T>(url, data);
-      return response.data;
+      return handleResponse(response);
     },
 
-    delete: async <T>(url: string): Promise<T> => {
+    delete: async <T>(url: string): Promise<HttpResponse<T>> => {
       const response = await axiosInstance.delete<T>(url);
-      return response.data;
+      return handleResponse(response);
     },
   };
 
