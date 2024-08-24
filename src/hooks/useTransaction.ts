@@ -1,7 +1,7 @@
 // src/hooks/useTransaction.ts
 import { useCallback, useState } from 'react';
 import { PylonSDK } from '../index';
-import { TransactionProcessInput, TransactionProcessOutput } from '../schemas/transaction';
+import { TransactionProcessInput, TransactionProcessOutput } from '@/schemas/transaction';
 
 export function useTransaction(sdk: PylonSDK) {
   const [isLoading, setIsLoading] = useState(false);

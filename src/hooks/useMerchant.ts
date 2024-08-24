@@ -1,7 +1,7 @@
 // src/hooks/useMerchant.ts
 import { useCallback, useState } from 'react';
 import { PylonSDK } from '../index';
-import { MerchantCreateInput, MerchantCreateOutput, TransferStatusInput, TransferStatusOutput } from '../schemas/merchant';
+import { MerchantCreateInput, MerchantCreateOutput, TransferStatusInput, TransferStatusOutput } from '@/schemas/merchant';
 
 export function useMerchant(sdk: PylonSDK) {
   const [isLoading, setIsLoading] = useState(false);

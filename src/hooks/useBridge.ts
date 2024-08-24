@@ -2,6 +2,7 @@
 import { useCallback, useState } from 'react';
 import { PylonSDK } from '../index';
 import { BridgeSchemaType } from '../schemas/bridge';
+import { z } from 'zod';
 
 export function useBridge(sdk: PylonSDK) {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +22,7 @@ export function useBridge(sdk: PylonSDK) {
     }
   }, [sdk]);
 
-  const createPrefundedAccountTransfer = useCallback(async (data: BridgeSchemaType['createPrefundedAccountTransfer']['body']) => {
+  const createPrefundedAccountTransfer = useCallback(async (data: z.infer<BridgeSchemaType['createPrefundedAccountTransfer']['body']>) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -35,7 +36,7 @@ export function useBridge(sdk: PylonSDK) {
     }
   }, [sdk]);
 
-  const processWebhook = useCallback(async (data: BridgeSchemaType['processWebhook']['body']) => {
+  const processWebhook = useCallback(async (data: z.infer<BridgeSchemaType['processWebhook']['body']>) => {
     setIsLoading(true);
     setError(null);
     try {
