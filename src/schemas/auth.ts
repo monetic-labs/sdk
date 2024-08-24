@@ -53,7 +53,6 @@ export const authEndpoints = {
     }),
   };
   
-
   export const authenticatePasskey = {
     body: z.object({
       credentialId: z.string(),
@@ -74,8 +73,6 @@ export const authEndpoints = {
       token: z.string(),
     }),
   };
-  
-  
 
   export const initiatePasskeyRegistration = {
     body: z.object({
@@ -86,7 +83,6 @@ export const authEndpoints = {
     }),
   };
   
-
   export const registerPasskeyForExistingUser = {
     body: z.object({
       passkeyName: z.string().optional(),
@@ -105,8 +101,6 @@ export const authEndpoints = {
     }),
   };
   
-  
-
   export const removePasskey = {
     params: z.object({
       id: z.number(),
@@ -116,7 +110,6 @@ export const authEndpoints = {
     }),
   };
   
-
   export const findPasskeysForUser = {
     response: z.object({
       passkeys: z.array(z.object({
@@ -128,7 +121,6 @@ export const authEndpoints = {
     }),
   };
   
-
   export const issueOTP = {
     body: z.object({
       email: z.string().email(),
@@ -138,7 +130,6 @@ export const authEndpoints = {
     }),
   };
   
-
   export const verifyOTP = {
     body: z.object({
       email: z.string().email(),
@@ -149,7 +140,6 @@ export const authEndpoints = {
     }),
   };
   
-
   export const generateFarcasterJWT = {
     body: z.object({
       fid: z.number(),

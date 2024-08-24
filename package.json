@@ -1,6 +1,6 @@
 {
   "name": "@backpack-fux/pylon-sdk",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Pylon SDK",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
