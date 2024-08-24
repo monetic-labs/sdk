@@ -2,19 +2,13 @@ import { PylonApiClient } from '@/client';
 import { z } from 'zod';
 
 // Import the merchant schemas
-import {
-  MERCHANT_ENDPOINTS,
-  MerchantCreateInput,
-  MerchantCreateOutput,
-  MerchantCreateOutputSchema,
-  TransferStatusInput,
-  TransferStatusOutput,
-  TransferStatusOutputSchema,
-} from '@/schemas/merchant';
+import * as MerchantSchema from '@/schemas/merchant';
+
+export const PATH = (path: keyof typeof MerchantSchema.merchantEndpoints) => `${MerchantSchema.merchantEndpoints[path]}`;
 
 export const createMerchant = (client: PylonApiClient) => 
-  async (data: MerchantCreateInput): Promise<MerchantCreateOutput> => {
-    const response = await client.post<z.infer<typeof MerchantCreateOutputSchema>>(MERCHANT_ENDPOINTS.CREATE, data);
+  async (data: z.infer<typeof MerchantSchema.MerchantCreateInputSchema>): Promise<z.infer<typeof MerchantSchema.MerchantCreateOutputSchema>> => {
+    const response = await client.post<z.infer<typeof MerchantSchema.MerchantCreateOutputSchema>>(PATH('create'), data);
     return {
       statusCode: response.statusCode,
       data: response.data
@@ -22,8 +16,8 @@ export const createMerchant = (client: PylonApiClient) =>
   };
 
 export const getTransferStatus = (client: PylonApiClient) => 
-  async (data: TransferStatusInput): Promise<TransferStatusOutput> => {
-    const response = await client.get<z.infer<typeof TransferStatusOutputSchema>>(`${MERCHANT_ENDPOINTS.TRANSFER_STATUS}/${data.transferId}/status`);
+  async (data: z.infer<typeof MerchantSchema.TransferStatusInputSchema>): Promise<z.infer<typeof MerchantSchema.TransferStatusOutputSchema>> => {
+    const response = await client.get<z.infer<typeof MerchantSchema.TransferStatusOutputSchema>>(`${PATH('transferStatus')}/${data.transferId}/status`);
     return {
       statusCode: response.statusCode,
       data: response.data

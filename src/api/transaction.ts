@@ -1,31 +1,26 @@
 import { PylonApiClient } from '@/client';
-import {
-  TRANSACTION_ENDPOINTS,
-  TransactionProcessInput,
-  TransactionProcessInputSchema,
-  TransactionProcessOutput,
-  TransactionProcessOutputSchema,
-  TransactionStatusOutput,
-  TransactionStatusOutputSchema
-} from '@/schemas/transaction';
+import * as TransactionSchema from '@/schemas/transaction';
+import { z } from 'zod';
+
+export const PATH = (path: keyof typeof TransactionSchema.transactionEndpoints) => `${TransactionSchema.transactionEndpoints[path]}`;
 
 export const processTransaction = (client: PylonApiClient) => 
-  async (data: TransactionProcessInput): Promise<TransactionProcessOutput> => {
+  async (data: z.infer<typeof TransactionSchema.TransactionProcessInputSchema>): Promise<z.infer<typeof TransactionSchema.TransactionProcessOutputSchema>> => {
     // Validate input
-    TransactionProcessInputSchema.parse(data);
+    TransactionSchema.TransactionProcessInputSchema.parse(data);
 
-    const response = await client.post<TransactionProcessOutput>(TRANSACTION_ENDPOINTS.PROCESS, data);
+    const response = await client.post<z.infer<typeof TransactionSchema.TransactionProcessOutputSchema>>(PATH('process'), data);
 
     // Validate output
-    return TransactionProcessOutputSchema.parse(response);
+    return TransactionSchema.TransactionProcessOutputSchema.parse(response);
   };
 
 export const getTransactionStatus = (client: PylonApiClient) => 
-  async (transactionId: string): Promise<TransactionStatusOutput> => {
-    const response = await client.get<TransactionStatusOutput>(`/transaction/${transactionId}/status`);
+  async (transactionId: string): Promise<z.infer<typeof TransactionSchema.TransactionStatusOutputSchema>> => {
+    const response = await client.get<z.infer<typeof TransactionSchema.TransactionStatusOutputSchema>>(`/transaction/${transactionId}/status`);
 
     // Validate output
-    return TransactionStatusOutputSchema.parse(response);
+    return TransactionSchema.TransactionStatusOutputSchema.parse(response);
   };
 
 // You might want to add other methods like:

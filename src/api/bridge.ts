@@ -1,17 +1,19 @@
 import { PylonApiClient } from '@/client';
-import { BRIDGE_ENDPOINTS, BridgeSchema, BridgeSchemaType } from '@/schemas/bridge';
+import * as BridgeSchema from "@/schemas/bridge";
 import { z } from 'zod';
 
+const PATH = (path: keyof BridgeSchema.BridgeEndpoints) => `${BridgeSchema.bridgeEndpoints[path]}`;
+
 export const getPrefundedAccountBalance = (client: PylonApiClient) => 
-  () => client.post<z.infer<typeof BridgeSchema.getPrefundedAccountBalance.response>>(BRIDGE_ENDPOINTS.PREFUNDED_ACCOUNT_BALANCE, {});
+  () => client.post<z.infer<typeof BridgeSchema.getPrefundedAccountBalance.response>>(PATH('prefundedAccountBalance'), {});
 
 export const createPrefundedAccountTransfer = (client: PylonApiClient) => 
-  (data: BridgeSchemaType['createPrefundedAccountTransfer']['body']) => 
-    client.post<z.infer<typeof BridgeSchema.createPrefundedAccountTransfer.response>>(BRIDGE_ENDPOINTS.PREFUNDED_ACCOUNT_TRANSFER, data);
+  (data: z.infer<typeof BridgeSchema.createPrefundedAccountTransfer.body>) => 
+    client.post<z.infer<typeof BridgeSchema.createPrefundedAccountTransfer.response>>(PATH('prefundedAccountTransfer'), data);
 
 export const processWebhook = (client: PylonApiClient) => 
-  (data: BridgeSchemaType['processWebhook']['body']) => 
-    client.post<z.infer<typeof BridgeSchema.processWebhook.response>>(BRIDGE_ENDPOINTS.WEBHOOK, data);
+  (data: z.infer<typeof BridgeSchema.processWebhook.body>) => 
+    client.post<z.infer<typeof BridgeSchema.processWebhook.response>>(PATH('webhook'), data);
 
 export type BridgeApi = {
   getPrefundedAccountBalance: ReturnType<typeof getPrefundedAccountBalance>;
