@@ -1,21 +1,21 @@
 // schemas/auth.ts
 import { z } from 'zod';
 
-const V1 = '/v1';
+const v1 = '/v1';
+const module = `${v1}/auth`;
 
-export const AUTH_ENDPOINTS = {
-  DIR: `${V1}/auth`,
-    CHALLENGE: '/challenge',
-    PASSKEY_REGISTER: '/passkey/register',
-    PASSKEY_AUTHENTICATE: '/passkey',
-    PASSKEY_ADD_TOKEN: '/passkey/add/send-token',
-    PASSKEY_ADD: '/add',
-    PASSKEY_LIST: '/passkey',
-    PASSKEY_REMOVE: '/passkey/:id',
-    OTP_ISSUE: '/otp/issue',
-    OTP_VERIFY: '/otp/verify',
-    JWT_GENERATE: '/jwt',
-    JWT_DELETE: '/jwt',
+export const authEndpoints = {
+    challenge: `${module}/challenge`,
+    passkeyRegister: `${module}/passkey/register`,
+    passkeyAuthenticate: `${module}/passkey`,
+    passkeyAddToken: `${module}/add/send-token`,
+    passkeyAdd: `${module}/add`,
+    passkeyList: `${module}/passkey`,
+    passkeyRemove: `${module}/passkey/:id`,
+    otpIssue: `${module}/otp/issue`,
+    otpVerify: `${module}/otp/verify`,
+    jwtGenerate: `${module}/jwt`,
+    jwtDelete: `${module}/jwt`,
   } as const;
   
 
@@ -171,7 +171,7 @@ export const AUTH_ENDPOINTS = {
   };
 
   // Export types
-  export type AuthEndpoints = typeof AUTH_ENDPOINTS;
+  export type AuthEndpoints = typeof authEndpoints;
   export type GenerateChallengeResponse = z.infer<typeof generateChallenge.response>;
   export type RegisterPasskeyResponse = z.infer<typeof registerPasskey.response>;
   export type AuthenticatePasskeyResponse = z.infer<typeof authenticatePasskey.response>;

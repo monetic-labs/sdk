@@ -4,14 +4,14 @@ import { z } from 'zod';
 const BridgePaymentRailEnum = z.enum(['ach', 'wire', 'internal_transfer', 'crypto']);
 const BridgeCurrencyEnum = z.enum(['USD', 'USDC']);
 
-const V1 = '/v1';
+const v1 = '/v1';
+const module = `${v1}/bridge`;
 
-export const BRIDGE_ENDPOINTS = {
-  DIR: `${V1}/bridge`,
-  PREFUNDED_ACCOUNT_BALANCE: '/prefunded-account-balance',
-  PREFUNDED_ACCOUNT_TRANSFER: '/prefunded-account-transfer',
-  WEBHOOK: '/webhook',
-};
+export const bridgeEndpoints = {
+  prefundedAccountBalance: `${module}/prefunded-account-balance`,
+  prefundedAccountTransfer: `${module}/prefunded-account-transfer`,
+  webhook: `${module}/webhook`,
+} as const;
 
 export const BridgeSchema = {
   getPrefundedAccountBalance: {
@@ -65,6 +65,7 @@ export const {
 } = BridgeSchema;
 
 // Export types
+export type BridgeEndpoints = typeof bridgeEndpoints;
 export type BridgeSchemaType = typeof BridgeSchema;
 export type BridgePaymentRail = z.infer<typeof BridgePaymentRailEnum>;
 export type BridgeCurrency = z.infer<typeof BridgeCurrencyEnum>;

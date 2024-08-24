@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
-const V1 = '/v1';
+const v1 = '/v1';
+const module = `${v1}/transaction`;
 
-export const TRANSACTION_ENDPOINTS = {
-  DIR: `${V1}/transaction`,
-  PROCESS: '/process',
-};
+export const transactionEndpoints = {
+  process: `${module}/process`,
+} as const;
 
 export const TransactionProcessInputSchema = z.object({
   paymentProcessor: z.enum(['WORLDPAY']),
@@ -130,6 +130,7 @@ export const TransactionStatusOutputSchema = z.object({
 });
 
 // Export types
+export type TransactionEndpoints = typeof transactionEndpoints;
 export type TransactionProcessInput = z.infer<typeof TransactionProcessInputSchema>;
 export type TransactionProcessOutput = z.infer<typeof TransactionProcessOutputSchema>;
 export type TransactionStatusOutput = z.infer<typeof TransactionStatusOutputSchema>;

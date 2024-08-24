@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-const V1 = '/v1';
+const v1 = '/v1';
+const module = `${v1}/merchant`;
 
-export const MERCHANT_ENDPOINTS = {
-  DIR: `${V1}/merchant`,
-  CREATE: '/create',
-  TRANSFER_STATUS: '/transfer/:transferId',
-};
+export const merchantEndpoints = {
+  create: `${module}/create`,
+  transferStatus: `${module}/transfer/:transferId`,
+} as const;
 
 // Enum for compliance KYC status
 const BridgeComplianceKycStatusEnum = z.enum(['APPROVED', 'REJECTED', 'PENDING']);
@@ -103,6 +103,7 @@ export const TransferStatusOutputSchema = z.object({
 });
 
 // Type inference
+export type MerchantEndpoints = typeof merchantEndpoints;
 export type MerchantCreateInput = z.infer<typeof MerchantCreateInputSchema>;
 export type MerchantCreateOutput = z.infer<typeof MerchantCreateOutputSchema>;
 export type TransferStatusInput = z.infer<typeof TransferStatusInputSchema>;
