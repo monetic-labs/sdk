@@ -10,11 +10,18 @@ import {
   FarcasterJWTData,
 } from '@/api/_types/auth';
 import { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
+import Merchant from './Merchant';
+import {
+  MerchantCreateInput,
+  TransferStatusInput,
+} from '@/api/_types/merchant';
 
 class Pylon {
+  private apiUrl: string;
+
   private auth: Auth;
   private bridge: Bridge;
-  private apiUrl: string;
+  private merchant: Merchant;
 
   private static readonly DEFAULT_URLS: Record<Environment, string> = {
     local: 'http://localhost:3000',
@@ -28,6 +35,7 @@ class Pylon {
 
     this.auth = new Auth(this.apiUrl);
     this.bridge = new Bridge(this.apiUrl);
+    this.merchant = new Merchant(this.apiUrl);
   }
 
   // AUTH METHODS
@@ -90,6 +98,15 @@ class Pylon {
     data: CreatePrefundedAccountTransferBody
   ) {
     return this.bridge.createPrefundedAccountTransfer(data);
+  }
+
+  // MERCHANT METHODS
+  async createMerchant(data: MerchantCreateInput) {
+    return this.merchant.createMerchant(data);
+  }
+
+  async getTransferStatus(data: TransferStatusInput) {
+    return this.merchant.getTransferStatus(data);
   }
 }
 

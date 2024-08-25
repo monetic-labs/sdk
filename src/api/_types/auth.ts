@@ -1,5 +1,3 @@
-// TODO: We should export the pylon schema as a library
-
 type AccessTokenResponse = {
   token: string;
 };
