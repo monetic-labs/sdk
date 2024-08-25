@@ -3,19 +3,21 @@ const commonjs = require('@rollup/plugin-commonjs');
 const typescript = require('@rollup/plugin-typescript');
 const dts = require('rollup-plugin-dts').default;
 
-const packageJson = require('./package.json');
-
 const config = [
   {
-    input: 'src/index.ts',
+    input: {
+      index: 'src/index.ts',
+      hooks: 'src/hooks/index.ts',
+      api: 'src/api/index.ts',
+    },
     output: [
       {
-        file: packageJson.main,
+        dir: 'dist',
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: packageJson.module,
+        dir: 'dist',
         format: 'esm',
         sourcemap: true,
       },
@@ -28,10 +30,13 @@ const config = [
     external: ['react', 'axios'],
   },
   {
-    input: 'src/index.ts',
-    output: [{ file: 'dist/index.d.ts', format: 'es' }],
+    input: {
+      index: 'src/index.ts',
+      hooks: 'src/hooks/index.ts',
+      api: 'src/api/index.ts',
+    },
+    output: [{ dir: 'dist', format: 'es' }],
     plugins: [dts({ tsconfig: './tsconfig.json' })],
   },
 ];
-
 module.exports = config;
