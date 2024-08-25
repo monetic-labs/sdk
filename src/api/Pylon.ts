@@ -15,6 +15,8 @@ import {
   MerchantCreateInput,
   TransferStatusInput,
 } from '@/api/_types/merchant';
+import Transaction from './Transaction';
+import { TransactionProcessInput } from '@/api/_types/transaction';
 
 class Pylon {
   private apiUrl: string;
@@ -22,6 +24,7 @@ class Pylon {
   private auth: Auth;
   private bridge: Bridge;
   private merchant: Merchant;
+  private transaction: Transaction;
 
   private static readonly DEFAULT_URLS: Record<Environment, string> = {
     local: 'http://localhost:3000',
@@ -36,6 +39,7 @@ class Pylon {
     this.auth = new Auth(this.apiUrl);
     this.bridge = new Bridge(this.apiUrl);
     this.merchant = new Merchant(this.apiUrl);
+    this.transaction = new Transaction(this.apiUrl);
   }
 
   // AUTH METHODS
@@ -107,6 +111,15 @@ class Pylon {
 
   async getTransferStatus(data: TransferStatusInput) {
     return this.merchant.getTransferStatus(data);
+  }
+
+  // TRANSACTION METHODS
+  async processTransaction(data: TransactionProcessInput) {
+    return this.transaction.processTransaction(data);
+  }
+
+  async getTransactionStatus(transactionId: string) {
+    return this.transaction.getTransactionStatus(transactionId);
   }
 }
 
