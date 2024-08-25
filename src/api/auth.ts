@@ -1,60 +1,122 @@
-import { PylonApiClient } from '@/client';
-import { HttpResponse } from '@/clients/http';
-import * as AuthSchema from "@/schemas/auth";
-import { z } from 'zod';
+import axios from 'axios';
+import {
+  AccessTokenResponse,
+  ChallengeResponse,
+  PasskeyRegistrationData,
+  PasskeyRegistrationResponse,
+  AuthenticatePasskeyData,
+  InitiatePasskeyRegistrationData,
+  RegisterPasskeyForExistingUserData,
+  PasskeyListResponse,
+  OTPData,
+  FarcasterJWTData,
+  MessageResponse,
+} from '@/api/_types/auth';
 
-const PATH = (path: keyof AuthSchema.AuthEndpoints) => `${AuthSchema.authEndpoints[path]}`;
+class Auth {
+  protected apiUrl: string;
 
-export const generateChallenge = (client: PylonApiClient) => 
-  () => client.get<z.infer<typeof AuthSchema.generateChallenge.response>>(PATH('challenge'));
+  constructor(baseUrl: string) {
+    this.apiUrl = `${baseUrl}/auth`;
+  }
 
-export const registerPasskey = (client: PylonApiClient) => 
-  (data: z.infer<typeof AuthSchema.registerPasskey.body>) => 
-    client.post<z.infer<typeof AuthSchema.registerPasskey.response>>(PATH('passkeyRegister'), data);
+  async generateAccessToken(): Promise<AccessTokenResponse> {
+    const response = await axios.get<AccessTokenResponse>(`${this.apiUrl}/jwt`);
+    return response.data;
+  }
 
-export const authenticatePasskey = (client: PylonApiClient) => 
-  (data: z.infer<typeof AuthSchema.authenticatePasskey.body>) => 
-    client.post<z.infer<typeof AuthSchema.authenticatePasskey.response>>(PATH('passkeyAuthenticate'), data);
+  async generateChallenge(): Promise<ChallengeResponse> {
+    const response = await axios.get<ChallengeResponse>(
+      `${this.apiUrl}/challenge`
+    );
+    return response.data;
+  }
 
-export const findPasskeysForUser = (client: PylonApiClient) => 
-  () => client.get<z.infer<typeof AuthSchema.findPasskeysForUser.response>>(PATH('passkeyList'));
+  async registerPasskey(
+    data: PasskeyRegistrationData
+  ): Promise<PasskeyRegistrationResponse> {
+    const response = await axios.post<PasskeyRegistrationResponse>(
+      `${this.apiUrl}/passkey/register`,
+      data
+    );
+    return response.data;
+  }
 
-export const removePasskey = (client: PylonApiClient) => 
-  (id: number) => client.delete<z.infer<typeof AuthSchema.removePasskey.response>>(PATH('passkeyRemove') + `/${id}`);
+  async authenticatePasskey(
+    data: AuthenticatePasskeyData
+  ): Promise<PasskeyRegistrationResponse> {
+    const response = await axios.post<PasskeyRegistrationResponse>(
+      `${this.apiUrl}/passkey`,
+      data
+    );
+    return response.data;
+  }
 
-export const verifyOTP = (client: PylonApiClient) => 
-  (data: z.infer<typeof AuthSchema.verifyOTP.body>) => 
-    client.post<z.infer<typeof AuthSchema.verifyOTP.response>>(PATH('otpVerify'), data);
+  async findPasskeysForUser(): Promise<PasskeyListResponse> {
+    const response = await axios.get<PasskeyListResponse>(
+      `${this.apiUrl}/passkey`
+    );
+    return response.data;
+  }
 
-export const issueOTP = (client: PylonApiClient) => 
-  (data: z.infer<typeof AuthSchema.issueOTP.body>) => 
-    client.post<z.infer<typeof AuthSchema.issueOTP.response>>(PATH('otpIssue'), data);
+  async removePasskey(id: number): Promise<MessageResponse> {
+    const response = await axios.delete<MessageResponse>(
+      `${this.apiUrl}/passkey/${id}`
+    );
+    return response.data;
+  }
 
-export const registerPasskeyForExistingUser = (client: PylonApiClient) => 
-  (data: z.infer<typeof AuthSchema.registerPasskeyForExistingUser.body>) => 
-    client.post<z.infer<typeof AuthSchema.registerPasskeyForExistingUser.response>>(PATH('passkeyAdd'), data);
+  async verifyOTP(data: OTPData): Promise<MessageResponse> {
+    const response = await axios.post<MessageResponse>(
+      `${this.apiUrl}/otp/verify`,
+      data
+    );
+    return response.data;
+  }
 
-export const initiatePasskeyRegistration = (client: PylonApiClient) => 
-  (data: z.infer<typeof AuthSchema.initiatePasskeyRegistration.body>) => 
-    client.post<z.infer<typeof AuthSchema.initiatePasskeyRegistration.response>>(PATH('passkeyAddToken'), data);
+  async issueOTP(data: OTPData): Promise<MessageResponse> {
+    const response = await axios.post<MessageResponse>(
+      `${this.apiUrl}/otp/issue`,
+      data
+    );
+    return response.data;
+  }
 
-export const generateFarcasterJWT = (client: PylonApiClient) => 
-  (data: z.infer<typeof AuthSchema.generateFarcasterJWT.body>) => 
-    client.post<HttpResponse<z.infer<typeof AuthSchema.generateFarcasterJWT.response>>>(PATH('jwtGenerate'), data);
+  async registerPasskeyForExistingUser(
+    data: RegisterPasskeyForExistingUserData
+  ): Promise<MessageResponse> {
+    const response = await axios.post<MessageResponse>(
+      `${this.apiUrl}/add`,
+      data
+    );
+    return response.data;
+  }
 
-export const deleteFarcasterJWT = (client: PylonApiClient) => 
-  () => client.post<z.infer<typeof AuthSchema.deleteFarcasterJWT.response>>(PATH('jwtDelete'), {});
+  async initiatePasskeyRegistration(
+    data: InitiatePasskeyRegistrationData
+  ): Promise<MessageResponse> {
+    const response = await axios.post<MessageResponse>(
+      `${this.apiUrl}/add/send-token`,
+      data
+    );
+    return response.data;
+  }
 
-export type AuthApi = {
-  generateChallenge: ReturnType<typeof generateChallenge>;
-  registerPasskey: ReturnType<typeof registerPasskey>;
-  authenticatePasskey: ReturnType<typeof authenticatePasskey>;
-  findPasskeysForUser: ReturnType<typeof findPasskeysForUser>;
-  removePasskey: ReturnType<typeof removePasskey>;
-  verifyOTP: ReturnType<typeof verifyOTP>;
-  issueOTP: ReturnType<typeof issueOTP>;
-  registerPasskeyForExistingUser: ReturnType<typeof registerPasskeyForExistingUser>;
-  initiatePasskeyRegistration: ReturnType<typeof initiatePasskeyRegistration>;
-  generateFarcasterJWT: ReturnType<typeof generateFarcasterJWT>;
-  deleteFarcasterJWT: ReturnType<typeof deleteFarcasterJWT>;
-};
+  async generateFarcasterJWT(data: FarcasterJWTData): Promise<MessageResponse> {
+    const response = await axios.post<MessageResponse>(
+      `${this.apiUrl}/jwt`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data;
+  }
+
+  async deleteFarcasterJWT(): Promise<MessageResponse> {
+    const response = await axios.delete<MessageResponse>(`${this.apiUrl}/jwt`, {
+      withCredentials: true,
+    });
+    return response.data;
+  }
+}
+
+export default Auth;

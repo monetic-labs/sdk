@@ -1,0 +1,96 @@
+import Auth from './Auth';
+import Bridge from './Bridge';
+import { Environment, PylonConfig } from '../_types';
+import {
+  PasskeyRegistrationData,
+  AuthenticatePasskeyData,
+  InitiatePasskeyRegistrationData,
+  RegisterPasskeyForExistingUserData,
+  OTPData,
+  FarcasterJWTData,
+} from '@/api/_types/auth';
+import { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
+
+class Pylon {
+  private auth: Auth;
+  private bridge: Bridge;
+  private apiUrl: string;
+
+  private static readonly DEFAULT_URLS: Record<Environment, string> = {
+    local: 'http://localhost:3000',
+    staging: 'https://staging-api.backpack.network',
+    production: 'https://api.backpack.network',
+  };
+
+  constructor(config: PylonConfig) {
+    const environment = config.environment || 'production';
+    this.apiUrl = config.baseUrl || Pylon.DEFAULT_URLS[environment];
+
+    this.auth = new Auth(this.apiUrl);
+    this.bridge = new Bridge(this.apiUrl);
+  }
+
+  // AUTH METHODS
+  async generateAccessToken() {
+    return this.auth.generateAccessToken();
+  }
+
+  async generateChallenge() {
+    return this.auth.generateChallenge();
+  }
+
+  async registerPasskey(data: PasskeyRegistrationData) {
+    return this.auth.registerPasskey(data);
+  }
+
+  async authenticatePasskey(data: AuthenticatePasskeyData) {
+    return this.auth.authenticatePasskey(data);
+  }
+
+  async findPasskeysForUser() {
+    return this.auth.findPasskeysForUser();
+  }
+
+  async removePasskey(id: number) {
+    return this.auth.removePasskey(id);
+  }
+
+  async verifyOTP(data: OTPData) {
+    return this.auth.verifyOTP(data);
+  }
+
+  async issueOTP(data: OTPData) {
+    return this.auth.issueOTP(data);
+  }
+
+  async registerPasskeyForExistingUser(
+    data: RegisterPasskeyForExistingUserData
+  ) {
+    return this.auth.registerPasskeyForExistingUser(data);
+  }
+
+  async initiatePasskeyRegistration(data: InitiatePasskeyRegistrationData) {
+    return this.auth.initiatePasskeyRegistration(data);
+  }
+
+  async generateFarcasterJWT(data: FarcasterJWTData) {
+    return this.auth.generateFarcasterJWT(data);
+  }
+
+  async deleteFarcasterJWT() {
+    return this.auth.deleteFarcasterJWT();
+  }
+
+  // BRIDGE METHODS
+  async getPrefundedAccountBalance() {
+    return this.bridge.getPrefundedAccountBalance();
+  }
+
+  async createPrefundedAccountTransfer(
+    data: CreatePrefundedAccountTransferBody
+  ) {
+    return this.bridge.createPrefundedAccountTransfer(data);
+  }
+}
+
+export default Pylon;

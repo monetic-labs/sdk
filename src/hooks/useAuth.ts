@@ -1,139 +1,24 @@
-// src/hooks/useAuth.ts
-import { PylonSDK } from '@/pylon-sdk';
-import { useCallback, useState } from 'react';
+import { useState, useEffect } from 'react';
+import Pylon from '../api/Pylon';
 
-export function useAuth(sdk: PylonSDK) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+export function useAuth(pylonInstance: Pylon) {
+  const [data, setData] = useState<unknown>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<unknown>(null);
 
-  const generateFarcasterJWT = useCallback(async (data: Parameters<typeof sdk.auth.generateFarcasterJWT>[0]) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.generateFarcasterJWT(data);
-      
-      if (response.data.message === 'success' && response.cookies) {
-        // Set the cookie on the client-side
-        document.cookie = `pyv2_auth_token=${response.cookies[0]}; path=/; secure; samesite=strict`;
-        window.location.reload();
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await pylonInstance.generateAccessToken();
+        setData(result);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
       }
-      return response.data;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
     }
-  }, [sdk]);
+    fetchData();
+  }, [pylonInstance]);
 
-  const deleteFarcasterJWT = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.deleteFarcasterJWT();
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  const generateChallenge = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.generateChallenge();
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  const registerPasskey = useCallback(async (data: Parameters<typeof sdk.auth.registerPasskey>[0]) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.registerPasskey(data);
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  const authenticatePasskey = useCallback(async (data: Parameters<typeof sdk.auth.authenticatePasskey>[0]) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.authenticatePasskey(data);
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  const initiatePasskeyRegistration = useCallback(async (data: Parameters<typeof sdk.auth.initiatePasskeyRegistration>[0]) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.initiatePasskeyRegistration(data);
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  const issueOTP = useCallback(async (data: Parameters<typeof sdk.auth.issueOTP>[0]) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.issueOTP(data);
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  const verifyOTP = useCallback(async (data: Parameters<typeof sdk.auth.verifyOTP>[0]) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await sdk.auth.verifyOTP(data);
-      return response;
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('An error occurred'));
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [sdk]);
-
-  return {
-    generateChallenge,
-    registerPasskey,
-    authenticatePasskey,
-    initiatePasskeyRegistration,
-    issueOTP,
-    verifyOTP,
-    generateFarcasterJWT,
-    deleteFarcasterJWT,
-    isLoading,
-    error,
-  };
+  return { data, loading, error };
 }
