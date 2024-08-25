@@ -1,22 +1,38 @@
-import { PylonApiClient } from '@/client';
-import * as BridgeSchema from "@/schemas/bridge";
-import { z } from 'zod';
+import axios from 'axios';
+import type {
+  GetPrefundedAccountBalanceResponse,
+  CreatePrefundedAccountTransferBody,
+  CreatePrefundedAccountTransferResponse,
+} from '@/api/_types/bridge';
 
-const PATH = (path: keyof BridgeSchema.BridgeEndpoints) => `${BridgeSchema.bridgeEndpoints[path]}`;
+class Bridge {
+  protected apiUrl: string;
 
-export const getPrefundedAccountBalance = (client: PylonApiClient) => 
-  () => client.post<z.infer<typeof BridgeSchema.getPrefundedAccountBalance.response>>(PATH('prefundedAccountBalance'), {});
+  constructor(baseUrl: string) {
+    this.apiUrl = `${baseUrl}/bridge`;
+  }
 
-export const createPrefundedAccountTransfer = (client: PylonApiClient) => 
-  (data: z.infer<typeof BridgeSchema.createPrefundedAccountTransfer.body>) => 
-    client.post<z.infer<typeof BridgeSchema.createPrefundedAccountTransfer.response>>(PATH('prefundedAccountTransfer'), data);
+  async getPrefundedAccountBalance(): Promise<GetPrefundedAccountBalanceResponse> {
+    const response = await axios.post<GetPrefundedAccountBalanceResponse>(
+      `${this.apiUrl}/prefunded-account-balance`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  }
 
-export const processWebhook = (client: PylonApiClient) => 
-  (data: z.infer<typeof BridgeSchema.processWebhook.body>) => 
-    client.post<z.infer<typeof BridgeSchema.processWebhook.response>>(PATH('webhook'), data);
+  async createPrefundedAccountTransfer(
+    data: CreatePrefundedAccountTransferBody
+  ): Promise<CreatePrefundedAccountTransferResponse> {
+    const response = await axios.post<CreatePrefundedAccountTransferResponse>(
+      `${this.apiUrl}/prefunded-account-transfer`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data;
+  }
+}
 
-export type BridgeApi = {
-  getPrefundedAccountBalance: ReturnType<typeof getPrefundedAccountBalance>;
-  createPrefundedAccountTransfer: ReturnType<typeof createPrefundedAccountTransfer>;
-  processWebhook: ReturnType<typeof processWebhook>;
-};
+export default Bridge;

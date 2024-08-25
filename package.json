@@ -1,37 +1,47 @@
 {
   "name": "@backpack-fux/pylon-sdk",
-  "version": "0.1.18",
+  "version": "0.2.0",
   "description": "Pylon SDK",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "prepublishOnly": "pnpm run build"
-  },
-  "publishConfig": {
-    "access": "restricted"
-  },
+  "author": "Your Company",
+  "license": "UNLICENSED",
   "keywords": [
     "api",
     "client",
     "pylon"
   ],
-  "author": "Your Company",
-  "license": "UNLICENSED",
-  "devDependencies": {
-    "@types/react": "^18.3.3",
-    "tsup": "^6.7.0",
-    "typescript": "^4.9.5"
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./hooks": "./dist/hooks/index.js",
+    "./api": "./dist/api/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "axios": "^0.24.0",
-    "zod": "^3.23.8"
+    "axios": "^0.24.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.3.3",
+    "rollup": "^4.21.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "tslib": "^2.7.0",
+    "typescript": "^4.9.5"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   }
 }
