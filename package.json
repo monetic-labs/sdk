@@ -10,12 +10,9 @@
     "pylon"
   ],
   "main": "dist/index.js",
-  "type": "module",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js",
-    "./bridge": "./dist/bridge/index.js"
-  },
+  "exports": "./dist/index.js",
   "files": [
     "dist"
   ],
@@ -24,10 +21,10 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "axios": "^0.24.0",
-    "zod": "^3.23.8"
+    "axios": "^0.24.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/react": "^18.3.3",
