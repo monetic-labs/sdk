@@ -14,7 +14,7 @@ export function useAuth(sdk: PylonSDK) {
       
       if (response.data.message === 'success') {
         // The cookie is set by the server, no need to manually set it here
-        window.location.reload();
+        //window.location.reload();
       }
       return response.data;
     } catch (err) {
