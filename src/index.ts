@@ -15,6 +15,7 @@ import Transaction from './api/Transaction';
 
 // HOOKS
 import { useAuth } from './hooks';
+import * as bridge from './hooks/bridge';
 
 // EXPORTS
 export {
@@ -25,4 +26,4 @@ export {
   type TransactionTypes,
 };
 export { Pylon, Auth, Bridge, Merchant, Transaction };
-export { useAuth };
+export { useAuth, bridge };

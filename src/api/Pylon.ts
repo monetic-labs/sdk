@@ -1,7 +1,7 @@
 import Auth from './Auth';
 import Bridge from './Bridge';
 import { Environment, PylonConfig } from '../_types';
-import {
+import type {
   PasskeyRegistrationData,
   AuthenticatePasskeyData,
   InitiatePasskeyRegistrationData,
@@ -9,14 +9,14 @@ import {
   OTPData,
   FarcasterJWTData,
 } from '@/api/_types/auth';
-import { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
+import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
 import Merchant from './Merchant';
-import {
+import type {
   MerchantCreateInput,
   TransferStatusInput,
 } from '@/api/_types/merchant';
 import Transaction from './Transaction';
-import { TransactionProcessInput } from '@/api/_types/transaction';
+import type { TransactionProcessInput } from '@/api/_types/transaction';
 
 class Pylon {
   private apiUrl: string;

@@ -1,10 +1,15 @@
+enum BridgeCurrencyEnum {
+  USD = 'usd',
+  USDC = 'usdc',
+}
+
 type BridgePaymentRail = 'ach' | 'wire' | 'internal_transfer' | 'crypto';
-type BridgeCurrency = 'USD' | 'USDC';
+type BridgeCurrency = BridgeCurrencyEnum.USD | BridgeCurrencyEnum.USDC;
 
 type PrefundedAccountBalanceItem = {
   id: string;
   available_balance: string;
-  currency: string;
+  currency: BridgeCurrency;
   name: string;
 };
 
@@ -38,3 +43,5 @@ export type {
   CreatePrefundedAccountTransferBody,
   CreatePrefundedAccountTransferResponse,
 };
+
+export { BridgeCurrencyEnum };
