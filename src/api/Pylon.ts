@@ -85,6 +85,8 @@ class Pylon {
   }
 
   async generateFarcasterJWT(data: FarcasterJWTData) {
+    console.log('generateFarcasterJWT', data);
+    console.log('this.auth', this.auth);
     return this.auth.generateFarcasterJWT(data);
   }
 
