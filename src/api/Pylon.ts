@@ -27,7 +27,6 @@ class Pylon {
   private transaction: Transaction;
 
   private static readonly DEFAULT_URLS: Record<Environment, string> = {
-    local: 'http://localhost:3000',
     staging: 'https://staging-api.backpack.network',
     production: 'https://api.backpack.network',
   };
@@ -36,10 +35,10 @@ class Pylon {
     const environment = config.environment || 'production';
     this.apiUrl = config.baseUrl || Pylon.DEFAULT_URLS[environment];
 
-    this.auth = new Auth(this.apiUrl);
-    this.bridge = new Bridge(this.apiUrl);
-    this.merchant = new Merchant(this.apiUrl);
-    this.transaction = new Transaction(this.apiUrl);
+    this.auth = new Auth(`${this.apiUrl}/v1`);
+    this.bridge = new Bridge(`${this.apiUrl}/v1`);
+    this.merchant = new Merchant(`${this.apiUrl}/v1`);
+    this.transaction = new Transaction(`${this.apiUrl}/v1`);
   }
 
   // AUTH METHODS

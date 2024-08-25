@@ -15,7 +15,10 @@ class Bridge {
   async getPrefundedAccountBalance(): Promise<GetPrefundedAccountBalanceResponse> {
     const response = await axios.post<GetPrefundedAccountBalanceResponse>(
       `${this.apiUrl}/prefunded-account-balance`,
-      {}
+      {},
+      {
+        withCredentials: true,
+      }
     );
     return response.data;
   }
@@ -25,7 +28,8 @@ class Bridge {
   ): Promise<CreatePrefundedAccountTransferResponse> {
     const response = await axios.post<CreatePrefundedAccountTransferResponse>(
       `${this.apiUrl}/prefunded-account-transfer`,
-      data
+      data,
+      { withCredentials: true }
     );
     return response.data;
   }

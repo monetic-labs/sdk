@@ -1,4 +1,4 @@
-export type Environment = 'local' | 'staging' | 'production';
+export type Environment = 'staging' | 'production';
 
 export type PylonConfig = {
   environment?: Environment;
