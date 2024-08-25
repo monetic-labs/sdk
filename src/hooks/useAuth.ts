@@ -12,7 +12,9 @@ export function useAuth(sdk: PylonSDK) {
     try {
       const response = await sdk.auth.generateFarcasterJWT(data);
       
-      if (response.data.message === 'success') {
+      if (response.data.message === 'success' && response.cookies) {
+        // Set the cookie on the client-side
+        document.cookie = `pyv2_auth_token=${response.cookies[0]}; path=/; secure; samesite=strict`;
         window.location.reload();
       }
       return response.data;

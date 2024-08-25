@@ -6,10 +6,9 @@ export type ClientType = 'axios' | 'fetch';
 
 function handleCookies(cookies?: string[]) {
   if (cookies && cookies.length > 0) {
-    // Store cookies or handle them as needed
-    // For browser environments, you might want to use document.cookie
-    // For Node.js environments, you might want to store them in memory or a cookie jar
-    console.log('Received cookies:', cookies);
+    cookies.forEach(cookie => {
+      document.cookie = cookie;
+    });
   }
 }
 
@@ -43,7 +42,10 @@ export function createPylonApiClient(baseURL: string, token?: string, clientType
       return response.data;
     }
   };
+
 }
+
+
 
 export type PylonApiClient = {
   get: <T>(url: string, params?: object) => Promise<T>;
