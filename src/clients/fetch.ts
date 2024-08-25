@@ -13,8 +13,7 @@ export const createFetchClient: CreateHttpClient = (baseURL, token) => {
   const request = async <T>(url: string, options: RequestInit): Promise<HttpResponse<T>> => {
     const response = await fetch(`${baseURL}${url}`, {
       ...options,
-      headers: { ...headers, ...options.headers },
-      credentials: 'include',
+      headers: { ...headers, ...options.headers }
     });
 
     if (!response.ok) {

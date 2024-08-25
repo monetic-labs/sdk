@@ -40,7 +40,11 @@ export const initiatePasskeyRegistration = (client: PylonApiClient) =>
 
 export const generateFarcasterJWT = (client: PylonApiClient) => 
   (data: z.infer<typeof AuthSchema.generateFarcasterJWT.body>) => 
-    client.post<HttpResponse<z.infer<typeof AuthSchema.generateFarcasterJWT.response>>>(PATH('jwtGenerate'), data);
+    client.post<HttpResponse<z.infer<typeof AuthSchema.generateFarcasterJWT.response>>>(
+      PATH('jwtGenerate'), 
+      data, 
+      { withCredentials: true }
+    );
 
 export const deleteFarcasterJWT = (client: PylonApiClient) => 
   () => client.post<z.infer<typeof AuthSchema.deleteFarcasterJWT.response>>(PATH('jwtDelete'), {});
