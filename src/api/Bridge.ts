@@ -9,7 +9,7 @@ class Bridge {
   protected apiUrl: string;
 
   constructor(baseUrl: string) {
-    this.apiUrl = `${baseUrl}/bridge`;
+    this.apiUrl = `${baseUrl}/v1/bridge`;
   }
 
   async getPrefundedAccountBalance(): Promise<GetPrefundedAccountBalanceResponse> {

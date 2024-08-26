@@ -9,7 +9,7 @@ class Transaction {
   protected apiUrl: string;
 
   constructor(baseUrl: string) {
-    this.apiUrl = `${baseUrl}/transaction`;
+    this.apiUrl = `${baseUrl}/v1/transaction`;
   }
 
   async processTransaction(

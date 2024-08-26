@@ -17,7 +17,7 @@ class Auth {
   protected apiUrl: string;
 
   constructor(baseUrl: string) {
-    this.apiUrl = `${baseUrl}/auth`;
+    this.apiUrl = `${baseUrl}/v1/auth`;
   }
 
   async generateAccessToken(): Promise<AccessTokenResponse> {

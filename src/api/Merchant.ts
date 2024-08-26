@@ -10,7 +10,7 @@ class Merchant {
   protected apiUrl: string;
 
   constructor(baseUrl: string) {
-    this.apiUrl = `${baseUrl}/merchant`;
+    this.apiUrl = `${baseUrl}/v1/merchant`;
   }
 
   async createMerchant(

@@ -35,10 +35,10 @@ class Pylon {
     const environment = config.environment || 'production';
     this.apiUrl = config.baseUrl || Pylon.DEFAULT_URLS[environment];
 
-    this.auth = new Auth(`${this.apiUrl}/v1`);
-    this.bridge = new Bridge(`${this.apiUrl}/v1`);
-    this.merchant = new Merchant(`${this.apiUrl}/v1`);
-    this.transaction = new Transaction(`${this.apiUrl}/v1`);
+    this.auth = new Auth(this.apiUrl);
+    this.bridge = new Bridge(this.apiUrl);
+    this.merchant = new Merchant(this.apiUrl);
+    this.transaction = new Transaction(this.apiUrl);
   }
 
   // AUTH METHODS
