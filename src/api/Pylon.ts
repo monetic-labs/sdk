@@ -1,5 +1,5 @@
-import Auth from './Auth';
-import Bridge from './Bridge';
+import Auth from './auth';
+import Bridge from './bridge';
 import { Environment, PylonConfig } from '../_types';
 import type {
   PasskeyRegistrationData,
