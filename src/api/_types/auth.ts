@@ -2,6 +2,15 @@ type AccessTokenResponse = {
   token: string;
 };
 
+type IssueOTP = {
+  email: string;
+}
+
+type VerifyOTP = {
+  email: string;
+  otp: string;
+};
+
 type ChallengeResponse = {
   challenge: string;
 };
@@ -95,4 +104,6 @@ export type {
   OTPData,
   FarcasterJWTData,
   MessageResponse,
+  VerifyOTP,
+  IssueOTP
 };

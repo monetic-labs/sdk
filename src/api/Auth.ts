@@ -8,9 +8,10 @@ import type {
   InitiatePasskeyRegistrationData,
   RegisterPasskeyForExistingUserData,
   PasskeyListResponse,
-  OTPData,
+  IssueOTP,
   FarcasterJWTData,
   MessageResponse,
+  VerifyOTP,
 } from '@/api/_types/auth';
 
 class Auth {
@@ -22,6 +23,13 @@ class Auth {
 
   async generateAccessToken(): Promise<AccessTokenResponse> {
     const response = await axios.get<AccessTokenResponse>(`${this.apiUrl}/jwt`);
+    return response.data;
+  }
+
+  async initiateOTP(): Promise<VerifyOTP> {
+    const response = await axios.post<VerifyOTP>(
+      `${this.apiUrl}/login/initiate`,
+    );
     return response.data;
   }
 
@@ -66,17 +74,17 @@ class Auth {
     return response.data;
   }
 
-  async verifyOTP(data: OTPData): Promise<MessageResponse> {
-    const response = await axios.post<MessageResponse>(
-      `${this.apiUrl}/otp/verify`,
+  async issueOTP(data: IssueOTP): Promise<IssueOTP> {
+    const response = await axios.post<IssueOTP>(
+      `${this.apiUrl}/otp/issue`,
       data
     );
     return response.data;
   }
 
-  async issueOTP(data: OTPData): Promise<MessageResponse> {
-    const response = await axios.post<MessageResponse>(
-      `${this.apiUrl}/otp/issue`,
+  async verifyOTP(data: VerifyOTP): Promise<VerifyOTP> {
+    const response = await axios.post<VerifyOTP>(
+      `${this.apiUrl}/otp/verify`,
       data
     );
     return response.data;

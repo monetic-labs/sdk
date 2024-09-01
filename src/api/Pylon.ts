@@ -6,8 +6,9 @@ import type {
   AuthenticatePasskeyData,
   InitiatePasskeyRegistrationData,
   RegisterPasskeyForExistingUserData,
-  OTPData,
   FarcasterJWTData,
+  IssueOTP,
+  VerifyOTP,
 } from '@/api/_types/auth';
 import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
 import Merchant from './Merchant';
@@ -66,12 +67,12 @@ class Pylon {
     return this.auth.removePasskey(id);
   }
 
-  async verifyOTP(data: OTPData) {
-    return this.auth.verifyOTP(data);
+  async issueOTP(data: IssueOTP) {
+    return this.auth.issueOTP(data);
   }
 
-  async issueOTP(data: OTPData) {
-    return this.auth.issueOTP(data);
+  async verifyOTP(data: VerifyOTP) {
+    return this.auth.verifyOTP(data);
   }
 
   async registerPasskeyForExistingUser(
