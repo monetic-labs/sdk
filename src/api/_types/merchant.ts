@@ -1,12 +1,21 @@
 type ISO3166Alpha2Country = 'GB' | 'US' | 'FR' | 'DE'; // Add more as needed
-type ISO4217Currency = 'USD' | 'EUR' | 'GBP'; // Add more as needed
+type ISO4217Currency = 'USD'; // Add more as needed
 type BridgeComplianceKycStatus = 'APPROVED' | 'REJECTED' | 'PENDING';
 type BridgeComplianceTosStatus = 'ACCEPTED' | 'REJECTED' | 'PENDING';
 type TransferStatus = 'PENDING' | 'COMPLETED' | 'FAILED';
+type PersonRole =
+  | 'MEMBER'
+  | 'DEVELOPER'
+  | 'BOOKKEEPER'
+  | 'ADMIN'
+  | 'SUPER_ADMIN';
 
 type PhysicalAddress = {
+  firstName?: string; // Only set if Address is type Billing or Shipping
+  lastName?: string; // Only set if Address is type Billing or Shipping
   street1: string;
   street2?: string;
+  street3?: string;
   city: string;
   postcode: string;
   state?: string;
@@ -16,12 +25,15 @@ type PhysicalAddress = {
 type Company = {
   name: string;
   email: string;
-  phone: string;
   registeredAddress: PhysicalAddress;
-  operatingAddress: PhysicalAddress;
-  registrationNumber: string;
-  taxId: string;
-  website: string;
+};
+
+type Representative = {
+  name: string;
+  surname: string;
+  email: string;
+  phoneNumber: string;
+  role?: PersonRole;
 };
 
 type Compliance = {
@@ -34,7 +46,10 @@ type Compliance = {
 };
 
 type MerchantCreateInput = {
+  fee: number;
+  walletAddress: `0x${string}`;
   company: Company;
+  representatives: Representative[];
   compliance?: Compliance;
 };
 
@@ -46,29 +61,6 @@ type MerchantCreateOutput = {
       updatedAt: string;
       merchantId: number;
     };
-    apiKey: {
-      id: number;
-      key: string;
-      createdAt: string;
-      updatedAt: string;
-      merchantId: number;
-    };
-  };
-};
-
-type TransferStatusInput = {
-  transferId: string;
-};
-
-type TransferStatusOutput = {
-  statusCode: number;
-  data: {
-    id: string;
-    status: TransferStatus;
-    amount: number;
-    currency: ISO4217Currency;
-    createdAt: string;
-    updatedAt: string;
   };
 };
 
@@ -83,6 +75,4 @@ export type {
   Compliance,
   MerchantCreateInput,
   MerchantCreateOutput,
-  TransferStatusInput,
-  TransferStatusOutput,
 };

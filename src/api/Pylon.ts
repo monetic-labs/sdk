@@ -12,10 +12,7 @@ import type {
 } from '@/api/_types/auth';
 import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
 import Merchant from './Merchant';
-import type {
-  MerchantCreateInput,
-  TransferStatusInput,
-} from '@/api/_types/merchant';
+import type { MerchantCreateInput } from '@/api/_types/merchant';
 import Transaction from './Transaction';
 import type { TransactionProcessInput } from '@/api/_types/transaction';
 
@@ -111,17 +108,13 @@ class Pylon {
     return this.merchant.createMerchant(data);
   }
 
-  async getTransferStatus(data: TransferStatusInput) {
-    return this.merchant.getTransferStatus(data);
-  }
-
   // TRANSACTION METHODS
   async processTransaction(data: TransactionProcessInput) {
     return this.transaction.processTransaction(data);
   }
 
-  async getTransactionStatus(transactionId: string) {
-    return this.transaction.getTransactionStatus(transactionId);
+  async getTransactionStatus(transferId: string) {
+    return this.transaction.getTransactionStatus(transferId);
   }
 }
 

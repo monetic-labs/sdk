@@ -22,11 +22,13 @@ class Transaction {
     return response.data;
   }
 
+  // Bridge related method
+  // NB: The output type may be incorrect
   async getTransactionStatus(
-    transactionId: string
+    transferId: string
   ): Promise<TransactionStatusOutput> {
     const response = await axios.get<TransactionStatusOutput>(
-      `${this.apiUrl}/${transactionId}/status`
+      `${this.apiUrl}/transfer/${transferId}`
     );
     return response.data;
   }

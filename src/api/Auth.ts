@@ -26,11 +26,19 @@ class Auth {
     return response.data;
   }
 
-  async initiateOTP(): Promise<VerifyOTP> {
+  async initiateLoginOTP(): Promise<boolean> {
     const response = await axios.post<VerifyOTP>(
-      `${this.apiUrl}/login/initiate`,
+      `${this.apiUrl}/login/initiate`
     );
-    return response.data;
+    return response.status === 200;
+  }
+
+  async verifyLoginOTP(data: VerifyOTP): Promise<boolean> {
+    const response = await axios.post<VerifyOTP>(
+      `${this.apiUrl}/login/verify`,
+      data
+    );
+    return response.status === 200;
   }
 
   async generateChallenge(): Promise<ChallengeResponse> {
