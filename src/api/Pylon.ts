@@ -83,13 +83,19 @@ class Pylon {
   }
 
   async generateFarcasterJWT(data: FarcasterJWTData) {
-    console.log('generateFarcasterJWT', data);
-    console.log('this.auth', this.auth);
     return this.auth.generateFarcasterJWT(data);
   }
 
   async deleteFarcasterJWT() {
     return this.auth.deleteFarcasterJWT();
+  }
+
+  async initiateLoginOTP() {
+    return this.auth.initiateLoginOTP();
+  }
+
+  async verifyLoginOTP(data: VerifyOTP) {
+    return this.auth.verifyLoginOTP(data);
   }
 
   // BRIDGE METHODS
