@@ -26,9 +26,10 @@ class Auth {
     return response.data;
   }
 
-  async initiateLoginOTP(): Promise<boolean> {
+  async initiateLoginOTP(data: IssueOTP): Promise<boolean> {
     const response = await axios.post<VerifyOTP>(
-      `${this.apiUrl}/login/initiate`
+      `${this.apiUrl}/login/initiate`,
+      data
     );
     return response.status === 200;
   }

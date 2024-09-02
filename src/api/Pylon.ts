@@ -90,8 +90,8 @@ class Pylon {
     return this.auth.deleteFarcasterJWT();
   }
 
-  async initiateLoginOTP() {
-    return this.auth.initiateLoginOTP();
+  async initiateLoginOTP(data: IssueOTP) {
+    return this.auth.initiateLoginOTP(data);
   }
 
   async verifyLoginOTP(data: VerifyOTP) {
