@@ -1,7 +1,18 @@
 type ISO3166Alpha2Country = 'GB' | 'US' | 'FR' | 'DE'; // Add more as needed
 type ISO4217Currency = 'USD'; // Add more as needed
-type BridgeComplianceKycStatus = 'APPROVED' | 'REJECTED' | 'PENDING';
-type BridgeComplianceTosStatus = 'ACCEPTED' | 'REJECTED' | 'PENDING';
+type BridgeComplianceKycStatus =
+  | 'approved'
+  | 'rejected'
+  | 'pending'
+  | 'not_started'
+  | 'incomplete'
+  | 'awaiting_ubo'
+  | 'manual_review'
+  | 'under_review'
+  | 'approved'
+  | 'rejected';
+type BridgeComplianceTosStatus = 'accepted' | 'pending';
+
 type TransferStatus = 'PENDING' | 'COMPLETED' | 'FAILED';
 type PersonRole =
   | 'MEMBER'
@@ -9,6 +20,7 @@ type PersonRole =
   | 'BOOKKEEPER'
   | 'ADMIN'
   | 'SUPER_ADMIN';
+type Address = `0x${string}`;
 
 type PhysicalAddress = {
   firstName?: string; // Only set if Address is type Billing or Shipping
@@ -37,30 +49,27 @@ type Representative = {
 };
 
 type Compliance = {
-  complianceUuid: string;
   kycLink: string;
   tosLink: string;
   kycStatus: BridgeComplianceKycStatus;
   tosStatus: BridgeComplianceTosStatus;
-  createdAt: string;
 };
 
 type MerchantCreateInput = {
   fee: number;
-  walletAddress: `0x${string}`;
+  walletAddress: Address;
   company: Company;
   representatives: Representative[];
-  compliance?: Compliance;
+  compliance?: {
+    bridgeCustomerId: string;
+    bridgeComplianceId: string;
+  };
 };
 
 type MerchantCreateOutput = {
   statusCode: number;
   data: {
-    compliance: Compliance & {
-      id: number;
-      updatedAt: string;
-      merchantId: number;
-    };
+    compliance: Compliance;
   };
 };
 

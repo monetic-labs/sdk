@@ -122,13 +122,11 @@ class Auth {
   }
 
   async generateFarcasterJWT(data: FarcasterJWTData): Promise<MessageResponse> {
-    console.log('SDK before gen JWT response', data);
     const response = await axios.post<MessageResponse>(
       `${this.apiUrl}/jwt`,
       data,
       { withCredentials: true }
     );
-    console.log('generateFarcasterJWT in SDK response', response.data);
     return response.data;
   }
 
