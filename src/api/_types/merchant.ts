@@ -68,9 +68,7 @@ type MerchantCreateInput = {
 
 type MerchantCreateOutput = {
   statusCode: number;
-  data: {
-    compliance: Compliance;
-  };
+  data: Compliance;
 };
 
 export type {
