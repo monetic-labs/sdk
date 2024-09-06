@@ -57,7 +57,7 @@ type Compliance = {
 
 type MerchantCreateInput = {
   fee: number;
-  walletAddress: Address;
+  walletAddress: string;
   company: Company;
   representatives: Representative[];
   compliance?: {
