@@ -20,7 +20,7 @@ type PersonRole =
   | 'BOOKKEEPER'
   | 'ADMIN'
   | 'SUPER_ADMIN';
-type Address = `0x${string}`;
+
 
 type PhysicalAddress = {
   firstName?: string; // Only set if Address is type Billing or Shipping
