@@ -101,6 +101,10 @@ class Pylon {
     return this.auth.verifyLoginOTP(data);
   }
 
+  async checkAuthStatus() {
+    return this.auth.checkAuthStatus();
+  }
+
   // BRIDGE METHODS
   async getPrefundedAccountBalance() {
     return this.bridge.getPrefundedAccountBalance();

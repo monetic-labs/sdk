@@ -39,6 +39,9 @@ class Transaction {
     const eventSource = new EventSourcePolyfill(`${this.apiUrl}/list`, {
       headers: {
         Accept: 'text/event-stream',
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        Connection: 'keep-alive',
       },
       withCredentials: true,
     });
@@ -50,7 +53,7 @@ class Transaction {
 
     eventSource.onerror = (error) => {
       console.error('EventSource failed:', error);
-      eventSource.close();
+      eventSource.close(); // We may not need to close the connection here
     };
 
     // Return a function to close the connection when needed

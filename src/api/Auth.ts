@@ -136,6 +136,16 @@ class Auth {
     });
     return response.data;
   }
+
+  async checkAuthStatus(): Promise<{ data: true }> {
+    const response = await axios.get<{ data: true }>(
+      `${this.apiUrl}/user-status`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  }
 }
 
 export default Auth;
