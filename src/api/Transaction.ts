@@ -1,9 +1,11 @@
 import axios from 'axios';
 import type {
+  TransactionListOutput,
   TransactionProcessInput,
   TransactionProcessOutput,
   TransactionStatusOutput,
 } from '@/api/_types/transaction';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
 class Transaction {
   protected apiUrl: string;
@@ -31,6 +33,30 @@ class Transaction {
       `${this.apiUrl}/transfer/${transferId}`
     );
     return response.data;
+  }
+
+  async getTransactionList(callback: (data: TransactionListOutput) => void) {
+    const eventSource = new EventSourcePolyfill(`${this.apiUrl}/list`, {
+      headers: {
+        Accept: 'text/event-stream',
+      },
+      withCredentials: true,
+    });
+
+    eventSource.onmessage = (event) => {
+      const data: TransactionListOutput = JSON.parse(event.data);
+      callback(data);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('EventSource failed:', error);
+      eventSource.close();
+    };
+
+    // Return a function to close the connection when needed
+    return () => {
+      eventSource.close();
+    };
   }
 }
 

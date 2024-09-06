@@ -88,6 +88,28 @@ type TransactionStatusOutput = {
   };
 };
 
+type TransactionListItem = {
+  id: string;
+  status: TransactionStatus;
+  processor: PaymentProcessor;
+  paymentMethod: string;
+  subtotal: number;
+  tipAmount: number;
+  total: number;
+  currency: string;
+  createdAt: string;
+  billingAddress: Address;
+  shippingAddress: Address;
+};
+
+type TransactionListOutput = {
+  type: 'INITIAL_LIST' | 'TRANSACTION_UPDATED';
+  data:
+    | TransactionListItem[]
+    | TransactionListItem
+    | Partial<TransactionListItem>;
+};
+
 export type {
   PaymentProcessor,
   TransactionStatus,
@@ -96,4 +118,6 @@ export type {
   TransactionProcessInput,
   TransactionProcessOutput,
   TransactionStatusOutput,
+  TransactionListItem,
+  TransactionListOutput,
 };

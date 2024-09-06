@@ -14,7 +14,10 @@ import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
 import Merchant from './Merchant';
 import type { MerchantCreateInput } from '@/api/_types/merchant';
 import Transaction from './Transaction';
-import type { TransactionProcessInput } from '@/api/_types/transaction';
+import type {
+  TransactionListOutput,
+  TransactionProcessInput,
+} from '@/api/_types/transaction';
 
 class Pylon {
   private apiUrl: string;
@@ -121,6 +124,10 @@ class Pylon {
 
   async getTransactionStatus(transferId: string) {
     return this.transaction.getTransactionStatus(transferId);
+  }
+
+  async getTransactionList(callback: (data: TransactionListOutput) => void) {
+    return this.transaction.getTransactionList(callback);
   }
 }
 
