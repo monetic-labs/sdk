@@ -5,7 +5,6 @@ import type {
   TransactionProcessOutput,
   TransactionStatusOutput,
 } from '@/api/_types/transaction';
-import { EventSourcePolyfill } from 'event-source-polyfill';
 
 class Transaction {
   protected apiUrl: string;
@@ -36,27 +35,24 @@ class Transaction {
   }
 
   async getTransactionList(callback: (data: TransactionListOutput) => void) {
-    const eventSource = new EventSourcePolyfill(`${this.apiUrl}/list`, {
-      headers: {
-        Accept: 'text/event-stream',
-        'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        Connection: 'keep-alive',
-      },
+    const eventSource = new EventSource(`${this.apiUrl}/list`, {
       withCredentials: true,
     });
 
+    eventSource.onopen = (event) => {
+      console.log('Connection opened:', event);
+    };
+
     eventSource.onmessage = (event) => {
+      console.log('Received message:', event);
       const data: TransactionListOutput = JSON.parse(event.data);
       callback(data);
     };
 
     eventSource.onerror = (error) => {
       console.error('EventSource failed:', error);
-      eventSource.close(); // We may not need to close the connection here
     };
 
-    // Return a function to close the connection when needed
     return () => {
       eventSource.close();
     };
