@@ -2,6 +2,7 @@ import { BillingAddress, ShippingAddress } from './merchant';
 
 type PaymentProcessor = 'WORLDPAY';
 type TransactionStatus = 'SUCCESS' | 'FAILURE' | 'PENDING';
+type TransactionListStatus = 'COMPLETED' | 'FAILED';
 type FraudOutcome = 'ACCEPT' | 'CHALLENGE' | 'REJECT' | 'NOT_ASSESSED';
 
 type TransactionProcessInput = {
@@ -75,9 +76,24 @@ type TransactionStatusOutput = {
   };
 };
 
+type CardDetails = {
+  cardBin: string;
+  cardLastFour: string;
+  cardBrand?: string;
+  cardFundingType?: string;
+  cardIssuerName?: string;
+  cardHolderName?: string;
+};
+
+type RiskAssessment = {
+  score?: number;
+  outcome?: string;
+  reason?: string[];
+};
+
 type TransactionListItem = {
   id: string;
-  status: TransactionStatus;
+  status: TransactionListStatus;
   processor: PaymentProcessor;
   paymentMethod: string;
   subtotal: number;
@@ -85,18 +101,22 @@ type TransactionListItem = {
   total: number;
   currency: string;
   createdAt: string;
-  customerPhone: string;
-  customerEmail: string;
+  customerPhone?: string;
+  customerEmail?: string;
   billingAddress: BillingAddress;
   shippingAddress: ShippingAddress;
+  cardDetails: CardDetails;
+  riskAssessment: RiskAssessment;
 };
+
+type SSEEvent =
+  | { type: 'INITIAL_LIST'; data: TransactionListItem[] }
+  | { type: 'TRANSACTION_UPDATED'; data: TransactionListItem }
+  | { type: 'error'; message: string };
 
 type TransactionListOutput = {
   type: 'INITIAL_LIST' | 'TRANSACTION_UPDATED';
-  data:
-    | TransactionListItem[]
-    | TransactionListItem
-    | Partial<TransactionListItem>;
+  data: TransactionListItem[] | TransactionListItem;
 };
 
 export type {
@@ -108,4 +128,5 @@ export type {
   TransactionStatusOutput,
   TransactionListItem,
   TransactionListOutput,
+  SSEEvent,
 };
