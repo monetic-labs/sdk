@@ -21,10 +21,7 @@ type PersonRole =
   | 'ADMIN'
   | 'SUPER_ADMIN';
 
-
-type PhysicalAddress = {
-  firstName?: string; // Only set if Address is type Billing or Shipping
-  lastName?: string; // Only set if Address is type Billing or Shipping
+type Address = {
   street1: string;
   street2?: string;
   street3?: string;
@@ -34,15 +31,27 @@ type PhysicalAddress = {
   country: ISO3166Alpha2Country;
 };
 
+type RegisteredAddress = Address;
+
+type BillingAddress = Address & {
+  firstName: string;
+  lastName: string;
+};
+
+type ShippingAddress = Address & {
+  firstName: string;
+  lastName: string;
+};
+
 type Company = {
   name: string;
   email: string;
-  registeredAddress: PhysicalAddress;
+  registeredAddress: RegisteredAddress;
 };
 
 type Representative = {
-  name: string;
-  surname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phoneNumber: string;
   role?: PersonRole;
@@ -77,7 +86,10 @@ export type {
   BridgeComplianceKycStatus,
   BridgeComplianceTosStatus,
   TransferStatus,
-  PhysicalAddress,
+  Address,
+  RegisteredAddress,
+  BillingAddress,
+  ShippingAddress,
   Company,
   Compliance,
   MerchantCreateInput,

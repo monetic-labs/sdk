@@ -18,7 +18,7 @@ class Transaction {
     data: TransactionProcessInput
   ): Promise<TransactionProcessOutput> {
     const response = await axios.post<TransactionProcessOutput>(
-      `${this.apiUrl}/process`,
+      `${this.apiUrl}/process?paymentProcessor=${data.paymentProcessor}`,
       data
     );
     return response.data;

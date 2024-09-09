@@ -1,32 +1,19 @@
+import { BillingAddress, ShippingAddress } from './merchant';
+
 type PaymentProcessor = 'WORLDPAY';
 type TransactionStatus = 'SUCCESS' | 'FAILURE' | 'PENDING';
 type FraudOutcome = 'ACCEPT' | 'CHALLENGE' | 'REJECT' | 'NOT_ASSESSED';
-
-type Address = {
-  firstName: string;
-  lastName: string;
-  address1: string;
-  address2?: string;
-  address3?: string;
-  postalCode: string;
-  city: string;
-  state?: string;
-  countryCode: string;
-  phoneNumber?: string;
-};
 
 type TransactionProcessInput = {
   paymentProcessor: PaymentProcessor;
   sessionUrl: string;
   cvcUrl?: string;
   order: {
-    merchant: {
-      id: string;
-    };
-    buyer: {
-      billingAddress: Address;
-      isShippingEqualBilling: boolean;
-      shippingAddress?: Address;
+    customer: {
+      email: string;
+      phoneNumber: string;
+      billingAddress: BillingAddress;
+      shippingAddress?: ShippingAddress;
     };
     value: {
       currency: string;
@@ -70,8 +57,8 @@ type TransactionProcessOutput = {
       name: string;
     };
     buyer: {
-      billingAddress: Address;
-      shippingAddress?: Address;
+      billingAddress: BillingAddress;
+      shippingAddress?: ShippingAddress;
     };
     createdAt: string;
     updatedAt: string;
@@ -98,8 +85,10 @@ type TransactionListItem = {
   total: number;
   currency: string;
   createdAt: string;
-  billingAddress: Address;
-  shippingAddress: Address;
+  customerPhone: string;
+  customerEmail: string;
+  billingAddress: BillingAddress;
+  shippingAddress: ShippingAddress;
 };
 
 type TransactionListOutput = {
@@ -114,7 +103,6 @@ export type {
   PaymentProcessor,
   TransactionStatus,
   FraudOutcome,
-  Address,
   TransactionProcessInput,
   TransactionProcessOutput,
   TransactionStatusOutput,
