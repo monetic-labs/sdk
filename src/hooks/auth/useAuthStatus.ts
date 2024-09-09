@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import Pylon from '@/api/Pylon';
+import { usePylon } from '@/PylonContext';
 
-export const useAuthStatus = (pylonInstance: Pylon) => {
+export const useAuthStatus = () => {
+  const pylonInstance = usePylon();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   const checkAuthStatus = async () => {
@@ -18,7 +19,7 @@ export const useAuthStatus = (pylonInstance: Pylon) => {
     checkAuthStatus();
     const interval = setInterval(checkAuthStatus, 60_000); // Check every minute
     return () => clearInterval(interval);
-  }, []);
+  }, [pylonInstance]);
 
   return { isAuthenticated, checkAuthStatus };
 };
