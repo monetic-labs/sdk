@@ -91,6 +91,14 @@ type RiskAssessment = {
   reason?: string[];
 };
 
+type TransactionStatusHistory = {
+  status: TransactionStatus;
+  amount: number;
+  currency: string;
+  statusReason?: string;
+  createdAt: string;
+};
+
 type TransactionListItem = {
   id: string;
   status: TransactionListStatus;
@@ -107,6 +115,7 @@ type TransactionListItem = {
   shippingAddress: ShippingAddress;
   cardDetails: CardDetails;
   riskAssessment: RiskAssessment;
+  transactionStatusHistory: TransactionStatusHistory[];
 };
 
 type SSEEvent =
