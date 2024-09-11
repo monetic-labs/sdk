@@ -146,6 +146,7 @@ export type {
   TransactionProcessInput,
   TransactionProcessOutput,
   TransactionStatusOutput,
+  TransactionStatusHistory,
   TransactionListItem,
   TransactionListOutput,
   SSEEvent,
