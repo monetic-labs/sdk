@@ -148,6 +148,7 @@ export type {
   TransactionStatusOutput,
   TransactionStatusHistory,
   TransactionListItem,
+  TransactionListStatus,
   TransactionListOutput,
   SSEEvent,
 };
