@@ -2,7 +2,19 @@ import { BillingAddress, ShippingAddress } from './merchant';
 
 type PaymentProcessor = 'WORLDPAY';
 type TransactionStatus = 'SUCCESS' | 'FAILURE' | 'PENDING';
-type TransactionListStatus = 'COMPLETED' | 'FAILED';
+type TransactionListStatus =
+  | 'SENT_FOR_AUTHORIZATION'
+  | 'AUTHORIZED'
+  | 'SENT_FOR_SETTLEMENT'
+  | 'SETTLED'
+  | 'SETTLEMENT_FAILED'
+  | 'CANCELLED'
+  | 'ERROR'
+  | 'EXPIRED'
+  | 'REFUSED'
+  | 'SENT_FOR_REFUND'
+  | 'REFUNDED'
+  | 'REFUND_FAILED';
 type FraudOutcome = 'ACCEPT' | 'CHALLENGE' | 'REJECT' | 'NOT_ASSESSED';
 
 type TransactionProcessInput = {
@@ -92,7 +104,7 @@ type RiskAssessment = {
 };
 
 type TransactionStatusHistory = {
-  status: TransactionStatus;
+  status: TransactionListStatus;
   amount: number;
   currency: string;
   statusReason?: string;
@@ -101,7 +113,6 @@ type TransactionStatusHistory = {
 
 type TransactionListItem = {
   id: string;
-  status: TransactionListStatus;
   processor: PaymentProcessor;
   paymentMethod: string;
   subtotal: number;
