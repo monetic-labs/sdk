@@ -3,6 +3,8 @@ import type {
   TransactionListOutput,
   TransactionProcessInput,
   TransactionProcessOutput,
+  TransactionProcessRefundInput,
+  TransactionProcessRefundOutput,
   TransactionStatusOutput,
 } from '@/api/_types/transaction';
 import { EventSourcePolyfill } from 'event-source-polyfill';
@@ -54,6 +56,18 @@ class Transaction {
     return () => {
       eventSource.close();
     };
+  }
+
+  async processRefund(data: TransactionProcessRefundInput) {
+    const response = await axios.post<TransactionProcessRefundOutput>(
+      `${this.apiUrl}/${data.transactionId}/refund`,
+      {
+        amount: data.amount,
+        currency: data.currency,
+        ...(data.reference && { reference: data.reference }),
+      }
+    );
+    return response.data;
   }
 }
 

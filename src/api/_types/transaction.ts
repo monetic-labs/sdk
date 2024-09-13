@@ -1,4 +1,4 @@
-import { BillingAddress, ShippingAddress } from './merchant';
+import { BillingAddress, ISO4217Currency, ShippingAddress } from './merchant';
 
 type PaymentProcessor = 'WORLDPAY';
 type TransactionStatus = 'SUCCESS' | 'FAILURE' | 'PENDING';
@@ -139,6 +139,20 @@ type TransactionListOutput = {
   data: TransactionListItem[] | TransactionListItem;
 };
 
+type TransactionProcessRefundInput = {
+  transactionId: string;
+  amount: number;
+  currency: ISO4217Currency;
+  reference?: string;
+};
+
+type TransactionProcessRefundOutput = {
+  statusCode: number;
+  data: {
+    success: boolean;
+  };
+};
+
 export type {
   PaymentProcessor,
   TransactionStatus,
@@ -151,4 +165,6 @@ export type {
   TransactionListStatus,
   TransactionListOutput,
   SSEEvent,
+  TransactionProcessRefundInput,
+  TransactionProcessRefundOutput,
 };

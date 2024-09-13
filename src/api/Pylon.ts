@@ -17,6 +17,7 @@ import Transaction from './Transaction';
 import type {
   TransactionListOutput,
   TransactionProcessInput,
+  TransactionProcessRefundInput,
 } from '@/api/_types/transaction';
 
 class Pylon {
@@ -132,6 +133,10 @@ class Pylon {
 
   async getTransactionList(callback: (data: TransactionListOutput) => void) {
     return this.transaction.getTransactionList(callback);
+  }
+
+  async processRefund(data: TransactionProcessRefundInput) {
+    return this.transaction.processRefund(data);
   }
 }
 
