@@ -65,6 +65,9 @@ class Transaction {
         amount: data.amount,
         currency: data.currency,
         ...(data.reference && { reference: data.reference }),
+      },
+      {
+        withCredentials: true,
       }
     );
     return response.data;
