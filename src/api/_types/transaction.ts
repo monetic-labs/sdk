@@ -29,7 +29,7 @@ type TransactionProcessInput = {
       shippingAddress?: ShippingAddress;
     };
     value: {
-      currency: string;
+      currency: ISO4217Currency;
       amount: number;
     };
   };
@@ -55,7 +55,7 @@ type TransactionProcessOutput = {
     };
     authorizedPayment: {
       amount: number;
-      currency: string;
+      currency: ISO4217Currency;
       lastEvent: string;
       paymentStatus: string;
       riskScore?: number;
@@ -106,7 +106,7 @@ type RiskAssessment = {
 type TransactionStatusHistory = {
   status: TransactionListStatus;
   amount: number;
-  currency: string;
+  currency: ISO4217Currency;
   statusReason?: string;
   createdAt: string;
 };
@@ -118,7 +118,7 @@ type TransactionListItem = {
   subtotal: number;
   tipAmount: number;
   total: number;
-  currency: string;
+  currency: ISO4217Currency;
   createdAt: string;
   customerPhone?: string;
   customerEmail?: string;
