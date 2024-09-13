@@ -62,8 +62,8 @@ class Transaction {
     const response = await axios.post<TransactionProcessRefundOutput>(
       `${this.apiUrl}/${data.transactionId}/refund`,
       {
-        amount: data.amount,
-        currency: data.currency,
+        ...(data.amount && { amount: data.amount }),
+        ...(data.currency && { currency: data.currency }),
         ...(data.reference && { reference: data.reference }),
       },
       {

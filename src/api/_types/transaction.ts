@@ -141,8 +141,8 @@ type TransactionListOutput = {
 
 type TransactionProcessRefundInput = {
   transactionId: string;
-  amount: number;
-  currency: ISO4217Currency;
+  amount?: number;
+  currency?: ISO4217Currency;
   reference?: string;
 };
 
