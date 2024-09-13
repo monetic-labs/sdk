@@ -39,6 +39,7 @@ class Transaction {
 
   async getTransactionList(callback: (data: TransactionListOutput) => void) {
     const eventSource = new EventSourcePolyfill(`${this.apiUrl}/list`, {
+      heartbeatTimeout: 4 * 60 * 60 * 1000, // 4 hours
       withCredentials: true,
     });
 

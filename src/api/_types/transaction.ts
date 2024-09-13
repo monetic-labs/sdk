@@ -132,10 +132,11 @@ type TransactionListItem = {
 type SSEEvent =
   | { type: 'INITIAL_LIST'; data: TransactionListItem[] }
   | { type: 'TRANSACTION_UPDATED'; data: TransactionListItem }
-  | { type: 'error'; message: string };
+  | { type: 'error'; message: string }
+  | { type: 'KEEP_ALIVE' };
 
 type TransactionListOutput = {
-  type: 'INITIAL_LIST' | 'TRANSACTION_UPDATED';
+  type: 'INITIAL_LIST' | 'TRANSACTION_UPDATED' | 'KEEP_ALIVE';
   data: TransactionListItem[] | TransactionListItem;
 };
 
