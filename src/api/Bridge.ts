@@ -3,6 +3,7 @@ import type {
   GetPrefundedAccountBalanceResponse,
   CreatePrefundedAccountTransferBody,
   CreatePrefundedAccountTransferResponse,
+  GetComplianceStatusResponse,
 } from '@/api/_types/bridge';
 
 class Bridge {
@@ -29,6 +30,14 @@ class Bridge {
     const response = await axios.post<CreatePrefundedAccountTransferResponse>(
       `${this.apiUrl}/prefunded-account-transfer`,
       data,
+      { withCredentials: true }
+    );
+    return response.data;
+  }
+
+  async getComplianceStatus(): Promise<GetComplianceStatusResponse> {
+    const response = await axios.get<GetComplianceStatusResponse>(
+      `${this.apiUrl}/compliance`,
       { withCredentials: true }
     );
     return response.data;

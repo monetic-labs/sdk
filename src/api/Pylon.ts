@@ -117,6 +117,10 @@ class Pylon {
     return this.bridge.createPrefundedAccountTransfer(data);
   }
 
+  async getComplianceStatus() {
+    return this.bridge.getComplianceStatus();
+  }
+
   // MERCHANT METHODS
   async createMerchant(data: MerchantCreateInput) {
     return this.merchant.createMerchant(data);
