@@ -36,11 +36,10 @@ class Bridge {
   }
 
   async getComplianceStatus(): Promise<GetComplianceStatusResponse> {
-    const response = await axios.get<GetComplianceStatusResponse>(
-      `${this.apiUrl}/compliance`,
-      { withCredentials: true }
-    );
-    return response.data;
+    const response = await axios.get(`${this.apiUrl}/kyc`, {
+      withCredentials: true,
+    });
+    return response.data.data;
   }
 }
 
