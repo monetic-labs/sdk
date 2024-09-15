@@ -102,6 +102,10 @@ class Pylon {
     return this.auth.verifyLoginOTP(data);
   }
 
+  async logout() {
+    return this.auth.logout();
+  }
+
   async checkAuthStatus() {
     return this.auth.checkAuthStatus();
   }
@@ -117,7 +121,7 @@ class Pylon {
     return this.bridge.createPrefundedAccountTransfer(data);
   }
 
-  async getComplianceStatus() {
+  async() {
     return this.bridge.getComplianceStatus();
   }
 
