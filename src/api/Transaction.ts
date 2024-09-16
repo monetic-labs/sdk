@@ -96,7 +96,14 @@ class Transaction {
 
   async getOrderLink(orderLinkId: string) {
     const response = await axios.get<GetOrderLinkOutput>(
-      `${this.apiUrl}/link/${orderLinkId}`
+      `${this.apiUrl}/link/${orderLinkId}`,
+      {
+        responseType: 'json',
+        headers: {
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+        },
+      }
     );
     return {
       data: response.data,
