@@ -96,12 +96,13 @@ class Transaction {
 
   async getOrderLink(orderLinkId: string) {
     const response = await axios.get<GetOrderLinkOutput>(
-      `${this.apiUrl}/link/${orderLinkId}`,
-      {
-        withCredentials: true,
-      }
+      `${this.apiUrl}/link/${orderLinkId}`
     );
-    return response.data;
+    return {
+      data: response.data,
+      revalidate: 0,
+      tags: [`order-${orderLinkId}`],
+    };
   }
 }
 
