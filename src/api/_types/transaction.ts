@@ -30,7 +30,8 @@ type TransactionProcessInput = {
     };
     value: {
       currency: ISO4217Currency;
-      amount: number;
+      total: number;
+      tipAmount?: number;
     };
   };
 };
