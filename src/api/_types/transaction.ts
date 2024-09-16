@@ -154,6 +154,39 @@ type TransactionProcessRefundOutput = {
   };
 };
 
+type CreateOrderLinkInput = {
+  customer: {
+    email: string;
+    phone: string;
+  };
+  order: {
+    subtotal: number;
+    currency: ISO4217Currency;
+  };
+};
+
+type GetOrderLinkOutput = {
+  merchant: {
+    name: string;
+    fee: string;
+  };
+  order: {
+    subtotal: number;
+    currency: ISO4217Currency;
+  };
+  customer: {
+    email: string;
+    phone: string;
+  };
+  expiresAt: string;
+  paymentToken: string;
+};
+
+type CreateOrderLinkOutput = {
+  orderLink: string;
+  expiresAt: string;
+};
+
 export type {
   PaymentProcessor,
   TransactionStatus,
@@ -168,4 +201,7 @@ export type {
   SSEEvent,
   TransactionProcessRefundInput,
   TransactionProcessRefundOutput,
+  CreateOrderLinkInput,
+  GetOrderLinkOutput,
+  CreateOrderLinkOutput,
 };

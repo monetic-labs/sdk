@@ -15,6 +15,7 @@ import Merchant from './Merchant';
 import type { MerchantCreateInput } from '@/api/_types/merchant';
 import Transaction from './Transaction';
 import type {
+  CreateOrderLinkInput,
   TransactionListOutput,
   TransactionProcessInput,
   TransactionProcessRefundInput,
@@ -131,8 +132,8 @@ class Pylon {
   }
 
   // TRANSACTION METHODS
-  async processTransaction(data: TransactionProcessInput) {
-    return this.transaction.processTransaction(data);
+  async processTransaction(data: TransactionProcessInput, bearerToken: string) {
+    return this.transaction.processTransaction(data, bearerToken);
   }
 
   async getTransactionStatus(transferId: string) {
@@ -145,6 +146,14 @@ class Pylon {
 
   async processRefund(data: TransactionProcessRefundInput) {
     return this.transaction.processRefund(data);
+  }
+
+  async createOrderLink(data: CreateOrderLinkInput) {
+    return this.transaction.createOrderLink(data);
+  }
+
+  async getOrderLink(orderLinkId: string) {
+    return this.transaction.getOrderLink(orderLinkId);
   }
 }
 

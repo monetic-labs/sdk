@@ -1,5 +1,8 @@
 import axios from 'axios';
 import type {
+  CreateOrderLinkInput,
+  CreateOrderLinkOutput,
+  GetOrderLinkOutput,
   TransactionListOutput,
   TransactionProcessInput,
   TransactionProcessOutput,
@@ -17,11 +20,17 @@ class Transaction {
   }
 
   async processTransaction(
-    data: TransactionProcessInput
+    data: TransactionProcessInput,
+    bearerToken: string
   ): Promise<TransactionProcessOutput> {
     const response = await axios.post<TransactionProcessOutput>(
       `${this.apiUrl}/process?paymentProcessor=${data.paymentProcessor}`,
-      data
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      }
     );
     return response.data;
   }
@@ -67,6 +76,27 @@ class Transaction {
         currency: data.currency,
         ...(data.reference && { reference: data.reference }),
       },
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  }
+
+  async createOrderLink(data: CreateOrderLinkInput) {
+    const response = await axios.post<CreateOrderLinkOutput>(
+      `${this.apiUrl}/link`,
+      data,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  }
+
+  async getOrderLink(orderLinkId: string) {
+    const response = await axios.get<GetOrderLinkOutput>(
+      `${this.apiUrl}/link/${orderLinkId}`,
       {
         withCredentials: true,
       }
