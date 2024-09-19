@@ -122,7 +122,7 @@ class Pylon {
     return this.bridge.createPrefundedAccountTransfer(data);
   }
 
-  async() {
+  async getComplianceStatus() {
     return this.bridge.getComplianceStatus();
   }
 
