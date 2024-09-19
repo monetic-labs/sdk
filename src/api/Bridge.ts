@@ -35,12 +35,12 @@ class Bridge {
     return response.data;
   }
 
-  async getComplianceStatus(): Promise<GetComplianceStatusResponse> {
+  async getComplianceStatus(): Promise<GetComplianceStatusResponse['data']> {
     const response = await axios.get<GetComplianceStatusResponse>(
       `${this.apiUrl}/compliance`,
       { withCredentials: true }
     );
-    return response.data;
+    return response.data.data;
   }
 }
 
