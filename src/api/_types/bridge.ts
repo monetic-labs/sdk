@@ -47,10 +47,12 @@ type CreatePrefundedAccountTransferBody = {
 type CreatePrefundedAccountTransferResponse = any;
 
 type GetComplianceStatusResponse = {
-  kycLink: string;
-  tosLink: string;
-  kycStatus: BridgeKycStatus;
-  tosStatus: BridgeTosStatus;
+  data: {
+    kycLink: string;
+    tosLink: string;
+    kycStatus: BridgeKycStatus;
+    tosStatus: BridgeTosStatus;
+  };
 };
 
 export type {

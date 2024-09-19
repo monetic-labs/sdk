@@ -98,7 +98,6 @@ class Transaction {
     const response = await axios.get<GetOrderLinkOutput>(
       `${this.apiUrl}/link/${orderLinkId}`,
       {
-        responseType: 'json',
         headers: {
           'Cache-Control': 'no-cache',
           Pragma: 'no-cache',
