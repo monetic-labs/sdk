@@ -47,6 +47,7 @@ class Auth {
   async logout() {
     const response = await axios.post<MessageResponse>(
       `${this.apiUrl}/logout`,
+      {},
       { withCredentials: true }
     );
     return response.data;
