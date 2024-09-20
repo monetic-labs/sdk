@@ -1,8 +1,8 @@
 {
   "name": "@backpack-fux/pylon-sdk",
-  "version": "0.2.924",
+  "version": "0.2.925",
   "description": "Pylon SDK",
-  "author": "Your Company",
+  "author": "Backpack",
   "license": "UNLICENSED",
   "keywords": [
     "api",
