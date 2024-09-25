@@ -54,7 +54,7 @@ type Representative = {
   lastName: string;
   email: string;
   phoneNumber: string;
-  walletAddress: string;
+  walletAddress?: string;
   role?: PersonRole;
 };
 
