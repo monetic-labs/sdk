@@ -139,7 +139,7 @@ type SSEEvent =
 type TransactionListOutput = {
   type: 'INITIAL_LIST' | 'TRANSACTION_UPDATED' | 'KEEP_ALIVE';
   data: {
-    transactions: TransactionListItem[];
+    transactions: TransactionListItem[] | TransactionListItem;
     meta: {
       hasNextPage: boolean;
       hasPreviousPage: boolean;
