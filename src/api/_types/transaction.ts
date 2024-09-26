@@ -138,7 +138,15 @@ type SSEEvent =
 
 type TransactionListOutput = {
   type: 'INITIAL_LIST' | 'TRANSACTION_UPDATED' | 'KEEP_ALIVE';
-  data: TransactionListItem[] | TransactionListItem;
+  data: {
+    transactions: TransactionListItem[];
+    meta: {
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+      startCursor: string;
+      endCursor: string;
+    };
+  };
 };
 
 type TransactionProcessRefundInput = {
