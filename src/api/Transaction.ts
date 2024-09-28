@@ -84,14 +84,14 @@ class Transaction {
   }
 
   async createOrderLink(data: CreateOrderLinkInput) {
-    const response = await axios.post<CreateOrderLinkOutput>(
+    const response = await axios.post<{ data: CreateOrderLinkOutput }>(
       `${this.apiUrl}/link`,
       data,
       {
         withCredentials: true,
       }
     );
-    return response.data;
+    return response.data.data;
   }
 
   async getOrderLink(orderLinkId: string) {
