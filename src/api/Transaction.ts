@@ -2,7 +2,9 @@ import axios from 'axios';
 import type {
   CreateOrderLinkInput,
   CreateOrderLinkOutput,
+  DeleteOrderLinkOutput,
   GetOrderLinkOutput,
+  GetOrderLinksOutput,
   TransactionListOutput,
   TransactionProcessInput,
   TransactionProcessOutput,
@@ -83,6 +85,16 @@ class Transaction {
     return response.data;
   }
 
+  async getOrderLinks() {
+    const response = await axios.get<{ data: GetOrderLinksOutput }>(
+      `${this.apiUrl}/link`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data.data;
+  }
+
   async createOrderLink(data: CreateOrderLinkInput) {
     const response = await axios.post<{ data: CreateOrderLinkOutput }>(
       `${this.apiUrl}/link`,
@@ -109,6 +121,16 @@ class Transaction {
       revalidate: 0,
       tags: [`order-${orderLinkId}`],
     };
+  }
+
+  async deleteOrderLink(orderLinkId: string) {
+    const response = await axios.delete<{ data: DeleteOrderLinkOutput }>(
+      `${this.apiUrl}/link/${orderLinkId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data.data;
   }
 }
 

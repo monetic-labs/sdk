@@ -196,6 +196,25 @@ type CreateOrderLinkOutput = {
   expiresAt: string;
 };
 
+type GetOrderLinksOutput = {
+  orderLinks: {
+    id: string;
+    order: {
+      subtotal: number;
+      currency: ISO4217Currency;
+    };
+    customer: {
+      email: string;
+      phone: string;
+    };
+    expiresAt: string;
+  }[];
+};
+
+type DeleteOrderLinkOutput = {
+  success: boolean;
+};
+
 export type {
   PaymentProcessor,
   TransactionStatus,
@@ -210,7 +229,9 @@ export type {
   SSEEvent,
   TransactionProcessRefundInput,
   TransactionProcessRefundOutput,
+  GetOrderLinksOutput,
   CreateOrderLinkInput,
   GetOrderLinkOutput,
   CreateOrderLinkOutput,
+  DeleteOrderLinkOutput,
 };

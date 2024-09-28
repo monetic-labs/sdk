@@ -148,12 +148,20 @@ class Pylon {
     return this.transaction.processRefund(data);
   }
 
+  async getOrderLinks() {
+    return this.transaction.getOrderLinks();
+  }
+
   async createOrderLink(data: CreateOrderLinkInput) {
     return this.transaction.createOrderLink(data);
   }
 
   async getOrderLink(orderLinkId: string) {
     return this.transaction.getOrderLink(orderLinkId);
+  }
+
+  async deleteOrderLink(orderLinkId: string) {
+    return this.transaction.deleteOrderLink(orderLinkId);
   }
 }
 
