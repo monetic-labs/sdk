@@ -86,7 +86,7 @@ class Transaction {
   }
 
   async getOrderLinks() {
-    const response = await axios.get<{ data: GetOrderLinksOutput }>(
+    const response = await axios.get<{ data: GetOrderLinksOutput[] }>(
       `${this.apiUrl}/link`,
       {
         withCredentials: true,

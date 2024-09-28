@@ -197,18 +197,16 @@ type CreateOrderLinkOutput = {
 };
 
 type GetOrderLinksOutput = {
-  orderLinks: {
-    id: string;
-    order: {
-      subtotal: number;
-      currency: ISO4217Currency;
-    };
-    customer: {
-      email: string;
-      phone: string;
-    };
-    expiresAt: string;
-  }[];
+  id: string;
+  order: {
+    subtotal: number;
+    currency: ISO4217Currency;
+  };
+  customer: {
+    email: string;
+    phone: string;
+  };
+  expiresAt: string;
 };
 
 type DeleteOrderLinkOutput = {
