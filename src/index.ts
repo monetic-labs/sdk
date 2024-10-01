@@ -1,6 +1,7 @@
 export * from './api';
 export * from './hooks';
 export * from './_types';
+export * from './components';
 export * from './api/_types/auth';
 export * from './api/_types/bridge';
 export * from './api/_types/merchant';

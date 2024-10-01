@@ -1,6 +1,6 @@
 {
   "name": "@backpack-fux/pylon-sdk",
-  "version": "0.2.931",
+  "version": "0.2.932",
   "description": "Pylon SDK",
   "author": "Backpack",
   "license": "UNLICENSED",
@@ -25,6 +25,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
+    
     "axios": "^0.24.0",
     "event-source-polyfill": "^1.0.31"
   },
@@ -40,7 +41,12 @@
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0"
+    "react": "^17.0.0 || ^18.0.0",
+    "@nextui-org/button": "^2.0.38",
+    "@nextui-org/card": "^2.0.34",
+    "@nextui-org/modal": "^2.0.41",
+    "@nextui-org/progress": "^2.0.34",
+    "framer-motion": "^11.9.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",

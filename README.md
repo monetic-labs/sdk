@@ -111,3 +111,16 @@ console.error(err);
 ## Error Handling
 
 All hooks provide an `error` state that you can use to handle and display errors:
+
+
+## Peer Dependencies
+
+The following peer dependencies are required for the Pylon SDK:
+
+- `react`: React v17.0.0 or later
+- `@nextui-org/button`: NextUI Button component
+- `@nextui-org/card`: NextUI Card component
+- `@nextui-org/modal`: NextUI Modal component
+- `@nextui-org/progress`: NextUI Progress component
+- `framer-motion`: Framer Motion library
+

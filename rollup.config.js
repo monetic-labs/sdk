@@ -9,6 +9,7 @@ const config = [
       index: 'src/index.ts',
       hooks: 'src/hooks/index.ts',
       api: 'src/api/index.ts',
+      components: 'src/components/index.ts',
     },
     output: [
       {
@@ -27,13 +28,21 @@ const config = [
       commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
     ],
-    external: ['react', 'axios'],
+    external: [
+      'react',
+      'axios',
+      '@nextui-org/modal',
+      '@nextui-org/card',
+      '@nextui-org/button',
+      'framer-motion',
+    ],
   },
   {
     input: {
       index: 'src/index.ts',
       hooks: 'src/hooks/index.ts',
       api: 'src/api/index.ts',
+      components: 'src/components/index.ts',
     },
     output: [{ dir: 'dist', format: 'es' }],
     plugins: [dts({ tsconfig: './tsconfig.json' })],
