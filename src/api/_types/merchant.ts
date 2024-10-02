@@ -90,7 +90,7 @@ type ApiKeyCreateOutput = {
 };
 
 type ApiKeyUpdateInput = {
-  name: string;
+  name?: string;
   walletAddress?: string;
   network?:
     | 'POLYGON'

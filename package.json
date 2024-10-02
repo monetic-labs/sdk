@@ -1,6 +1,6 @@
 {
   "name": "@backpack-fux/pylon-sdk",
-  "version": "0.2.932",
+  "version": "0.2.933",
   "description": "Pylon SDK",
   "author": "Backpack",
   "license": "UNLICENSED",
@@ -25,7 +25,6 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    
     "axios": "^0.24.0",
     "event-source-polyfill": "^1.0.31"
   },
