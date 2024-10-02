@@ -1,19 +1,14 @@
 import Auth from './Auth';
 import Bridge from './Bridge';
-import { Environment, PylonConfig } from '../_types';
-import type {
-  PasskeyRegistrationData,
-  AuthenticatePasskeyData,
-  InitiatePasskeyRegistrationData,
-  RegisterPasskeyForExistingUserData,
-  FarcasterJWTData,
-  IssueOTP,
-  VerifyOTP,
-} from '@/api/_types/auth';
-import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
 import Merchant from './Merchant';
-import type { MerchantCreateInput } from '@/api/_types/merchant';
 import Transaction from './Transaction';
+import { Environment, PylonConfig } from '../_types';
+import type { FarcasterJWTData, IssueOTP, VerifyOTP } from '@/api/_types/auth';
+import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
+import type {
+  ApiKeyUpdateInput,
+  MerchantCreateInput,
+} from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
   TransactionListOutput,
@@ -49,42 +44,12 @@ class Pylon {
     return this.auth.generateAccessToken();
   }
 
-  async generateChallenge() {
-    return this.auth.generateChallenge();
-  }
-
-  async registerPasskey(data: PasskeyRegistrationData) {
-    return this.auth.registerPasskey(data);
-  }
-
-  async authenticatePasskey(data: AuthenticatePasskeyData) {
-    return this.auth.authenticatePasskey(data);
-  }
-
-  async findPasskeysForUser() {
-    return this.auth.findPasskeysForUser();
-  }
-
-  async removePasskey(id: number) {
-    return this.auth.removePasskey(id);
-  }
-
   async issueOTP(data: IssueOTP) {
     return this.auth.issueOTP(data);
   }
 
   async verifyOTP(data: VerifyOTP) {
     return this.auth.verifyOTP(data);
-  }
-
-  async registerPasskeyForExistingUser(
-    data: RegisterPasskeyForExistingUserData
-  ) {
-    return this.auth.registerPasskeyForExistingUser(data);
-  }
-
-  async initiatePasskeyRegistration(data: InitiatePasskeyRegistrationData) {
-    return this.auth.initiatePasskeyRegistration(data);
   }
 
   async generateFarcasterJWT(data: FarcasterJWTData) {
@@ -107,10 +72,6 @@ class Pylon {
     return this.auth.logout();
   }
 
-  async checkAuthStatus() {
-    return this.auth.checkAuthStatus();
-  }
-
   // BRIDGE METHODS
   async getPrefundedAccountBalance() {
     return this.bridge.getPrefundedAccountBalance();
@@ -129,6 +90,22 @@ class Pylon {
   // MERCHANT METHODS
   async createMerchant(data: MerchantCreateInput) {
     return this.merchant.createMerchant(data);
+  }
+
+  async createApiKey() {
+    return this.merchant.createApiKey();
+  }
+
+  async deleteApiKey(apiKey: string) {
+    return this.merchant.deleteApiKey(apiKey);
+  }
+
+  async updateApiKey(apiKey: string, data: ApiKeyUpdateInput) {
+    return this.merchant.updateApiKey(apiKey, data);
+  }
+
+  async getApiKeys() {
+    return this.merchant.getApiKeys();
   }
 
   // TRANSACTION METHODS

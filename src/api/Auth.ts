@@ -1,13 +1,6 @@
 import axios from 'axios';
 import type {
   AccessTokenResponse,
-  ChallengeResponse,
-  PasskeyRegistrationData,
-  PasskeyRegistrationResponse,
-  AuthenticatePasskeyData,
-  InitiatePasskeyRegistrationData,
-  RegisterPasskeyForExistingUserData,
-  PasskeyListResponse,
   IssueOTP,
   FarcasterJWTData,
   MessageResponse,
@@ -53,47 +46,6 @@ class Auth {
     return response.data;
   }
 
-  async generateChallenge(): Promise<ChallengeResponse> {
-    const response = await axios.get<ChallengeResponse>(
-      `${this.apiUrl}/challenge`
-    );
-    return response.data;
-  }
-
-  async registerPasskey(
-    data: PasskeyRegistrationData
-  ): Promise<PasskeyRegistrationResponse> {
-    const response = await axios.post<PasskeyRegistrationResponse>(
-      `${this.apiUrl}/passkey/register`,
-      data
-    );
-    return response.data;
-  }
-
-  async authenticatePasskey(
-    data: AuthenticatePasskeyData
-  ): Promise<PasskeyRegistrationResponse> {
-    const response = await axios.post<PasskeyRegistrationResponse>(
-      `${this.apiUrl}/passkey`,
-      data
-    );
-    return response.data;
-  }
-
-  async findPasskeysForUser(): Promise<PasskeyListResponse> {
-    const response = await axios.get<PasskeyListResponse>(
-      `${this.apiUrl}/passkey`
-    );
-    return response.data;
-  }
-
-  async removePasskey(id: number): Promise<MessageResponse> {
-    const response = await axios.delete<MessageResponse>(
-      `${this.apiUrl}/passkey/${id}`
-    );
-    return response.data;
-  }
-
   async issueOTP(data: IssueOTP): Promise<IssueOTP> {
     const response = await axios.post<IssueOTP>(
       `${this.apiUrl}/otp/issue`,
@@ -105,26 +57,6 @@ class Auth {
   async verifyOTP(data: VerifyOTP): Promise<VerifyOTP> {
     const response = await axios.post<VerifyOTP>(
       `${this.apiUrl}/otp/verify`,
-      data
-    );
-    return response.data;
-  }
-
-  async registerPasskeyForExistingUser(
-    data: RegisterPasskeyForExistingUserData
-  ): Promise<MessageResponse> {
-    const response = await axios.post<MessageResponse>(
-      `${this.apiUrl}/add`,
-      data
-    );
-    return response.data;
-  }
-
-  async initiatePasskeyRegistration(
-    data: InitiatePasskeyRegistrationData
-  ): Promise<MessageResponse> {
-    const response = await axios.post<MessageResponse>(
-      `${this.apiUrl}/add/send-token`,
       data
     );
     return response.data;
@@ -143,16 +75,6 @@ class Auth {
     const response = await axios.delete<MessageResponse>(`${this.apiUrl}/jwt`, {
       withCredentials: true,
     });
-    return response.data;
-  }
-
-  async checkAuthStatus(): Promise<{ data: true }> {
-    const response = await axios.get<{ data: true }>(
-      `${this.apiUrl}/user-status`,
-      {
-        withCredentials: true,
-      }
-    );
     return response.data;
   }
 }

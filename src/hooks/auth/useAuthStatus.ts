@@ -7,7 +7,7 @@ export const useAuthStatus = () => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await pylonInstance.checkAuthStatus();
+      const response = { data: true }; // TODO: poll local storage for auth status
       setIsAuthenticated(response.data);
     } catch (error) {
       console.error('Failed to check auth status:', error);

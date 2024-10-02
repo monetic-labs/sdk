@@ -81,6 +81,34 @@ type MerchantCreateOutput = {
   data: Compliance;
 };
 
+type ApiKeyCreateOutput = {
+  name: string;
+  key: string;
+  createdAt: string;
+  lastUsed: string | null;
+  expires: string | null;
+};
+
+type ApiKeyUpdateInput = {
+  name: string;
+  walletAddress?: string;
+  network?:
+    | 'POLYGON'
+    | 'ETHEREUM'
+    | 'ARBITRUM'
+    | 'BASE'
+    | 'SOLANA'
+    | 'OPTIMISM';
+  currency?: 'USDC' | 'USDT' | 'DAI';
+};
+
+type ApiKeyGetOutput = {
+  name: string;
+  key: string;
+  createdAt: string;
+  lastUsed: string | null;
+};
+
 export type {
   ISO3166Alpha2Country,
   ISO4217Currency,
@@ -95,4 +123,7 @@ export type {
   Compliance,
   MerchantCreateInput,
   MerchantCreateOutput,
+  ApiKeyCreateOutput,
+  ApiKeyUpdateInput,
+  ApiKeyGetOutput,
 };

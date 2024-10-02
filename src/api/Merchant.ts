@@ -1,5 +1,8 @@
 import axios from 'axios';
 import type {
+  ApiKeyCreateOutput,
+  ApiKeyGetOutput,
+  ApiKeyUpdateInput,
   MerchantCreateInput,
   MerchantCreateOutput,
 } from '@/api/_types/merchant';
@@ -19,6 +22,50 @@ class Merchant {
       data
     );
     return response.data;
+  }
+
+  async createApiKey() {
+    const response = await axios.post<{ data: ApiKeyCreateOutput }>(
+      `${this.apiUrl}/settlement/key`,
+      {},
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  async deleteApiKey(apiKey: string) {
+    const response = await axios.delete<{ data: { success: boolean } }>(
+      `${this.apiUrl}/settlement/key`,
+      {
+        withCredentials: true,
+        params: {
+          key: apiKey,
+        },
+      }
+    );
+    return response.data.data.success;
+  }
+
+  async updateApiKey(apiKey: string, data: ApiKeyUpdateInput) {
+    const response = await axios.put<{ data: { success: boolean } }>(
+      `${this.apiUrl}/settlement/key`,
+      data,
+      {
+        withCredentials: true,
+        params: {
+          key: apiKey,
+        },
+      }
+    );
+    return response.data.data.success;
+  }
+
+  async getApiKeys() {
+    const response = await axios.get<{ data: ApiKeyGetOutput[] }>(
+      `${this.apiUrl}/settlement/key`,
+      { withCredentials: true }
+    );
+    return response.data.data;
   }
 }
 
