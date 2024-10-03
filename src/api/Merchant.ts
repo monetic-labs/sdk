@@ -49,7 +49,7 @@ class Merchant {
 
   async updateApiKey(apiKey: string, data: ApiKeyUpdateInput) {
     const response = await axios.put<{ data: { success: boolean } }>(
-      `${this.apiUrl}/settlement/key${apiKey}`,
+      `${this.apiUrl}/settlement/key/${apiKey}`,
       data,
       {
         withCredentials: true,
