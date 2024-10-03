@@ -132,6 +132,8 @@ export type {
   BridgeComplianceKycStatus,
   BridgeComplianceTosStatus,
   TransferStatus,
+  Network,
+  Currency,
   Address,
   RegisteredAddress,
   BillingAddress,
