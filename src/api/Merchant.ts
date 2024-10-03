@@ -28,7 +28,7 @@ class Merchant {
 
   async createApiKey({ apiKeyName }: { apiKeyName: string }) {
     const response = await axios.post<{ data: ApiKeyCreateOutput }>(
-      `${this.apiUrl}/settlement/key${apiKeyName}`,
+      `${this.apiUrl}/settlement/key/${apiKeyName}`,
       {},
       {
         withCredentials: true,
