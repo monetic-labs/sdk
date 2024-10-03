@@ -5,6 +5,8 @@ import type {
   ApiKeyUpdateInput,
   MerchantCreateInput,
   MerchantCreateOutput,
+  MerchantSettlementAccountGetOutput,
+  MerchantSettlementAccountUpdateInput,
 } from '@/api/_types/merchant';
 
 class Merchant {
@@ -66,6 +68,22 @@ class Merchant {
       { withCredentials: true }
     );
     return response.data.data;
+  }
+
+  async getSettlementAccount() {
+    const response = await axios.get<{
+      data: MerchantSettlementAccountGetOutput;
+    }>(`${this.apiUrl}/settlement`, { withCredentials: true });
+    return response.data.data;
+  }
+
+  async updateSettlementAccount(data: MerchantSettlementAccountUpdateInput) {
+    const response = await axios.put<{ data: { success: boolean } }>(
+      `${this.apiUrl}/settlement`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data.data.success;
   }
 }
 

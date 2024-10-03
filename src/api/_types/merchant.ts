@@ -109,6 +109,27 @@ type ApiKeyGetOutput = {
   lastUsed: string | null;
 };
 
+type MerchantSettlementAccountGetOutput = {
+  walletAddress: string;
+  fee: string;
+  network: string;
+  currency: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+type MerchantSettlementAccountUpdateInput = {
+  walletAddress?: string;
+  network?:
+    | 'POLYGON'
+    | 'ETHEREUM'
+    | 'ARBITRUM'
+    | 'BASE'
+    | 'SOLANA'
+    | 'OPTIMISM';
+  currency?: 'USDC' | 'USDT' | 'DAI';
+};
+
 export type {
   ISO3166Alpha2Country,
   ISO4217Currency,
@@ -126,4 +147,6 @@ export type {
   ApiKeyCreateOutput,
   ApiKeyUpdateInput,
   ApiKeyGetOutput,
+  MerchantSettlementAccountGetOutput,
+  MerchantSettlementAccountUpdateInput,
 };
