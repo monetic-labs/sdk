@@ -26,11 +26,16 @@ class Merchant {
     return response.data;
   }
 
-  async createApiKey() {
+  async createApiKey({ apiKeyName }: { apiKeyName: string }) {
     const response = await axios.post<{ data: ApiKeyCreateOutput }>(
       `${this.apiUrl}/settlement/key`,
       {},
-      { withCredentials: true }
+      {
+        withCredentials: true,
+        params: {
+          name: apiKeyName,
+        },
+      }
     );
     return response.data.data;
   }

@@ -93,8 +93,8 @@ class Pylon {
     return this.merchant.createMerchant(data);
   }
 
-  async createApiKey() {
-    return this.merchant.createApiKey();
+  async createApiKey({ apiKeyName }: { apiKeyName: string }) {
+    return this.merchant.createApiKey({ apiKeyName });
   }
 
   async deleteApiKey(apiKey: string) {
