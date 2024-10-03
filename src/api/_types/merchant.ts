@@ -20,6 +20,14 @@ type PersonRole =
   | 'BOOKKEEPER'
   | 'ADMIN'
   | 'SUPER_ADMIN';
+type Network =
+  | 'POLYGON'
+  | 'ETHEREUM'
+  | 'ARBITRUM'
+  | 'BASE'
+  | 'SOLANA'
+  | 'OPTIMISM';
+type Currency = 'USDC' | 'USDT' | 'DAI';
 
 type Address = {
   street1: string;
@@ -92,14 +100,8 @@ type ApiKeyCreateOutput = {
 type ApiKeyUpdateInput = {
   name?: string;
   walletAddress?: string;
-  network?:
-    | 'POLYGON'
-    | 'ETHEREUM'
-    | 'ARBITRUM'
-    | 'BASE'
-    | 'SOLANA'
-    | 'OPTIMISM';
-  currency?: 'USDC' | 'USDT' | 'DAI';
+  network?: Network;
+  currency?: Currency;
 };
 
 type ApiKeyGetOutput = {
@@ -112,22 +114,16 @@ type ApiKeyGetOutput = {
 type MerchantSettlementAccountGetOutput = {
   walletAddress: string;
   fee: string;
-  network: string;
-  currency: string;
-  createdAt: Date;
-  updatedAt: Date;
+  network: Network;
+  currency: Currency;
+  createdAt: string;
+  updatedAt: string;
 };
 
 type MerchantSettlementAccountUpdateInput = {
   walletAddress?: string;
-  network?:
-    | 'POLYGON'
-    | 'ETHEREUM'
-    | 'ARBITRUM'
-    | 'BASE'
-    | 'SOLANA'
-    | 'OPTIMISM';
-  currency?: 'USDC' | 'USDT' | 'DAI';
+  network?: Network;
+  currency?: Currency;
 };
 
 export type {
