@@ -28,13 +28,10 @@ class Merchant {
 
   async createApiKey({ apiKeyName }: { apiKeyName: string }) {
     const response = await axios.post<{ data: ApiKeyCreateOutput }>(
-      `${this.apiUrl}/settlement/key`,
+      `${this.apiUrl}/settlement/key${apiKeyName}`,
       {},
       {
         withCredentials: true,
-        params: {
-          name: apiKeyName,
-        },
       }
     );
     return response.data.data;
@@ -42,12 +39,9 @@ class Merchant {
 
   async deleteApiKey(apiKey: string) {
     const response = await axios.delete<{ data: { success: boolean } }>(
-      `${this.apiUrl}/settlement/key`,
+      `${this.apiUrl}/settlement/key/${apiKey}`,
       {
         withCredentials: true,
-        params: {
-          key: apiKey,
-        },
       }
     );
     return response.data.data.success;
@@ -55,13 +49,10 @@ class Merchant {
 
   async updateApiKey(apiKey: string, data: ApiKeyUpdateInput) {
     const response = await axios.put<{ data: { success: boolean } }>(
-      `${this.apiUrl}/settlement/key`,
+      `${this.apiUrl}/settlement/key${apiKey}`,
       data,
       {
         withCredentials: true,
-        params: {
-          key: apiKey,
-        },
       }
     );
     return response.data.data.success;
