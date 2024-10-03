@@ -8,6 +8,7 @@ import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
 import type {
   ApiKeyUpdateInput,
   MerchantCreateInput,
+  MerchantSettlementAccountUpdateInput,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -106,6 +107,14 @@ class Pylon {
 
   async getApiKeys() {
     return this.merchant.getApiKeys();
+  }
+
+  async getSettlementAccount() {
+    return this.merchant.getSettlementAccount();
+  }
+
+  async updateSettlementAccount(data: MerchantSettlementAccountUpdateInput) {
+    return this.merchant.updateSettlementAccount(data);
   }
 
   // TRANSACTION METHODS
