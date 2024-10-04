@@ -15,6 +15,8 @@ import type {
   MerchantSettlementAccountUpdateInput,
   MerchantVirtualCardCreateInput,
   MerchantRainCompanyUpdateInput,
+  MerchantUserCreateInput,
+  MerchantUserUpdateInput,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -157,6 +159,22 @@ class Pylon {
 
   async getCardCompanyStatus() {
     return this.merchant.getCardCompanyStatus();
+  }
+
+  async getUsers() {
+    return this.merchant.getUsers();
+  }
+
+  async createUser(data: MerchantUserCreateInput) {
+    return this.merchant.createUser(data);
+  }
+
+  async updateUser(userId: string, data: MerchantUserUpdateInput) {
+    return this.merchant.updateUser(userId, data);
+  }
+
+  async deleteUser(userId: string) {
+    return this.merchant.deleteUser(userId);
   }
 
   // TRANSACTION METHODS

@@ -393,6 +393,39 @@ type MerchantRainCompanyStatusOutput = {
   applicationStatus: CardCompanyStatus;
 };
 
+type MerchantUserGetOutput = {
+  firstName: string;
+  lastName: string;
+  role: string;
+  user: {
+    id: string;
+    email: string;
+    phone: string | null;
+    walletAddress: string | null;
+    username: string | null;
+  };
+}[];
+
+type MerchantUserCreateInput = {
+  firstName: string;
+  lastName: string;
+  role: string;
+  email: string;
+  walletAddress: string;
+  phone: string;
+  username: string;
+};
+
+type MerchantUserUpdateInput = {
+  firstName: string;
+  lastName: string;
+  role: string;
+  email: string;
+  walletAddress: string;
+  phone: string;
+  username: string;
+};
+
 export type {
   ISO3166Alpha2Country,
   ISO4217Currency,
@@ -436,4 +469,7 @@ export type {
   MerchantRainCompanyUpdateInput,
   MerchantRainCompanyUpdateOutput,
   MerchantRainCompanyStatusOutput,
+  MerchantUserCreateInput,
+  MerchantUserGetOutput,
+  MerchantUserUpdateInput,
 };

@@ -18,6 +18,9 @@ import type {
   MerchantRainCompanyUpdateOutput,
   MerchantSettlementAccountGetOutput,
   MerchantSettlementAccountUpdateInput,
+  MerchantUserCreateInput,
+  MerchantUserGetOutput,
+  MerchantUserUpdateInput,
   MerchantVirtualCardCreateInput,
   MerchantVirtualCardCreateOutput,
   MerchantVirtualCardDecryptOutput,
@@ -34,7 +37,7 @@ class Merchant {
     data: MerchantCreateInput
   ): Promise<MerchantCreateOutput> {
     const response = await axios.post<MerchantCreateOutput>(
-      `${this.apiUrl}/create`,
+      `${this.apiUrl}/`,
       data
     );
     return response.data;
@@ -188,6 +191,36 @@ class Merchant {
       data: MerchantRainCompanyStatusOutput;
     }>(`${this.apiUrl}/company/rain`, { withCredentials: true });
     return response.data.data;
+  }
+
+  // USER SERVICE
+
+  async getUsers() {
+    const response = await axios.get<{
+      data: MerchantUserGetOutput[];
+    }>(`${this.apiUrl}/users`, { withCredentials: true });
+    return response.data.data;
+  }
+
+  async createUser(data: MerchantUserCreateInput) {
+    const response = await axios.post<{
+      data: MerchantUserGetOutput;
+    }>(`${this.apiUrl}/users`, data, { withCredentials: true });
+    return response.data.data;
+  }
+
+  async updateUser(userId: string, data: MerchantUserUpdateInput) {
+    const response = await axios.put<{
+      data: MerchantUserGetOutput;
+    }>(`${this.apiUrl}/users/${userId}`, data, { withCredentials: true });
+    return response.data.data;
+  }
+
+  async deleteUser(userId: string) {
+    const response = await axios.delete<{
+      data: { success: boolean };
+    }>(`${this.apiUrl}/users/${userId}`, { withCredentials: true });
+    return response.data.data.success;
   }
 }
 
