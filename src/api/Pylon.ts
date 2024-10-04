@@ -7,8 +7,14 @@ import type { FarcasterJWTData, IssueOTP, VerifyOTP } from '@/api/_types/auth';
 import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
 import type {
   ApiKeyUpdateInput,
+  MerchantCardGetInput,
+  MerchantCardTransactionGetInput,
   MerchantCreateInput,
+  MerchantRainCompanyCreateInput,
+  MerchantPhysicalCardCreateInput,
   MerchantSettlementAccountUpdateInput,
+  MerchantVirtualCardCreateInput,
+  MerchantRainCompanyUpdateInput,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -115,6 +121,42 @@ class Pylon {
 
   async updateSettlementAccount(data: MerchantSettlementAccountUpdateInput) {
     return this.merchant.updateSettlementAccount(data);
+  }
+
+  async createPhysicalCard(data: MerchantPhysicalCardCreateInput) {
+    return this.merchant.createPhysicalCard(data);
+  }
+
+  async createVirtualCard(data: MerchantVirtualCardCreateInput) {
+    return this.merchant.createVirtualCard(data);
+  }
+
+  async decryptVirtualCard(cardId: string) {
+    return this.merchant.decryptVirtualCard(cardId);
+  }
+
+  async getCards(queryParams: MerchantCardGetInput) {
+    return this.merchant.getCards(queryParams);
+  }
+
+  async getCardTransactions(queryParams: MerchantCardTransactionGetInput) {
+    return this.merchant.getCardTransactions(queryParams);
+  }
+
+  async applyCardCompany(body: MerchantRainCompanyCreateInput) {
+    return this.merchant.applyCardCompany(body);
+  }
+
+  async updateCardCompany(body: MerchantRainCompanyUpdateInput) {
+    return this.merchant.updateCardCompany(body);
+  }
+
+  async uploadCardCompanyDocs(file: File) {
+    return this.merchant.uploadCardCompanyDocs(file);
+  }
+
+  async getCardCompanyStatus() {
+    return this.merchant.getCardCompanyStatus();
   }
 
   // TRANSACTION METHODS

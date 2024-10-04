@@ -3,10 +3,24 @@ import type {
   ApiKeyCreateOutput,
   ApiKeyGetOutput,
   ApiKeyUpdateInput,
+  MerchantCardGetInput,
+  MerchantCardGetOutput,
+  MerchantCardTransactionGetInput,
+  MerchantCardTransactionGetOutput,
   MerchantCreateInput,
   MerchantCreateOutput,
+  MerchantPhysicalCardCreateInput,
+  MerchantPhysicalCardCreateOutput,
+  MerchantRainCompanyCreateInput,
+  MerchantRainCompanyCreateOutput,
+  MerchantRainCompanyStatusOutput,
+  MerchantRainCompanyUpdateInput,
+  MerchantRainCompanyUpdateOutput,
   MerchantSettlementAccountGetOutput,
   MerchantSettlementAccountUpdateInput,
+  MerchantVirtualCardCreateInput,
+  MerchantVirtualCardCreateOutput,
+  MerchantVirtualCardDecryptOutput,
 } from '@/api/_types/merchant';
 
 class Merchant {
@@ -80,6 +94,100 @@ class Merchant {
       { withCredentials: true }
     );
     return response.data.data.success;
+  }
+
+  // RAIN CARDS
+
+  async createPhysicalCard(body: MerchantPhysicalCardCreateInput) {
+    const response = await axios.post<{
+      data: MerchantPhysicalCardCreateOutput;
+    }>(`${this.apiUrl}/card/rain/physical`, body, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async createVirtualCard(body: MerchantVirtualCardCreateInput) {
+    const response = await axios.post<{
+      data: MerchantVirtualCardCreateOutput;
+    }>(`${this.apiUrl}/card/rain/virtual`, body, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async decryptVirtualCard(cardId: string) {
+    const response = await axios.post<{
+      data: MerchantVirtualCardDecryptOutput;
+    }>(
+      `${this.apiUrl}/card/rain/${cardId}/decrypt`,
+      {},
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  async getCards(queryParams: MerchantCardGetInput) {
+    const response = await axios.get<{ data: MerchantCardGetOutput }>(
+      `${this.apiUrl}/cards`,
+      { params: queryParams, withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  async getCardTransactions(queryParams: MerchantCardTransactionGetInput) {
+    const response = await axios.get<{
+      data: MerchantCardTransactionGetOutput;
+    }>(`${this.apiUrl}/cards/transactions`, {
+      params: queryParams,
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  // RAIN COMPANY
+
+  async applyCardCompany(body: MerchantRainCompanyCreateInput) {
+    const response = await axios.post<{
+      data: MerchantRainCompanyCreateOutput;
+    }>(`${this.apiUrl}/company/rain`, body, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async reapplyCardCompany(body: MerchantRainCompanyCreateInput) {
+    const response = await axios.put<{
+      data: MerchantRainCompanyCreateOutput;
+    }>(`${this.apiUrl}/company/rain`, body, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async updateCardCompany(body: MerchantRainCompanyUpdateInput) {
+    const response = await axios.put<{
+      data: MerchantRainCompanyUpdateOutput;
+    }>(`${this.apiUrl}/company/rain`, body, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async uploadCardCompanyDocs(file: File) {
+    const response = await axios.post<{
+      data: { success: boolean };
+    }>(`${this.apiUrl}/company/rain/upload`, file, {
+      withCredentials: true,
+    });
+    return response.data.data.success;
+  }
+
+  async getCardCompanyStatus() {
+    const response = await axios.get<{
+      data: MerchantRainCompanyStatusOutput;
+    }>(`${this.apiUrl}/company/rain`, { withCredentials: true });
+    return response.data.data;
   }
 }
 
