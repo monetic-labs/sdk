@@ -394,22 +394,20 @@ type MerchantRainCompanyStatusOutput = {
 };
 
 type MerchantUserGetOutput = {
+  id: string;
   firstName: string;
   lastName: string;
-  role: string;
-  user: {
-    id: string;
-    email: string;
-    phone: string | null;
-    walletAddress: string | null;
-    username: string | null;
-  };
+  role: PersonRole;
+  email: string;
+  phone: string | null;
+  walletAddress: string | null;
+  username: string | null;
 };
 
 type MerchantUserCreateInput = {
   firstName: string;
   lastName: string;
-  role: string;
+  role: PersonRole;
   email: string;
   walletAddress: string;
   phone: string;
@@ -419,7 +417,7 @@ type MerchantUserCreateInput = {
 type MerchantUserUpdateInput = {
   firstName: string;
   lastName: string;
-  role: string;
+  role: PersonRole;
   email: string;
   walletAddress: string;
   phone: string;
