@@ -432,6 +432,7 @@ export type {
   TransferStatus,
   Network,
   Currency,
+  PersonRole,
   Address,
   RegisteredAddress,
   BillingAddress,
