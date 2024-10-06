@@ -404,7 +404,7 @@ type MerchantUserGetOutput = {
     walletAddress: string | null;
     username: string | null;
   };
-}[];
+};
 
 type MerchantUserCreateInput = {
   firstName: string;
