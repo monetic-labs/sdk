@@ -130,24 +130,39 @@ type TransactionListItem = {
   transactionStatusHistory: TransactionStatusHistory[];
 };
 
+type TransactionListPagination = {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  startCursor: string;
+  endCursor: string;
+};
+
 type SSEEvent =
-  | { type: 'INITIAL_LIST'; data: TransactionListItem[] }
+  | {
+      type: 'INITIAL_LIST';
+      data: {
+        transactions: TransactionListItem[];
+        meta: TransactionListPagination;
+      };
+    }
   | { type: 'TRANSACTION_UPDATED'; data: TransactionListItem }
-  | { type: 'error'; message: string }
   | { type: 'KEEP_ALIVE' };
 
-type TransactionListOutput = {
-  type: 'INITIAL_LIST' | 'TRANSACTION_UPDATED' | 'KEEP_ALIVE';
-  data: {
-    transactions: TransactionListItem[] | TransactionListItem;
-    meta: {
-      hasNextPage: boolean;
-      hasPreviousPage: boolean;
-      startCursor: string;
-      endCursor: string;
+type TransactionListOutput =
+  | {
+      type: 'INITIAL_LIST';
+      data: {
+        transactions: TransactionListItem[] | TransactionListItem;
+        meta: TransactionListPagination;
+      };
+    }
+  | {
+      type: 'TRANSACTION_UPDATED';
+      data: TransactionListItem;
+    }
+  | {
+      type: 'KEEP_ALIVE';
     };
-  };
-};
 
 type TransactionProcessRefundInput = {
   transactionId: string;
@@ -225,6 +240,7 @@ export type {
   TransactionListStatus,
   TransactionListOutput,
   SSEEvent,
+  TransactionListPagination,
   TransactionProcessRefundInput,
   TransactionProcessRefundOutput,
   GetOrderLinksOutput,
