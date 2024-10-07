@@ -137,22 +137,11 @@ type TransactionListPagination = {
   endCursor: string;
 };
 
-type SSEEvent =
-  | {
-      type: 'INITIAL_LIST';
-      data: {
-        transactions: TransactionListItem[];
-        meta: TransactionListPagination;
-      };
-    }
-  | { type: 'TRANSACTION_UPDATED'; data: TransactionListItem }
-  | { type: 'KEEP_ALIVE' };
-
 type TransactionListOutput =
   | {
       type: 'INITIAL_LIST';
       data: {
-        transactions: TransactionListItem[] | TransactionListItem;
+        transactions: TransactionListItem[];
         meta: TransactionListPagination;
       };
     }
@@ -239,7 +228,6 @@ export type {
   TransactionListItem,
   TransactionListStatus,
   TransactionListOutput,
-  SSEEvent,
   TransactionListPagination,
   TransactionProcessRefundInput,
   TransactionProcessRefundOutput,
