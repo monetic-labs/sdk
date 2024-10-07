@@ -399,9 +399,9 @@ type MerchantUserGetOutput = {
   lastName: string;
   role: PersonRole;
   email: string;
-  phone: string | null;
-  walletAddress: string | null;
-  username: string | null;
+  phone?: string;
+  walletAddress?: string;
+  username?: string;
 };
 
 type MerchantUserCreateInput = {
@@ -409,19 +409,19 @@ type MerchantUserCreateInput = {
   lastName: string;
   role: PersonRole;
   email: string;
-  walletAddress: string;
-  phone: string;
-  username: string;
+  walletAddress?: string;
+  phone?: string;
+  username?: string;
 };
 
 type MerchantUserUpdateInput = {
-  firstName: string;
-  lastName: string;
-  role: PersonRole;
-  email: string;
-  walletAddress: string;
-  phone: string;
-  username: string;
+  firstName?: string;
+  lastName?: string;
+  role?: PersonRole;
+  email?: string;
+  walletAddress?: string;
+  phone?: string;
+  username?: string;
 };
 
 export type {
