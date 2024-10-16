@@ -391,6 +391,18 @@ type MerchantRainCompanyUpdateOutput = {
 type MerchantRainCompanyStatusOutput = {
   id: string;
   applicationStatus: CardCompanyStatus;
+  applicationExternalVerificationLink: {
+    url: string;
+    params: {
+      userId: string;
+    };
+  };
+  applicationCompletionLink: {
+    url: string;
+    params: {
+      userId: string;
+    };
+  };
 };
 
 type MerchantUserGetOutput = {
