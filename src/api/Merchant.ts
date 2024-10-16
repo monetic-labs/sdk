@@ -189,7 +189,7 @@ class Merchant {
   async getCardCompanyStatus() {
     const response = await axios.get<{
       data: MerchantRainCompanyStatusOutput;
-    }>(`${this.apiUrl}/company/rain`, { withCredentials: true });
+    }>(`${this.apiUrl}/company/rain/status`, { withCredentials: true });
     return response.data.data;
   }
 
