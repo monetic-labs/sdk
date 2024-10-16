@@ -58,6 +58,15 @@ type CardCompanyStatus =
   | 'denied'
   | 'locked'
   | 'canceled';
+type CardCompanyType =
+  | 'sole_proprietorship'
+  | 'llc'
+  | 'c_corp'
+  | 's_corp'
+  | 'partnership'
+  | 'lp'
+  | 'llp'
+  | 'nonprofit';
 
 type RainAddress = {
   line1: string;
@@ -69,7 +78,7 @@ type RainAddress = {
   country: string;
 };
 type RainPerson = {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   birthDate: string;
@@ -82,16 +91,14 @@ type RainInitialUser = RainPerson & {
   isTermsOfServiceAccepted: boolean;
   role?: string;
   walletAddress?: string;
-  ipAddress: string;
-  iovationBlackbox: string;
 };
 type RainEntity = {
   name: string;
-  type: string;
-  description: string;
+  type?: CardCompanyType;
+  description?: string;
   taxId: string;
   website: string;
-  expectedSpend: string;
+  expectedSpend?: string;
 };
 
 type Address = {
@@ -351,8 +358,6 @@ type MerchantRainCompanyCreateInput = {
   address: RainAddress;
   entity: RainEntity;
   name: string;
-  chainId: string;
-  contractAddress: string;
   representatives: RainPerson[];
   ultimateBeneficialOwners: RainPerson[];
 };
@@ -466,6 +471,7 @@ export type {
   CardShippingMethod,
   CardShippingDetails,
   CardCompanyStatus,
+  CardCompanyType,
   MerchantVirtualCardCreateInput,
   MerchantVirtualCardCreateOutput,
   MerchantVirtualCardDecryptOutput,
