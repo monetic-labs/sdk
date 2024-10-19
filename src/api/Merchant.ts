@@ -9,6 +9,10 @@ import type {
   MerchantCardTransactionGetOutput,
   MerchantCreateInput,
   MerchantCreateOutput,
+  MerchantDisbursementCreateInput,
+  MerchantDisbursementCreateOutput,
+  MerchantDisbursementUpdateOutput,
+  MerchantDisbursementUpdateInput,
   MerchantPhysicalCardCreateInput,
   MerchantPhysicalCardCreateOutput,
   MerchantRainCompanyCreateInput,
@@ -221,6 +225,27 @@ class Merchant {
       data: { success: boolean };
     }>(`${this.apiUrl}/users/${userId}`, { withCredentials: true });
     return response.data.data.success;
+  }
+
+  // DISBURSEMENT
+
+  async initiateNewDisbursement(data: MerchantDisbursementCreateInput) {
+    const response = await axios.post<{
+      data: MerchantDisbursementCreateOutput;
+    }>(`${this.apiUrl}/disbursement`, data, { withCredentials: true });
+    return response.data.data;
+  }
+
+  async initiateExistingDisbursement(
+    disbursementId: string,
+    data: MerchantDisbursementUpdateInput
+  ) {
+    const response = await axios.put<{
+      data: MerchantDisbursementUpdateOutput;
+    }>(`${this.apiUrl}/disbursement/${disbursementId}`, data, {
+      withCredentials: true,
+    });
+    return response.data.data;
   }
 }
 

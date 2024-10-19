@@ -1,72 +1,30 @@
-type SortOrder = 'asc' | 'desc';
+import {
+  SortOrder,
+  ISO3166Alpha2Country,
+  BridgeComplianceKycStatus,
+  BridgeComplianceTosStatus,
+  PersonRole,
+  Network,
+  StableCurrency,
+  FiatCurrency,
+  CardType,
+  CardStatus,
+  CardTransactionStatus,
+  CardProvider,
+  CardLimitFrequency,
+  CardShippingMethod,
+  CardCompanyStatus,
+  CardCompanyType,
+  DisbursementMethod,
+  DisbursementContactType,
+} from '../_enums/merchant';
+
 type Pagination = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   startCursor: string;
   endCursor: string;
 };
-
-type ISO3166Alpha2Country = 'GB' | 'US' | 'FR' | 'DE'; // Add more as needed
-type ISO4217Currency = 'USD'; // Add more as needed
-type BridgeComplianceKycStatus =
-  | 'approved'
-  | 'rejected'
-  | 'pending'
-  | 'not_started'
-  | 'incomplete'
-  | 'awaiting_ubo'
-  | 'manual_review'
-  | 'under_review'
-  | 'approved'
-  | 'rejected';
-type BridgeComplianceTosStatus = 'accepted' | 'pending';
-
-type TransferStatus = 'PENDING' | 'COMPLETED' | 'FAILED';
-type PersonRole =
-  | 'MEMBER'
-  | 'DEVELOPER'
-  | 'BOOKKEEPER'
-  | 'ADMIN'
-  | 'SUPER_ADMIN';
-type Network =
-  | 'POLYGON'
-  | 'ETHEREUM'
-  | 'ARBITRUM'
-  | 'BASE'
-  | 'SOLANA'
-  | 'OPTIMISM';
-type Currency = 'USDC' | 'USDT' | 'DAI';
-
-type CardType = 'VIRTUAL' | 'PHYSICAL';
-type CardStatus = 'ACTIVE' | 'LOCKED' | 'CANCELLED' | 'NOT_ACTIVATED';
-type CardTransactionStatus = 'REVERSED' | 'PENDING' | 'COMPLETED' | 'DECLINED';
-type CardProvider = 'RAIN';
-type CardLimitFrequency =
-  | 'DAY'
-  | 'WEEK'
-  | 'MONTH'
-  | 'YEAR'
-  | 'ALL_TIME'
-  | 'PER_AUTHORIZATION';
-type CardShippingMethod = 'STANDARD' | 'EXPRESS' | 'INTERNATIONAL';
-type CardCompanyStatus =
-  | 'approved'
-  | 'pending'
-  | 'needsInformation'
-  | 'needsVerification'
-  | 'manualReview'
-  | 'denied'
-  | 'locked'
-  | 'canceled';
-type CardCompanyType =
-  | 'sole_proprietorship'
-  | 'llc'
-  | 'c_corp'
-  | 's_corp'
-  | 'partnership'
-  | 'lp'
-  | 'llp'
-  | 'nonprofit';
 
 type RainAddress = {
   line1: string;
@@ -173,7 +131,7 @@ type ApiKeyUpdateInput = {
   name?: string;
   walletAddress?: string;
   network?: Network;
-  currency?: Currency;
+  currency?: StableCurrency;
 };
 
 type ApiKeyGetOutput = {
@@ -187,7 +145,7 @@ type MerchantSettlementAccountGetOutput = {
   walletAddress: string;
   fee: string;
   network: Network;
-  currency: Currency;
+  currency: StableCurrency;
   createdAt: string;
   updatedAt: string;
 };
@@ -195,7 +153,7 @@ type MerchantSettlementAccountGetOutput = {
 type MerchantSettlementAccountUpdateInput = {
   walletAddress?: string;
   network?: Network;
-  currency?: Currency;
+  currency?: StableCurrency;
 };
 
 type CardShippingDetails = {
@@ -441,15 +399,71 @@ type MerchantUserUpdateInput = {
   username?: string;
 };
 
+type MerchantDisbursementCreateInput = {
+  account_owner_name: string;
+  bank_name: string;
+  account: {
+    account_number: string;
+    routing_number: string;
+  };
+  address: Address;
+  chain: Network;
+  currency: StableCurrency;
+  return_address: string;
+  amount: number;
+  destination: {
+    payment_rail: DisbursementMethod;
+    currency: FiatCurrency;
+    wire_message?: string;
+    ach_reference?: string;
+  };
+};
+
+type MerchantDisbursementCreateOutput = {
+  id: string;
+  addressId: string;
+  beneficiaryAddressId: string;
+  contactType: DisbursementContactType;
+  chainId: Network;
+  stableCurrency: StableCurrency;
+  liquidationChainId: Network;
+  liquidationStableCurrency: StableCurrency;
+  liquidationContractAddress: string;
+  routingNumber: string;
+  accountNumber: string;
+  accountOwnerName: string;
+  bankName: string;
+  fiatCurrency: FiatCurrency;
+  method: DisbursementMethod;
+  nickname?: string;
+  returnAddress: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type MerchantDisbursementUpdateInput = {
+  amount?: number;
+  returnAddress?: string;
+  nickname?: string;
+};
+
+type MerchantDisbursementUpdateOutput = {
+  id: string;
+  contactId: string;
+  liquidationContractAddress: string;
+  liquidationChainId: Network;
+  liquidationStableCurrency: StableCurrency;
+  destinationWireMessage?: string;
+  destinationAchReference?: string;
+  developerFeePercent?: string;
+  returnAddress: string;
+  updatedAt: string;
+  createdAt: string;
+};
+
 export type {
-  ISO3166Alpha2Country,
-  ISO4217Currency,
-  BridgeComplianceKycStatus,
-  BridgeComplianceTosStatus,
-  TransferStatus,
-  Network,
-  Currency,
-  PersonRole,
+  Pagination,
   Address,
   RegisteredAddress,
   BillingAddress,
@@ -463,15 +477,6 @@ export type {
   ApiKeyGetOutput,
   MerchantSettlementAccountGetOutput,
   MerchantSettlementAccountUpdateInput,
-  CardType,
-  CardStatus,
-  CardTransactionStatus,
-  CardProvider,
-  CardLimitFrequency,
-  CardShippingMethod,
-  CardShippingDetails,
-  CardCompanyStatus,
-  CardCompanyType,
   MerchantVirtualCardCreateInput,
   MerchantVirtualCardCreateOutput,
   MerchantVirtualCardDecryptOutput,
@@ -489,4 +494,8 @@ export type {
   MerchantUserCreateInput,
   MerchantUserGetOutput,
   MerchantUserUpdateInput,
+  MerchantDisbursementCreateInput,
+  MerchantDisbursementCreateOutput,
+  MerchantDisbursementUpdateInput,
+  MerchantDisbursementUpdateOutput,
 };

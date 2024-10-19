@@ -17,6 +17,8 @@ import type {
   MerchantRainCompanyUpdateInput,
   MerchantUserCreateInput,
   MerchantUserUpdateInput,
+  MerchantDisbursementUpdateInput,
+  MerchantDisbursementCreateInput,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -175,6 +177,17 @@ class Pylon {
 
   async deleteUser(userId: string) {
     return this.merchant.deleteUser(userId);
+  }
+
+  async initiateNewDisbursement(data: MerchantDisbursementCreateInput) {
+    return this.merchant.initiateNewDisbursement(data);
+  }
+
+  async initiateExistingDisbursement(
+    disbursementId: string,
+    data: MerchantDisbursementUpdateInput
+  ) {
+    return this.merchant.initiateExistingDisbursement(disbursementId, data);
   }
 
   // TRANSACTION METHODS
