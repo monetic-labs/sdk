@@ -17,6 +17,8 @@ import {
   CardCompanyType,
   DisbursementMethod,
   DisbursementContactType,
+  DisbursementState,
+  DisbursementProvider,
 } from '../_enums/merchant';
 
 type Pagination = {
@@ -462,6 +464,51 @@ type MerchantDisbursementUpdateOutput = {
   createdAt: string;
 };
 
+type MerchantDisbursementGetOutput = {
+  id: string;
+  contactId: string;
+  amountIn: string;
+  amountOut: string;
+  fee: string;
+  currencyIn: StableCurrency;
+  currencyOut: FiatCurrency;
+  state: DisbursementState;
+  provider: DisbursementProvider;
+  depositTxHash: string;
+  achReference?: string;
+  wireMessage?: string;
+  traceNumber?: string;
+  imad?: string;
+  exchangeRate?: string;
+  returnReason?: string;
+  createdAt: string;
+  updatedAt: string;
+  contact: MerchantDisbursementCreateOutput;
+};
+
+type MerchantDisbursementGetAllOutput = {
+  disbursements: MerchantDisbursementGetOutput[];
+  meta: Pagination;
+};
+
+type MerchantDisbursementGetAllInput = {
+  limit?: number;
+  before?: string;
+  after?: string;
+};
+
+type MerchantDisbursementContactGetAllInput = {
+  search?: string;
+  limit?: number;
+  before?: string;
+  after?: string;
+};
+
+type MerchantDisbursementContactGetOutput = {
+  contacts: MerchantDisbursementCreateOutput[];
+  meta: Pagination;
+};
+
 export type {
   Pagination,
   Address,
@@ -498,4 +545,8 @@ export type {
   MerchantDisbursementCreateOutput,
   MerchantDisbursementUpdateInput,
   MerchantDisbursementUpdateOutput,
+  MerchantDisbursementGetAllInput,
+  MerchantDisbursementGetAllOutput,
+  MerchantDisbursementContactGetAllInput,
+  MerchantDisbursementContactGetOutput,
 };

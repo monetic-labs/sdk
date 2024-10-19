@@ -28,6 +28,10 @@ import type {
   MerchantVirtualCardCreateInput,
   MerchantVirtualCardCreateOutput,
   MerchantVirtualCardDecryptOutput,
+  MerchantDisbursementGetAllOutput,
+  MerchantDisbursementGetAllInput,
+  MerchantDisbursementContactGetAllInput,
+  MerchantDisbursementContactGetOutput,
 } from '@/api/_types/merchant';
 
 class Merchant {
@@ -241,6 +245,28 @@ class Merchant {
     const response = await axios.put<{
       data: MerchantDisbursementUpdateOutput;
     }>(`${this.apiUrl}/disbursement/${disbursementId}`, data, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async getDisbursements(queryParams: MerchantDisbursementGetAllInput) {
+    const response = await axios.get<{
+      data: MerchantDisbursementGetAllOutput;
+    }>(`${this.apiUrl}/disbursement`, {
+      params: queryParams,
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async getDisbursementContacts(
+    queryParams: MerchantDisbursementContactGetAllInput
+  ) {
+    const response = await axios.get<{
+      data: MerchantDisbursementContactGetOutput;
+    }>(`${this.apiUrl}/disbursement/contacts`, {
+      params: queryParams,
       withCredentials: true,
     });
     return response.data.data;
