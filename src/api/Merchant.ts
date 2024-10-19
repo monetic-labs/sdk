@@ -124,13 +124,11 @@ class Merchant {
   }
 
   async decryptVirtualCard(cardId: string) {
-    const response = await axios.post<{
+    const response = await axios.get<{
       data: MerchantVirtualCardDecryptOutput;
-    }>(
-      `${this.apiUrl}/cards/rain/${cardId}/decrypt`,
-      {},
-      { withCredentials: true }
-    );
+    }>(`${this.apiUrl}/cards/rain/${cardId}/decrypt`, {
+      withCredentials: true,
+    });
     return response.data.data;
   }
 
