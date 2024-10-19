@@ -108,7 +108,7 @@ class Merchant {
   async createPhysicalCard(body: MerchantPhysicalCardCreateInput) {
     const response = await axios.post<{
       data: MerchantPhysicalCardCreateOutput;
-    }>(`${this.apiUrl}/card/rain/physical`, body, {
+    }>(`${this.apiUrl}/cards/rain/physical`, body, {
       withCredentials: true,
     });
     return response.data.data;
@@ -117,7 +117,7 @@ class Merchant {
   async createVirtualCard(body: MerchantVirtualCardCreateInput) {
     const response = await axios.post<{
       data: MerchantVirtualCardCreateOutput;
-    }>(`${this.apiUrl}/card/rain/virtual`, body, {
+    }>(`${this.apiUrl}/cards/rain/virtual`, body, {
       withCredentials: true,
     });
     return response.data.data;
@@ -127,7 +127,7 @@ class Merchant {
     const response = await axios.post<{
       data: MerchantVirtualCardDecryptOutput;
     }>(
-      `${this.apiUrl}/card/rain/${cardId}/decrypt`,
+      `${this.apiUrl}/cards/rain/${cardId}/decrypt`,
       {},
       { withCredentials: true }
     );
