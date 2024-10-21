@@ -150,6 +150,8 @@ type MerchantCreateInput = {
   walletAddress: string;
   company: Company;
   representatives: Representative[];
+  bridgeCustomerId: string;
+  rainCompanyId: string;
   compliance?: {
     bridgeCustomerId: string;
     bridgeComplianceId: string;
@@ -273,6 +275,48 @@ type MerchantPhysicalCardCreateOutput = {
   limitFrequency: CardLimitFrequency;
 };
 
+type MerchantCard = {
+  id: string;
+  displayName: string;
+  lastFour: string;
+  expirationMonth: string;
+  expirationYear: string;
+  status: CardStatus;
+  createdAt: string;
+  cardOwner: MerchantCardOwner;
+  cardShippingDetails?: CardShippingDetails;
+};
+
+type MerchantCardOwner = {
+  id: bigint;
+  rainId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  version: number;
+};
+
+type MerchantCardTransaction = {
+  id: string;
+  providerTransactionId: string;
+  version: number;
+  createdAt: string;
+  updatedAt: string;
+  status: CardTransactionStatus;
+  amount: number;
+  currency: string;
+  localAmount: number;
+  localCurrency: string;
+  authorizedAmount: number;
+  merchantName: string;
+  merchantCity: string | null;
+  merchantCountry: string | null;
+  merchantCategory: string | null;
+  merchantCategoryCode: string | null;
+  merchant: MerchantCreateInput;
+  merchantCard: MerchantCard;
+};
+
 type MerchantCardGetInput = {
   cardId?: string;
   status?: CardTransactionStatus;
@@ -289,21 +333,7 @@ type MerchantCardGetInput = {
 };
 
 type MerchantCardGetOutput = {
-  cards: {
-    id: string;
-    displayName: string;
-    lastFour: string;
-    expirationMonth: string;
-    expirationYear: string;
-    status: CardStatus;
-    createdAt: string;
-    cardOwner: {
-      firstName: string;
-      lastName: string;
-      email: string;
-    };
-    cardShippingDetails: null;
-  }[];
+  cards: MerchantCard[];
   meta: Pagination;
 };
 
@@ -323,33 +353,7 @@ type MerchantCardTransactionGetInput = {
 };
 
 type MerchantCardTransactionGetOutput = {
-  transactions: {
-    id: string;
-    providerTransactionId: string;
-    version: number;
-    createdAt: string;
-    updatedAt: string;
-    status: CardTransactionStatus;
-    amount: number;
-    currency: string;
-    localAmount: number;
-    localCurrency: string;
-    authorizedAmount: number;
-    merchantName: string;
-    merchantCity: string | null;
-    merchantCountry: string | null;
-    merchantCategory: string | null;
-    merchantCategoryCode: string | null;
-    merchant: {
-      bridgeCustomerId: string;
-      rainCompanyId: string;
-    };
-    merchantCard: {
-      id: string;
-      providerCardId: string;
-      cardOwnerId: string;
-    };
-  }[];
+  transactions: MerchantCardTransaction[];
   meta: Pagination;
 };
 
@@ -363,9 +367,7 @@ type MerchantRainCompanyCreateInput = {
 };
 
 type MerchantRainCompanyCreateOutput = {
-  merchant: {
-    rainCompanyId: string;
-  };
+  merchant: MerchantCreateInput;
   provider: string;
   status: string;
   createdAt: string;
@@ -384,9 +386,7 @@ type MerchantRainCompanyUpdateInput = {
 };
 
 type MerchantRainCompanyUpdateOutput = {
-  merchant: {
-    rainCompanyId: string;
-  };
+  merchant: MerchantCreateInput;
   provider: string;
   status: string;
   createdAt: string;
@@ -472,6 +472,8 @@ export type {
   CardShippingDetails,
   CardCompanyStatus,
   CardCompanyType,
+  MerchantCardOwner,
+  MerchantCardTransaction,
   MerchantVirtualCardCreateInput,
   MerchantVirtualCardCreateOutput,
   MerchantVirtualCardDecryptOutput,
