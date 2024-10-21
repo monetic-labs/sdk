@@ -1,4 +1,5 @@
-import { BillingAddress, ISO4217Currency, ShippingAddress } from './merchant';
+import { BillingAddress, ShippingAddress } from './merchant';
+import { ISO4217Currency } from '../_enums/merchant';
 
 type PaymentProcessor = 'WORLDPAY';
 type TransactionStatus = 'SUCCESS' | 'FAILURE' | 'PENDING';

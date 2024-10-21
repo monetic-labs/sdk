@@ -21,7 +21,9 @@
     "dist"
   ],
   "scripts": {
+    "dev": "rollup -c -w",
     "build": "rollup -c",
+    "release": "standard-version && pnpm run build",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {

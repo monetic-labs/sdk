@@ -423,20 +423,20 @@ type MerchantDisbursementCreateInput = {
 
 type MerchantDisbursementCreateOutput = {
   id: string;
-  addressId: string;
+  liquidationAddressId: string;
   beneficiaryAddressId: string;
   contactType: DisbursementContactType;
   chainId: Network;
   stableCurrency: StableCurrency;
-  liquidationChainId: Network;
+  liquidationNetwork: Network;
   liquidationStableCurrency: StableCurrency;
-  liquidationContractAddress: string;
+  liquidationAddress: string;
   routingNumber: string;
   accountNumber: string;
   accountOwnerName: string;
   bankName: string;
   fiatCurrency: FiatCurrency;
-  method: DisbursementMethod;
+  methodsAccepted: DisbursementMethod[];
   nickname?: string;
   returnAddress: string;
   isActive: boolean;
@@ -448,16 +448,20 @@ type MerchantDisbursementUpdateInput = {
   amount?: number;
   returnAddress?: string;
   nickname?: string;
+  destination?: {
+    payment_rail: DisbursementMethod;
+    wire_message?: string;
+    ach_reference?: string;
+  };
 };
 
 type MerchantDisbursementUpdateOutput = {
   id: string;
   contactId: string;
-  liquidationContractAddress: string;
-  liquidationChainId: Network;
+  liquidationAddress: string;
+  liquidationNetwork: Network;
   liquidationStableCurrency: StableCurrency;
-  destinationWireMessage?: string;
-  destinationAchReference?: string;
+  expectedDestinationWireMessage?: string;
   developerFeePercent?: string;
   returnAddress: string;
   updatedAt: string;
@@ -475,10 +479,9 @@ type MerchantDisbursementGetOutput = {
   state: DisbursementState;
   provider: DisbursementProvider;
   depositTxHash: string;
-  achReference?: string;
-  wireMessage?: string;
-  traceNumber?: string;
-  imad?: string;
+  paymentMethod?: DisbursementMethod;
+  paymentMessage?: string;
+  paymentTrackingNumber?: string;
   exchangeRate?: string;
   returnReason?: string;
   createdAt: string;
@@ -546,6 +549,7 @@ export type {
   MerchantDisbursementUpdateInput,
   MerchantDisbursementUpdateOutput,
   MerchantDisbursementGetAllInput,
+  MerchantDisbursementGetOutput,
   MerchantDisbursementGetAllOutput,
   MerchantDisbursementContactGetAllInput,
   MerchantDisbursementContactGetOutput,
