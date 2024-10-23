@@ -28,8 +28,8 @@ type Pagination = {
 };
 
 type RainAddress = {
-  line1: string;
-  line2?: string;
+  street1: string;
+  street2?: string;
   city: string;
   region: string;
   postalCode: string;
@@ -157,14 +157,7 @@ type MerchantSettlementAccountUpdateInput = {
   currency?: StableCurrency;
 };
 
-type CardShippingDetails = {
-  line1: string;
-  line2?: string;
-  city: string;
-  region: string;
-  postalCode: string;
-  country: string;
-  countryCode: ISO3166Alpha2Country;
+type CardShippingDetails = RainAddress & {
   phoneNumber: string;
   phoneCountryCode: string;
   shippingMethod?: CardShippingMethod;
