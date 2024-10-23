@@ -19,7 +19,7 @@ import type {
   MerchantUserUpdateInput,
   MerchantDisbursementUpdateInput,
   MerchantDisbursementCreateInput,
-  MerchantDisbursementGetAllInput,
+  MerchantDisbursementEventsInput,
   MerchantDisbursementContactGetAllInput,
 } from '@/api/_types/merchant';
 import type {
@@ -192,8 +192,8 @@ class Pylon {
     return this.merchant.initiateExistingDisbursement(disbursementId, data);
   }
 
-  async getDisbursements(queryParams: MerchantDisbursementGetAllInput) {
-    return this.merchant.getDisbursements(queryParams);
+  async getDisbursementEvents(queryParams: MerchantDisbursementEventsInput) {
+    return this.merchant.getDisbursementEvents(queryParams);
   }
 
   async getDisbursementContacts(

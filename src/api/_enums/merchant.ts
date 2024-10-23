@@ -129,10 +129,6 @@ enum DisbursementMethod {
   ACH_SAME_DAY = 'ACH_SAME_DAY',
 }
 
-enum DisbursementContactType {
-  EXTERNAL = 'EXTERNAL',
-}
-
 enum DisbursementState {
   PENDING = 'PENDING',
   AWAITING_FUNDS = 'AWAITING_FUNDS',
@@ -172,7 +168,6 @@ export {
   CardCompanyStatus,
   CardCompanyType,
   DisbursementMethod,
-  DisbursementContactType,
   DisbursementState,
   DisbursementProvider,
 };

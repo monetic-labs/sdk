@@ -28,8 +28,8 @@ import type {
   MerchantVirtualCardCreateInput,
   MerchantVirtualCardCreateOutput,
   MerchantVirtualCardDecryptOutput,
-  MerchantDisbursementGetAllOutput,
-  MerchantDisbursementGetAllInput,
+  MerchantDisbursementEventsOutput,
+  MerchantDisbursementEventsInput,
   MerchantDisbursementContactGetAllInput,
   MerchantDisbursementContactGetOutput,
 } from '@/api/_types/merchant';
@@ -250,10 +250,10 @@ class Merchant {
     return response.data.data;
   }
 
-  async getDisbursements(queryParams: MerchantDisbursementGetAllInput) {
+  async getDisbursementEvents(queryParams: MerchantDisbursementEventsInput) {
     const response = await axios.get<{
-      data: MerchantDisbursementGetAllOutput;
-    }>(`${this.apiUrl}/disbursement`, {
+      data: MerchantDisbursementEventsOutput;
+    }>(`${this.apiUrl}/disbursement/events`, {
       params: queryParams,
       withCredentials: true,
     });

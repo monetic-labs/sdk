@@ -16,7 +16,6 @@ import {
   CardCompanyStatus,
   CardCompanyType,
   DisbursementMethod,
-  DisbursementContactType,
   DisbursementState,
   DisbursementProvider,
 } from '../_enums/merchant';
@@ -110,8 +109,6 @@ type MerchantCreateInput = {
   walletAddress: string;
   company: Company;
   representatives: Representative[];
-  bridgeCustomerId: string;
-  rainCompanyId: string;
   compliance?: {
     bridgeCustomerId: string;
     bridgeComplianceId: string;
@@ -421,33 +418,39 @@ type MerchantDisbursementCreateInput = {
   };
 };
 
+type MerchantDisbursement = {
+  id: string;
+  disbursementContactId: string;
+  method: DisbursementMethod;
+  network: Network;
+  stableCurrency: StableCurrency;
+  address: string;
+  returnAddress: string;
+  paymentMessage: string;
+};
+
 type MerchantDisbursementCreateOutput = {
   id: string;
-  liquidationAddressId: string;
   beneficiaryAddressId: string;
-  contactType: DisbursementContactType;
-  chainId: Network;
+  network: Network;
   stableCurrency: StableCurrency;
-  liquidationNetwork: Network;
-  liquidationStableCurrency: StableCurrency;
-  liquidationAddress: string;
+  address: string;
   routingNumber: string;
   accountNumber: string;
   accountOwnerName: string;
   bankName: string;
   fiatCurrency: FiatCurrency;
-  methodsAccepted: DisbursementMethod[];
   nickname?: string;
   returnAddress: string;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  disbursements: MerchantDisbursement[];
 };
 
 type MerchantDisbursementUpdateInput = {
-  amount?: number;
+  amount: number;
   returnAddress?: string;
-  nickname?: string;
   destination?: {
     payment_rail: DisbursementMethod;
     wire_message?: string;
@@ -457,18 +460,17 @@ type MerchantDisbursementUpdateInput = {
 
 type MerchantDisbursementUpdateOutput = {
   id: string;
-  contactId: string;
-  liquidationAddress: string;
-  liquidationNetwork: Network;
-  liquidationStableCurrency: StableCurrency;
-  expectedDestinationWireMessage?: string;
-  developerFeePercent?: string;
+  disbursementContactId: string;
+  method: DisbursementMethod;
+  network: Network;
+  stableCurrency: StableCurrency;
+  address: string;
   returnAddress: string;
-  updatedAt: string;
-  createdAt: string;
+  paymentMessage: string;
+  fee: string;
 };
 
-type MerchantDisbursementGetOutput = {
+type MerchantDisbursementEventGetOutput = {
   id: string;
   contactId: string;
   amountIn: string;
@@ -489,12 +491,12 @@ type MerchantDisbursementGetOutput = {
   contact: MerchantDisbursementCreateOutput;
 };
 
-type MerchantDisbursementGetAllOutput = {
-  disbursements: MerchantDisbursementGetOutput[];
+type MerchantDisbursementEventsOutput = {
+  events: MerchantDisbursementEventGetOutput[];
   meta: Pagination;
 };
 
-type MerchantDisbursementGetAllInput = {
+type MerchantDisbursementEventsInput = {
   limit?: number;
   before?: string;
   after?: string;
@@ -559,9 +561,9 @@ export type {
   MerchantDisbursementCreateOutput,
   MerchantDisbursementUpdateInput,
   MerchantDisbursementUpdateOutput,
-  MerchantDisbursementGetAllInput,
-  MerchantDisbursementGetOutput,
-  MerchantDisbursementGetAllOutput,
+  MerchantDisbursementEventsInput,
+  MerchantDisbursementEventsOutput,
+  MerchantDisbursementEventGetOutput,
   MerchantDisbursementContactGetAllInput,
   MerchantDisbursementContactGetOutput,
 };
