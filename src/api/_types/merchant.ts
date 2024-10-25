@@ -507,7 +507,39 @@ type MerchantDisbursementContactGetOutput = {
   meta: Pagination;
 };
 
+type UpdateMerchantCardDataInput = {
+  limit?: {
+    amount: number;
+    frequency: CardLimitFrequency;
+  };
+  status?: CardStatus;
+  cardId: string;
+};
+
+type UpdateMerchantCardPinInput = {
+  cardId: string;
+  pin: string;
+};
+
+type GetMerchantCardPinInput = {
+  cardId: string;
+};
+
+type UpdateMerchantCardDataOutput = MerchantCard;
+
+type UpdateMerchantCardPinOutput = {};
+
+type GetMerchantCardPinOutput = {
+  result: string;
+};
+
 export type {
+  GetMerchantCardPinOutput,
+  UpdateMerchantCardPinOutput,
+  UpdateMerchantCardDataOutput,
+  GetMerchantCardPinInput,
+  UpdateMerchantCardPinInput,
+  UpdateMerchantCardDataInput,
   Pagination,
   Address,
   RegisteredAddress,
