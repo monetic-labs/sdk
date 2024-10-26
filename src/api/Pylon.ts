@@ -21,6 +21,9 @@ import type {
   MerchantDisbursementCreateInput,
   MerchantDisbursementEventsInput,
   MerchantDisbursementContactGetAllInput,
+  UpdateMerchantCardDataInput,
+  UpdateMerchantCardPinInput,
+  GetMerchantCardPinInput,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -200,6 +203,15 @@ class Pylon {
     queryParams: MerchantDisbursementContactGetAllInput
   ) {
     return this.merchant.getDisbursementContacts(queryParams);
+  }
+  async updateRainCard(body: UpdateMerchantCardDataInput) {
+    return this.merchant.updateRainCard(body);
+  }
+  async updateRainCardPin(body: UpdateMerchantCardPinInput) {
+    return this.merchant.updateRainCardPin(body);
+  }
+  async getRainCardPin(body: GetMerchantCardPinInput) {
+    return this.merchant.getRainCardPin(body);
   }
 
   // TRANSACTION METHODS
