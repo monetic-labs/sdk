@@ -235,6 +235,8 @@ type MerchantCard = {
   createdAt: string;
   cardOwner: MerchantCardOwner;
   cardShippingDetails?: CardShippingDetails;
+  limit: Number;
+  limitFrequency: CardLimitFrequency;
 };
 
 type MerchantCardOwner = {
