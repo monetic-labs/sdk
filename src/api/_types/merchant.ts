@@ -28,8 +28,8 @@ type Pagination = {
 };
 
 type RainAddress = {
-  street1: string;
-  street2?: string;
+  line1: string;
+  line2?: string;
   city: string;
   region: string;
   postalCode: string;

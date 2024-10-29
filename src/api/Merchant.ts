@@ -160,6 +160,38 @@ class Merchant {
     return response.data.data;
   }
 
+  async updateRainCard(body: UpdateMerchantCardDataInput) {
+    const payloadBody = {} as Partial<UpdateMerchantCardDataInput>;
+    if (body.status) {
+      payloadBody.status = body.status;
+    }
+    if (body.limit) {
+      payloadBody.limit = body.limit;
+    }
+    const response = await axios.put<{ data: UpdateMerchantCardDataOutput }>(
+      `${this.apiUrl}/cards/rain/${body.cardId}`,
+      { ...payloadBody },
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+  async updateRainCardPin(body: UpdateMerchantCardPinInput) {
+    const response = await axios.put<{ data: UpdateMerchantCardPinOutput }>(
+      `${this.apiUrl}/cards/rain/${body.cardId}/pin`,
+      { pin: body.pin },
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  async getRainCardPin(body: GetMerchantCardPinInput) {
+    const response = await axios.get<{ data: GetMerchantCardPinOutput }>(
+      `${this.apiUrl}/cards/rain/${body.cardId}/pin`,
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
   // RAIN COMPANY
 
   async applyCardCompany(body: MerchantRainCompanyCreateInput) {
@@ -275,38 +307,6 @@ class Merchant {
       params: queryParams,
       withCredentials: true,
     });
-    return response.data.data;
-  }
-
-  async updateRainCard(body: UpdateMerchantCardDataInput) {
-    const payloadBody = {} as Partial<UpdateMerchantCardDataInput>;
-    if (body.status) {
-      payloadBody.status = body.status;
-    }
-    if (body.limit) {
-      payloadBody.limit = body.limit;
-    }
-    const response = await axios.put<{ data: UpdateMerchantCardDataOutput }>(
-      `${this.apiUrl}/cards/rain/${body.cardId}`,
-      { ...payloadBody },
-      { withCredentials: true }
-    );
-    return response.data.data;
-  }
-  async updateRainCardPin(body: UpdateMerchantCardPinInput) {
-    const response = await axios.put<{ data: UpdateMerchantCardPinOutput }>(
-      `${this.apiUrl}/cards/rain/${body.cardId}/pin`,
-      { pin: body.pin },
-      { withCredentials: true }
-    );
-    return response.data.data;
-  }
-
-  async getRainCardPin(body: GetMerchantCardPinInput) {
-    const response = await axios.get<{ data: GetMerchantCardPinOutput }>(
-      `${this.apiUrl}/cards/rain/${body.cardId}/pin`,
-      { withCredentials: true }
-    );
     return response.data.data;
   }
 }
