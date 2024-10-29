@@ -47,9 +47,10 @@ type RainPerson = {
   address: RainAddress;
 };
 type RainInitialUser = RainPerson & {
-  isTermsOfServiceAccepted: boolean;
   role?: string;
+  isTermsOfServiceAccepted: boolean;
   walletAddress?: string;
+  iovationBlackbox?: string;
 };
 type RainEntity = {
   name: string;
@@ -544,9 +545,14 @@ export type {
   UpdateMerchantCardDataInput,
   Pagination,
   Address,
+  Representative,
   RegisteredAddress,
   BillingAddress,
   ShippingAddress,
+  RainAddress,
+  RainPerson,
+  RainInitialUser,
+  RainEntity,
   Company,
   Compliance,
   MerchantCreateInput,
