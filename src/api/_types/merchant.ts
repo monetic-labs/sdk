@@ -18,6 +18,8 @@ import {
   DisbursementMethod,
   DisbursementState,
   DisbursementProvider,
+  ISO3166Alpha2State,
+  ISO3166Alpha3Country,
 } from '../_enums/merchant';
 
 type Pagination = {
@@ -69,6 +71,15 @@ type Address = {
   postcode: string;
   state?: string;
   country: ISO3166Alpha2Country;
+};
+
+type BridgeAddress = {
+  street1: string;
+  street2?: string;
+  city: string;
+  postcode?: string;
+  state?: ISO3166Alpha2State;
+  country: ISO3166Alpha3Country;
 };
 
 type RegisteredAddress = Address;
@@ -401,7 +412,7 @@ type MerchantDisbursementCreateInput = {
     account_number: string;
     routing_number: string;
   };
-  address: Address;
+  address: BridgeAddress;
   chain: Network;
   currency: StableCurrency;
   return_address: string;
@@ -545,8 +556,9 @@ export type {
   UpdateMerchantCardDataInput,
   Pagination,
   Address,
-  Representative,
+  BridgeAddress,
   RegisteredAddress,
+  Representative,
   BillingAddress,
   ShippingAddress,
   RainAddress,
