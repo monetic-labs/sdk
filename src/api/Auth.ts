@@ -19,21 +19,25 @@ class Auth {
     return response.data;
   }
 
-  async initiateLoginOTP(data: IssueOTP): Promise<IssueOTP> {
-    const response = await axios.post<IssueOTP>(
-      `${this.apiUrl}/login/initiate`,
-      data,
-      { withCredentials: true }
-    );
+  async initiateLoginOTP(data: IssueOTP): Promise<{
+    statusCode: number;
+    data: { message: string };
+  }> {
+    const response = await axios.post<{
+      statusCode: number;
+      data: { message: string };
+    }>(`${this.apiUrl}/login/initiate`, data);
     return response.data;
   }
 
-  async verifyLoginOTP(data: VerifyOTP): Promise<VerifyOTP> {
-    const response = await axios.post<VerifyOTP>(
-      `${this.apiUrl}/login/verify`,
-      data,
-      { withCredentials: true }
-    );
+  async verifyLoginOTP(data: VerifyOTP): Promise<{
+    statusCode: number;
+    data: { message: string };
+  }> {
+    const response = await axios.post<{
+      statusCode: number;
+      data: { message: string };
+    }>(`${this.apiUrl}/login/verify`, data);
     return response.data;
   }
 
