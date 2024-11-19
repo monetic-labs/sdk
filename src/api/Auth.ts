@@ -37,7 +37,7 @@ class Auth {
     const response = await axios.post<{
       statusCode: number;
       data: { message: string };
-    }>(`${this.apiUrl}/login/verify`, data);
+    }>(`${this.apiUrl}/login/verify`, data, { withCredentials: true });
     return response.data;
   }
 
