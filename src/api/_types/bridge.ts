@@ -1,21 +1,12 @@
+import { BridgeComplianceKycStatus, BridgeComplianceTosStatus } from '@/api/_enums/bridge';
+
 enum BridgeCurrencyEnum {
   USD = 'usd',
   USDC = 'usdc',
 }
 
 type BridgePaymentRail = 'ach' | 'wire' | 'internal_transfer' | 'crypto';
-type BridgeCurrency = BridgeCurrencyEnum.USD | BridgeCurrencyEnum.USDC;
-type BridgeKycStatus =
-  | 'not_started'
-  | 'pending'
-  | 'incomplete'
-  | 'awaiting_ubo'
-  | 'manual_review'
-  | 'under_review'
-  | 'approved'
-  | 'rejected';
-
-type BridgeTosStatus = 'pending' | 'approved';
+type BridgeCurrency = BridgeCurrencyEnum.USD | BridgeCurrencyEnum.USDC; 
 
 type PrefundedAccountBalanceItem = {
   id: string;
@@ -49,8 +40,8 @@ type CreatePrefundedAccountTransferResponse = any;
 type GetComplianceStatusResponse = {
   kycLink: string;
   tosLink: string;
-  kycStatus: BridgeKycStatus;
-  tosStatus: BridgeTosStatus;
+  kycStatus: BridgeComplianceKycStatus;
+  tosStatus: BridgeComplianceTosStatus;
 };
 
 export type {

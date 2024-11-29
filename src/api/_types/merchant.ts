@@ -1,12 +1,14 @@
 import {
   SortOrder,
   ISO3166Alpha2Country,
-  BridgeComplianceKycStatus,
-  BridgeComplianceTosStatus,
   PersonRole,
   Network,
   StableCurrency,
   FiatCurrency,
+  ISO3166Alpha2State,
+  ISO3166Alpha3Country,
+} from '../_enums/merchant';
+import {
   CardType,
   CardStatus,
   CardTransactionStatus,
@@ -18,9 +20,11 @@ import {
   DisbursementMethod,
   DisbursementState,
   DisbursementProvider,
-  ISO3166Alpha2State,
-  ISO3166Alpha3Country,
-} from '../_enums/merchant';
+} from '../_enums/rain';
+import {
+  BridgeComplianceKycStatus,
+  BridgeComplianceTosStatus,
+} from '../_enums/bridge';
 
 type Pagination = {
   hasNextPage: boolean;
@@ -358,20 +362,8 @@ type MerchantRainCompanyUpdateOutput = {
 };
 
 type MerchantRainCompanyStatusOutput = {
-  id: string;
-  applicationStatus: CardCompanyStatus;
-  applicationExternalVerificationLink: {
-    url: string;
-    params: {
-      userId: string;
-    };
-  };
-  applicationCompletionLink: {
-    url: string;
-    params: {
-      userId: string;
-    };
-  };
+  status: CardCompanyStatus;
+  link: string;
 };
 
 type MerchantUserGetOutput = {
