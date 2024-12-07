@@ -1,6 +1,6 @@
 {
   "name": "@backpack-fux/pylon-sdk",
-  "version": "0.2.965",
+  "version": "0.2.966",
   "description": "Pylon SDK",
   "author": "Backpack",
   "license": "UNLICENSED",
@@ -39,6 +39,7 @@
     "@types/react": "^18.3.14",
     "rollup": "^4.28.1",
     "rollup-plugin-dts": "^6.1.1",
+    "standard-version": "^9.5.0",
     "tslib": "^2.8.1",
     "typescript": "^4.9.5"
   },
