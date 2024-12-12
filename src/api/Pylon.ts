@@ -24,6 +24,7 @@ import type {
   UpdateMerchantCardDataInput,
   UpdateMerchantCardPinInput,
   GetMerchantCardPinInput,
+  MerchantTelegramMessageCreateInput,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -215,6 +216,10 @@ class Pylon {
     queryParams: MerchantDisbursementContactGetAllInput
   ) {
     return this.merchant.getDisbursementContacts(queryParams);
+  }
+
+  async createTelegramMessage(body: MerchantTelegramMessageCreateInput) {
+    return this.merchant.createTelegramMessage(body);
   }
 
   // TRANSACTION METHODS

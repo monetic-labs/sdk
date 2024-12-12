@@ -539,6 +539,11 @@ type GetMerchantCardPinOutput = {
   result: string;
 };
 
+type MerchantTelegramMessageCreateInput = {
+  text: string;
+  file?: string;
+};
+
 export type {
   GetMerchantCardPinOutput,
   UpdateMerchantCardPinOutput,
@@ -603,4 +608,5 @@ export type {
   MerchantDisbursementEventGetOutput,
   MerchantDisbursementContactGetAllInput,
   MerchantDisbursementContactGetOutput,
+  MerchantTelegramMessageCreateInput,
 };

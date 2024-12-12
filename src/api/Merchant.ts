@@ -38,6 +38,7 @@ import type {
   UpdateMerchantCardPinOutput,
   GetMerchantCardPinInput,
   GetMerchantCardPinOutput,
+  MerchantTelegramMessageCreateInput,
 } from '@/api/_types/merchant';
 
 class Merchant {
@@ -308,6 +309,15 @@ class Merchant {
       withCredentials: true,
     });
     return response.data.data;
+  }
+
+  // TELEGRAM
+
+  async createTelegramMessage(body: MerchantTelegramMessageCreateInput) {
+    const response = await axios.post<{
+      data: { success: boolean };
+    }>(`${this.apiUrl}/chat/telegram`, body, { withCredentials: true });
+    return response.data.data.success;
   }
 }
 
