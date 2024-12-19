@@ -25,6 +25,7 @@ import type {
   UpdateMerchantCardPinInput,
   GetMerchantCardPinInput,
   MerchantTelegramMessageCreateInput,
+  MerchantFileUploadInput,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -220,6 +221,10 @@ class Pylon {
 
   async createTelegramMessage(body: MerchantTelegramMessageCreateInput) {
     return this.merchant.createTelegramMessage(body);
+  }
+
+  async getFileUploadUrl(body: MerchantFileUploadInput) {
+    return this.merchant.getFileUploadUrl(body);
   }
 
   // TRANSACTION METHODS

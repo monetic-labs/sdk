@@ -544,7 +544,13 @@ type MerchantTelegramMessageCreateInput = {
   file?: string;
 };
 
+type MerchantFileUploadInput = {
+  key: string;
+  mimeType: string;
+};
+
 export type {
+  MerchantFileUploadInput,
   GetMerchantCardPinOutput,
   UpdateMerchantCardPinOutput,
   UpdateMerchantCardDataOutput,

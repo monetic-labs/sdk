@@ -39,6 +39,7 @@ import type {
   GetMerchantCardPinInput,
   GetMerchantCardPinOutput,
   MerchantTelegramMessageCreateInput,
+  MerchantFileUploadInput,
 } from '@/api/_types/merchant';
 
 class Merchant {
@@ -317,6 +318,13 @@ class Merchant {
     const response = await axios.post<{
       data: { success: boolean };
     }>(`${this.apiUrl}/chat/telegram`, body, { withCredentials: true });
+    return response.data.data.success;
+  }
+
+  async getFileUploadUrl(body: MerchantFileUploadInput) {
+    const response = await axios.post<{
+      data: { success: boolean };
+    }>(`${this.apiUrl}/files/upload`, body, { withCredentials: true });
     return response.data.data.success;
   }
 }
