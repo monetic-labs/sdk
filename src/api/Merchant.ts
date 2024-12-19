@@ -324,7 +324,7 @@ class Merchant {
   async getFileUploadUrl(body: MerchantFileUploadInput) {
     const response = await axios.post<{
       data: { success: boolean };
-    }>(`${this.apiUrl}/files/upload`, body, { withCredentials: true });
+    }>(`${this.apiUrl}/chat/file/upload`, body, { withCredentials: true });
     return response.data.data.success;
   }
 }

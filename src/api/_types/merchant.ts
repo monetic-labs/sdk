@@ -545,7 +545,7 @@ type MerchantTelegramMessageCreateInput = {
 };
 
 type MerchantFileUploadInput = {
-  key: string;
+  fileName: string;
   mimeType: string;
 };
 
