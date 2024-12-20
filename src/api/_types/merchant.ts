@@ -66,7 +66,6 @@ type RainEntity = {
   taxId: string;
   website: string;
   expectedSpend?: string;
-  registrationNumber: string;
 };
 
 type Address = {
