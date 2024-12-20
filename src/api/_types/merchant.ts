@@ -61,6 +61,7 @@ type RainInitialUser = RainPerson & {
 type RainEntity = {
   name: string;
   type?: CardCompanyType;
+  registrationNumber: string;
   description?: string;
   taxId: string;
   website: string;
