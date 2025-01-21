@@ -43,20 +43,18 @@ type RainAddress = {
   country: string;
 };
 type RainPerson = {
-  id?: string;
   firstName: string;
   lastName: string;
   birthDate: string;
   nationalId: string;
   countryOfIssue: ISO3166Alpha2Country;
   email: string;
+  phoneCountryCode?: string;
+  phoneNumber?: string;
   address: RainAddress;
 };
 type RainInitialUser = RainPerson & {
-  role?: string;
-  isTermsOfServiceAccepted: boolean;
   walletAddress?: string;
-  iovationBlackbox?: string;
 };
 type RainEntity = {
   name: string;
@@ -76,6 +74,28 @@ type Address = {
   postcode: string;
   state?: string;
   country: ISO3166Alpha2Country;
+};
+
+type Credential = {
+  id: string;
+  challenge: string;
+  publicKey: string;
+  response: {
+    authenticatorData: string;
+    clientData: string;
+    attestationData?: string;
+    userHandle?: string;
+  };
+};
+
+type User = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: PersonRole;
+  phoneNumber?: string;
+  walletAddress?: string;
+  passkey?: Credential; // TODO: make required
 };
 
 type BridgeAddress = {
@@ -102,7 +122,15 @@ type ShippingAddress = Address & {
 type Company = {
   name: string;
   email: string;
+  website: string;
+  registrationNumber: string;
+  taxId: string;
+  type?: CardCompanyType;
+  description?: string;
   registeredAddress: RegisteredAddress;
+  controlOwner: RainInitialUser;
+  ultimateBeneficialOwners: RainPerson[];
+  representatives: RainPerson[];
 };
 
 type Representative = {
@@ -121,20 +149,34 @@ type Compliance = {
   tosStatus: BridgeComplianceTosStatus;
 };
 
+type MerchantBillPayProvider = {
+  kycLink: string;
+  kycStatus: string;
+  tosStatus: string;
+};
+
+type MerchantCardProviderUBO = {
+  kycStatus: string;
+  kycLink: string;
+};
+
+type MerchantCardProvider = {
+  kycLink: string;
+  kycStatus: string;
+  tosStatus: string;
+  ubo: MerchantCardProviderUBO[];
+};
+
 type MerchantCreateInput = {
-  fee: number;
-  walletAddress: string;
+  settlementAddress: string;
+  isTermsOfServiceAccepted: boolean;
+  users: User[];
   company: Company;
-  representatives: Representative[];
-  compliance?: {
-    bridgeCustomerId: string;
-    bridgeComplianceId: string;
-  };
 };
 
 type MerchantCreateOutput = {
-  statusCode: number;
-  data: Compliance;
+  billPayProvider: MerchantBillPayProvider;
+  cardProvider: MerchantCardProvider;
 };
 
 type ApiKeyCreateOutput = {
@@ -363,8 +405,10 @@ type MerchantRainCompanyUpdateOutput = {
 };
 
 type MerchantRainCompanyStatusOutput = {
-  status: CardCompanyStatus;
-  link: string;
+  rainKybStatus: CardCompanyStatus;
+  rainKycStatus: CardCompanyStatus;
+  rainKybLink: string;
+  rainKycLink: string;
 };
 
 type MerchantUserGetOutput = {
