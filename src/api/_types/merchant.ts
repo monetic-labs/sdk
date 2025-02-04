@@ -76,18 +76,6 @@ type Address = {
   country: ISO3166Alpha2Country;
 };
 
-type Credential = {
-  id: string;
-  challenge: string;
-  publicKey: string;
-  response: {
-    authenticatorData: string;
-    clientData: string;
-    attestationData?: string;
-    userHandle?: string;
-  };
-};
-
 type User = {
   firstName: string;
   lastName: string;
@@ -95,7 +83,7 @@ type User = {
   role: PersonRole;
   phoneNumber?: string;
   walletAddress?: string;
-  passkey?: Credential; // TODO: make required
+  passkeyId?: string;
 };
 
 type BridgeAddress = {
@@ -442,6 +430,38 @@ type MerchantUserUpdateInput = {
   username?: string;
 };
 
+type MerchantUserGetByIdOutput = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: PersonRole;
+  createdAt: string;
+  updatedAt: string;
+  Compliance: {
+    id: number;
+    provider: string;
+    status: string;
+  }[];
+  merchant: {
+    id: number;
+    bridgeCustomerId: string;
+    company: {
+      name: string;
+      email: string;
+    };
+    compliance: {
+      id: number;
+      provider: string;
+      status: string;
+    }[];
+    rainCompanyId: string;
+  };
+  phone: string;
+  walletAddress: string;
+  username: string;
+};
+
 type MerchantDisbursementCreateInput = {
   account_owner_name: string;
   bank_name: string;
@@ -650,6 +670,7 @@ export type {
   MerchantUserCreateInput,
   MerchantUserGetOutput,
   MerchantUserUpdateInput,
+  MerchantUserGetByIdOutput,
   MerchantDisbursementCreateInput,
   MerchantDisbursementCreateOutput,
   MerchantDisbursementUpdateInput,

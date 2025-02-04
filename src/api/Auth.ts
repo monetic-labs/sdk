@@ -5,6 +5,11 @@ import type {
   FarcasterJWTData,
   MessageResponse,
   VerifyOTP,
+  GenerateChallengeResponse,
+  RegisterPasskeyResponse,
+  RegisterPasskeyInput,
+  AuthenticatePasskeyInput,
+  AuthenticatePasskeyResponse,
 } from '@/api/_types/auth';
 
 class Auth {
@@ -14,30 +19,38 @@ class Auth {
     this.apiUrl = `${baseUrl}/v1/auth`;
   }
 
+  // PASSKEY
+
+  async generatePasskeyChallenge(): Promise<GenerateChallengeResponse> {
+    const response = await axios.get<{ data: GenerateChallengeResponse }>(
+      `${this.apiUrl}/passkey/challenge`
+    );
+    return response.data.data;
+  }
+
+  async registerPasskey(
+    data: RegisterPasskeyInput
+  ): Promise<RegisterPasskeyResponse> {
+    const response = await axios.post<{ data: RegisterPasskeyResponse }>(
+      `${this.apiUrl}/passkey/register`,
+      data
+    );
+    return response.data.data;
+  }
+
+  async authenticatePasskey(data: AuthenticatePasskeyInput) {
+    const response = await axios.post<{ data: AuthenticatePasskeyResponse }>(
+      `${this.apiUrl}/passkey/login`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  // SERVICES
+
   async generateAccessToken(): Promise<AccessTokenResponse> {
     const response = await axios.get<AccessTokenResponse>(`${this.apiUrl}/jwt`);
-    return response.data;
-  }
-
-  async initiateLoginOTP(data: IssueOTP): Promise<{
-    statusCode: number;
-    data: { message: string };
-  }> {
-    const response = await axios.post<{
-      statusCode: number;
-      data: { message: string };
-    }>(`${this.apiUrl}/login/initiate`, data);
-    return response.data;
-  }
-
-  async verifyLoginOTP(data: VerifyOTP): Promise<{
-    statusCode: number;
-    data: { message: string };
-  }> {
-    const response = await axios.post<{
-      statusCode: number;
-      data: { message: string };
-    }>(`${this.apiUrl}/login/verify`, data, { withCredentials: true });
     return response.data;
   }
 
@@ -50,21 +63,31 @@ class Auth {
     return response.data;
   }
 
-  async issueOTP(data: IssueOTP): Promise<IssueOTP> {
-    const response = await axios.post<IssueOTP>(
-      `${this.apiUrl}/otp/issue`,
-      data
-    );
+  // OTP
+
+  async issueOTP(data: IssueOTP): Promise<{
+    statusCode: number;
+    data: { message: string };
+  }> {
+    const response = await axios.post<{
+      statusCode: number;
+      data: { message: string };
+    }>(`${this.apiUrl}/login/initiate`, data);
     return response.data;
   }
 
-  async verifyOTP(data: VerifyOTP): Promise<VerifyOTP> {
-    const response = await axios.post<VerifyOTP>(
-      `${this.apiUrl}/otp/verify`,
-      data
-    );
+  async verifyOTP(data: VerifyOTP): Promise<{
+    statusCode: number;
+    data: { message: string };
+  }> {
+    const response = await axios.post<{
+      statusCode: number;
+      data: { message: string };
+    }>(`${this.apiUrl}/login/verify`, data, { withCredentials: true });
     return response.data;
   }
+
+  // BACK OFFICE
 
   async generateFarcasterJWT(data: FarcasterJWTData): Promise<MessageResponse> {
     const response = await axios.post<MessageResponse>(

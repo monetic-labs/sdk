@@ -40,6 +40,7 @@ import type {
   GetMerchantCardPinOutput,
   MerchantTelegramMessageCreateInput,
   MerchantFileUploadInput,
+  MerchantUserGetByIdOutput,
 } from '@/api/_types/merchant';
 
 class Merchant {
@@ -54,7 +55,8 @@ class Merchant {
   ): Promise<MerchantCreateOutput> {
     const response = await axios.post<MerchantCreateOutput>(
       `${this.apiUrl}/`,
-      data
+      data,
+      { withCredentials: true }
     );
     return response.data;
   }
@@ -267,6 +269,13 @@ class Merchant {
       data: { success: boolean };
     }>(`${this.apiUrl}/users/${userId}`, { withCredentials: true });
     return response.data.data.success;
+  }
+
+  async getUserById() {
+    const response = await axios.get<{
+      data: MerchantUserGetByIdOutput;
+    }>(`${this.apiUrl}/users/me`, { withCredentials: true });
+    return response.data.data;
   }
 
   // DISBURSEMENT

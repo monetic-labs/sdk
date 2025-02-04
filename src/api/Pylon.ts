@@ -3,7 +3,13 @@ import Bridge from './Bridge';
 import Merchant from './Merchant';
 import Transaction from './Transaction';
 import { Environment, PylonConfig } from '../_types';
-import type { FarcasterJWTData, IssueOTP, VerifyOTP } from '@/api/_types/auth';
+import type {
+  AuthenticatePasskeyInput,
+  FarcasterJWTData,
+  IssueOTP,
+  RegisterPasskeyInput,
+  VerifyOTP,
+} from '@/api/_types/auth';
 import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
 import type {
   ApiKeyUpdateInput,
@@ -78,16 +84,20 @@ class Pylon {
     return this.auth.deleteFarcasterJWT();
   }
 
-  async initiateLoginOTP(data: IssueOTP) {
-    return this.auth.initiateLoginOTP(data);
-  }
-
-  async verifyLoginOTP(data: VerifyOTP) {
-    return this.auth.verifyLoginOTP(data);
-  }
-
   async logout() {
     return this.auth.logout();
+  }
+
+  async generatePasskeyChallenge() {
+    return this.auth.generatePasskeyChallenge();
+  }
+
+  async registerPasskey(data: RegisterPasskeyInput) {
+    return this.auth.registerPasskey(data);
+  }
+
+  async authenticatePasskey(data: AuthenticatePasskeyInput) {
+    return this.auth.authenticatePasskey(data);
   }
 
   // BRIDGE METHODS
@@ -196,6 +206,10 @@ class Pylon {
 
   async deleteUser(userId: string) {
     return this.merchant.deleteUser(userId);
+  }
+
+  async getUserById() {
+    return this.merchant.getUserById();
   }
 
   async initiateNewDisbursement(data: MerchantDisbursementCreateInput) {
