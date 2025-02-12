@@ -2,6 +2,7 @@ import Auth from './Auth';
 import Bridge from './Bridge';
 import Merchant from './Merchant';
 import Transaction from './Transaction';
+import Recovery from './Recovery';
 import { Environment, PylonConfig } from '../_types';
 import type {
   AuthenticatePasskeyInput,
@@ -39,6 +40,7 @@ import type {
   TransactionProcessInput,
   TransactionProcessRefundInput,
 } from '@/api/_types/transaction';
+import { RecoveryWalletGenerateInput } from './_types/recovery';
 
 class Pylon {
   private apiUrl: string;
@@ -47,6 +49,7 @@ class Pylon {
   private bridge: Bridge;
   private merchant: Merchant;
   private transaction: Transaction;
+  private recovery: Recovery;
 
   private static readonly DEFAULT_URLS: Record<Environment, string> = {
     staging: 'https://staging-api.backpack.network',
@@ -61,6 +64,7 @@ class Pylon {
     this.bridge = new Bridge(this.apiUrl);
     this.merchant = new Merchant(this.apiUrl);
     this.transaction = new Transaction(this.apiUrl);
+    this.recovery = new Recovery(this.apiUrl);
   }
 
   // AUTH METHODS
@@ -272,6 +276,19 @@ class Pylon {
 
   async deleteOrderLink(orderLinkId: string) {
     return this.transaction.deleteOrderLink(orderLinkId);
+  }
+
+  // RECOVERY METHODS
+  async generateRecoveryWallets(data: RecoveryWalletGenerateInput[]) {
+    return this.recovery.generateRecoveryWallets(data);
+  }
+
+  async getRecoveryWallets() {
+    return this.recovery.getRecoveryWallets();
+  }
+
+  async deleteRecoveryWallet(id: string) {
+    return this.recovery.deleteRecoveryWallet(id);
   }
 }
 

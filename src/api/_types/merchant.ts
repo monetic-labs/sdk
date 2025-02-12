@@ -282,7 +282,7 @@ type MerchantCard = {
   createdAt: string;
   cardOwner: MerchantCardOwner;
   cardShippingDetails?: CardShippingDetails;
-  limit: Number;
+  limit: number;
   limitFrequency: CardLimitFrequency;
 };
 
@@ -446,6 +446,7 @@ type MerchantUserGetByIdOutput = {
   merchant: {
     id: number;
     bridgeCustomerId: string;
+    rainCompanyId: string;
     company: {
       name: string;
       email: string;
@@ -455,11 +456,20 @@ type MerchantUserGetByIdOutput = {
       provider: string;
       status: string;
     }[];
-    rainCompanyId: string;
+    settlement: {
+      walletAddress: string;
+      network: Network;
+      currency: StableCurrency;
+    };
   };
   phone: string;
   walletAddress: string;
   username: string;
+  registeredPasskeys: {
+    credentialId: string;
+    displayName: string;
+    publicKey: string;
+  }[];
 };
 
 type MerchantDisbursementCreateInput = {
