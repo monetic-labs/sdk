@@ -10,6 +10,11 @@ import type {
   RegisterPasskeyInput,
   AuthenticatePasskeyInput,
   AuthenticatePasskeyResponse,
+  IssueInviteInput,
+  IssueInviteResponse,
+  GetInviteResponse,
+  RedeemInviteInput,
+  RedeemInviteResponse,
 } from '@/api/_types/auth';
 
 class Auth {
@@ -103,6 +108,53 @@ class Auth {
       withCredentials: true,
     });
     return response.data;
+  }
+
+  // INVITE
+
+  async issueInvite(data: IssueInviteInput): Promise<IssueInviteResponse> {
+    const response = await axios.post<{ data: IssueInviteResponse }>(
+      `${this.apiUrl}/invite`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  async getInvite(bearerToken: string): Promise<GetInviteResponse> {
+    const response = await axios.get<{ data: GetInviteResponse }>(
+      `${this.apiUrl}/invite`,
+      {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      }
+    );
+    return response.data.data;
+  }
+
+  async redeemInvite(
+    bearerToken: string,
+    data: RedeemInviteInput
+  ): Promise<RedeemInviteResponse> {
+    const response = await axios.post<{ data: RedeemInviteResponse }>(
+      `${this.apiUrl}/invite/redeem`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      }
+    );
+    return response.data.data;
+  }
+
+  async cancelInvite(inviteId: string): Promise<boolean> {
+    const response = await axios.delete<{ data: { success: boolean } }>(
+      `${this.apiUrl}/invite/${inviteId}`,
+      { withCredentials: true }
+    );
+    return response.data.data.success;
   }
 }
 

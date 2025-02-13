@@ -405,9 +405,14 @@ type MerchantUserGetOutput = {
   lastName: string;
   role: PersonRole;
   email: string;
-  phone?: string;
   walletAddress?: string;
+  phone?: string;
   username?: string;
+  pendingInvite: {
+    id: string;
+    isUsed: boolean;
+    expiresAt: string;
+  } | null;
 };
 
 type MerchantUserCreateInput = {
