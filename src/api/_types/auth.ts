@@ -35,6 +35,12 @@ type MessageResponse = {
   message: string;
 };
 
+type Passkey = {
+  credentialId: string;
+  publicKey?: string;
+  displayName?: string;
+};
+
 type PasskeyMetadata = {
   authenticatorData: string;
   challengeIndex: number;
@@ -51,6 +57,38 @@ type PasskeySignature = {
 
 type GenerateChallengeResponse = {
   challenge: string;
+};
+
+type ResidentKeyRequirement = 'discouraged' | 'preferred' | 'required';
+type UserVerificationRequirement = 'discouraged' | 'preferred' | 'required';
+type AttestationConveyancePreference =
+  | 'direct'
+  | 'enterprise'
+  | 'indirect'
+  | 'none';
+
+type PasskeyRegistrationOptionsResponse = {
+  challenge: string;
+  rp: {
+    name: string;
+    id: string;
+  };
+  user: {
+    id: string;
+    displayName: string;
+    name: string;
+  };
+  authenticatorSelection: {
+    residentKey: ResidentKeyRequirement;
+    userVerification: UserVerificationRequirement;
+    requireResidentKey: boolean;
+  };
+  timeout: number;
+  attestation: AttestationConveyancePreference;
+  extensions: {
+    credProps: boolean;
+    minPinLength: boolean;
+  };
 };
 
 type RegisterPasskeyInput = {
@@ -134,8 +172,10 @@ export type {
   MessageResponse,
   VerifyOTP,
   IssueOTP,
+  Passkey,
   GenerateChallengeResponse,
   RegisterPasskeyInput,
+  PasskeyRegistrationOptionsResponse,
   RegisterPasskeyResponse,
   AuthenticatePasskeyInput,
   AuthenticatePasskeyResponse,

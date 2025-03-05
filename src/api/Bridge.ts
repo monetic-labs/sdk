@@ -4,6 +4,9 @@ import type {
   CreatePrefundedAccountTransferBody,
   CreatePrefundedAccountTransferResponse,
   GetComplianceStatusResponse,
+  GetVirtualAccountResponse,
+  CreateVirtualAccountBody,
+  UpdateVirtualAccountBody,
 } from '@/api/_types/bridge';
 
 class Bridge {
@@ -41,6 +44,37 @@ class Bridge {
       { withCredentials: true }
     );
     return response.data.data;
+  }
+
+  // VIRTUAL ACCOUNTS
+
+  async getVirtualAccount(): Promise<GetVirtualAccountResponse> {
+    const response = await axios.get(`${this.apiUrl}/virtual_accounts`, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async createVirtualAccount(
+    data: CreateVirtualAccountBody
+  ): Promise<GetVirtualAccountResponse> {
+    const response = await axios.post<GetVirtualAccountResponse>(
+      `${this.apiUrl}/virtual_accounts`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data;
+  }
+
+  async updateVirtualAccount(
+    data: UpdateVirtualAccountBody
+  ): Promise<GetVirtualAccountResponse> {
+    const response = await axios.put<GetVirtualAccountResponse>(
+      `${this.apiUrl}/virtual_accounts`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data;
   }
 }
 

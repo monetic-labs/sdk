@@ -13,7 +13,11 @@ import type {
   RegisterPasskeyInput,
   VerifyOTP,
 } from '@/api/_types/auth';
-import type { CreatePrefundedAccountTransferBody } from '@/api/_types/bridge';
+import type {
+  CreatePrefundedAccountTransferBody,
+  CreateVirtualAccountBody,
+  UpdateVirtualAccountBody,
+} from '@/api/_types/bridge';
 import type {
   ApiKeyUpdateInput,
   MerchantCardGetInput,
@@ -21,7 +25,6 @@ import type {
   MerchantCreateInput,
   MerchantRainCompanyCreateInput,
   MerchantPhysicalCardCreateInput,
-  MerchantSettlementAccountUpdateInput,
   MerchantVirtualCardCreateInput,
   MerchantRainCompanyUpdateInput,
   MerchantUserCreateInput,
@@ -35,6 +38,8 @@ import type {
   GetMerchantCardPinInput,
   MerchantTelegramMessageCreateInput,
   MerchantFileUploadInput,
+  MerchantAccountCreateInput,
+  MerchantAccountRainCardWithdrawalRequestInput,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -69,7 +74,7 @@ class Pylon {
     this.recovery = new Recovery(this.apiUrl);
   }
 
-  // AUTH METHODS
+  // GENERAL AUTH METHODS
   async generateAccessToken() {
     return this.auth.generateAccessToken();
   }
@@ -94,8 +99,17 @@ class Pylon {
     return this.auth.logout();
   }
 
+  // PASSKEY AUTH METHODS
   async generatePasskeyChallenge() {
     return this.auth.generatePasskeyChallenge();
+  }
+
+  async getPasskeyRegistrationOptions(email: string) {
+    return this.auth.getPasskeyRegistrationOptions(email);
+  }
+
+  async getPasskeys(email: string) {
+    return this.auth.getPasskeys(email);
   }
 
   async registerPasskey(data: RegisterPasskeyInput) {
@@ -106,6 +120,7 @@ class Pylon {
     return this.auth.authenticatePasskey(data);
   }
 
+  // INVITE AUTH METHODS
   async issueInvite(data: IssueInviteInput) {
     return this.auth.issueInvite(data);
   }
@@ -122,6 +137,19 @@ class Pylon {
     return this.auth.cancelInvite(inviteId);
   }
 
+  // MAGIC LINK AUTH METHODS
+  async issueMagicLink(email: string) {
+    return this.auth.issueMagicLink(email);
+  }
+
+  async verifyMagicLink(token: string) {
+    return this.auth.verifyMagicLink(token);
+  }
+
+  async exchangeMagicLinkToken(token: string) {
+    return this.auth.exchangeMagicLinkToken(token);
+  }
+
   // BRIDGE METHODS
   async getPrefundedAccountBalance() {
     return this.bridge.getPrefundedAccountBalance();
@@ -135,6 +163,19 @@ class Pylon {
 
   async getComplianceStatus() {
     return this.bridge.getComplianceStatus();
+  }
+
+  // VIRTUAL ACCOUNTS
+  async getVirtualAccount() {
+    return this.bridge.getVirtualAccount();
+  }
+
+  async createVirtualAccount(data: CreateVirtualAccountBody) {
+    return this.bridge.createVirtualAccount(data);
+  }
+
+  async updateVirtualAccount(data: UpdateVirtualAccountBody) {
+    return this.bridge.updateVirtualAccount(data);
   }
 
   // MERCHANT METHODS
@@ -162,8 +203,22 @@ class Pylon {
     return this.merchant.getSettlementAccount();
   }
 
-  async updateSettlementAccount(data: MerchantSettlementAccountUpdateInput) {
-    return this.merchant.updateSettlementAccount(data);
+  async setSettlementAccount(accountId: string) {
+    return this.merchant.setSettlementAccount(accountId);
+  }
+
+  async getAccounts() {
+    return this.merchant.getAccounts();
+  }
+
+  async createAccount(data: MerchantAccountCreateInput) {
+    return this.merchant.createAccount(data);
+  }
+
+  async requestWithdrawalSignatureForRainAccount(
+    data: MerchantAccountRainCardWithdrawalRequestInput
+  ) {
+    return this.merchant.requestWithdrawalSignatureForRainAccount(data);
   }
 
   async createPhysicalCard(data: MerchantPhysicalCardCreateInput) {
@@ -180,6 +235,10 @@ class Pylon {
 
   async getCards(queryParams: MerchantCardGetInput) {
     return this.merchant.getCards(queryParams);
+  }
+
+  async getRainCardBalance() {
+    return this.merchant.getRainCardBalance();
   }
 
   async getCardTransactions(queryParams: MerchantCardTransactionGetInput) {

@@ -189,20 +189,59 @@ type ApiKeyGetOutput = {
   lastUsed: string | null;
 };
 
-type MerchantSettlementAccountGetOutput = {
-  walletAddress: string;
-  fee: string;
+type MerchantAccountGetOutput = {
+  id: string;
+  name: string;
+  ledgerAddress: string;
+  controllerAddress?: string;
   network: Network;
   currency: StableCurrency;
+  isSettlement: boolean;
   createdAt: string;
   updatedAt: string;
+  isDeployed: boolean;
+  balance: string | undefined;
+  threshold: number | null;
+  signers: string[];
 };
 
-type MerchantSettlementAccountUpdateInput = {
-  walletAddress?: string;
+type MerchantAccountUpdateInput = {
+  name?: string;
+  ledgerAddress?: string;
   network?: Network;
   currency?: StableCurrency;
 };
+
+type MerchantAccountCreateInput = {
+  name: string;
+  ledgerAddress: string;
+  network: Network;
+  currency: StableCurrency;
+};
+
+type MerchantAccountRainCardWithdrawalRequestInput = {
+  amount: string;
+  adminAddress: string;
+  recipientAddress: string;
+};
+
+type RainWithdrawalSignaturePending = {
+  status: 'pending';
+  retryAfter: number;
+};
+
+type RainWithdrawalSignatureReady = {
+  status: 'ready';
+  signature: {
+    data: string;
+    salt: string;
+    expiresAt: string; // unix timestamp
+  };
+};
+
+type MerchantAccountRainCardWithdrawalRequestOutput =
+  | RainWithdrawalSignaturePending
+  | RainWithdrawalSignatureReady;
 
 type CardShippingDetails = RainAddress & {
   phoneNumber: string;
@@ -413,6 +452,11 @@ type MerchantUserGetOutput = {
     isUsed: boolean;
     expiresAt: string;
   } | null;
+  registeredPasskeys: {
+    credentialId: string;
+    displayName: string;
+    publicKey: string;
+  }[];
 };
 
 type MerchantUserCreateInput = {
@@ -461,11 +505,14 @@ type MerchantUserGetByIdOutput = {
       provider: string;
       status: string;
     }[];
-    settlement: {
-      walletAddress: string;
+    accounts: {
+      id: string;
+      name: string;
+      ledgerAddress: string;
       network: Network;
       currency: StableCurrency;
-    };
+      isSettlement: boolean;
+    }[];
   };
   phone: string;
   walletAddress: string;
@@ -619,6 +666,14 @@ type GetMerchantCardPinOutput = {
   result: string;
 };
 
+type MerchantRainCardBalanceOutput = {
+  creditLimit: number;
+  pendingCharges: number;
+  postedCharges: number;
+  balanceDue: number;
+  spendingPower: number;
+};
+
 type MerchantTelegramMessageCreateInput = {
   text: string;
   file?: string;
@@ -632,6 +687,7 @@ type MerchantFileUploadInput = {
 export type {
   MerchantFileUploadInput,
   GetMerchantCardPinOutput,
+  MerchantRainCardBalanceOutput,
   UpdateMerchantCardPinOutput,
   UpdateMerchantCardDataOutput,
   GetMerchantCardPinInput,
@@ -655,8 +711,13 @@ export type {
   ApiKeyCreateOutput,
   ApiKeyUpdateInput,
   ApiKeyGetOutput,
-  MerchantSettlementAccountGetOutput,
-  MerchantSettlementAccountUpdateInput,
+  MerchantAccountGetOutput,
+  MerchantAccountUpdateInput,
+  MerchantAccountCreateInput,
+  MerchantAccountRainCardWithdrawalRequestInput,
+  RainWithdrawalSignatureReady,
+  RainWithdrawalSignaturePending,
+  MerchantAccountRainCardWithdrawalRequestOutput,
   CardType,
   CardStatus,
   CardTransactionStatus,

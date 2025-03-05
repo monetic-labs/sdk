@@ -1,4 +1,7 @@
-import { BridgeComplianceKycStatus, BridgeComplianceTosStatus } from '@/api/_enums/bridge';
+import {
+  BridgeComplianceKycStatus,
+  BridgeComplianceTosStatus,
+} from '@/api/_enums/bridge';
 
 enum BridgeCurrencyEnum {
   USD = 'usd',
@@ -6,7 +9,7 @@ enum BridgeCurrencyEnum {
 }
 
 type BridgePaymentRail = 'ach' | 'wire' | 'internal_transfer' | 'crypto';
-type BridgeCurrency = BridgeCurrencyEnum.USD | BridgeCurrencyEnum.USDC; 
+type BridgeCurrency = BridgeCurrencyEnum.USD | BridgeCurrencyEnum.USDC;
 
 type PrefundedAccountBalanceItem = {
   id: string;
@@ -44,6 +47,48 @@ type GetComplianceStatusResponse = {
   tosStatus: BridgeComplianceTosStatus;
 };
 
+type GetVirtualAccountResponse = {
+  id: string;
+  status: string;
+  developer_fee_percent: string;
+  customer_id: string;
+  source_deposit_instructions: {
+    currency: string;
+    bank_name: string;
+    bank_address: string;
+    bank_routing_number: string;
+    bank_account_number: string;
+    bank_beneficiary_name: string;
+    bank_beneficiary_address: string;
+    payment_rail: string;
+    payment_rails: string[];
+  };
+  destination: {
+    currency: string;
+    payment_rail: string;
+    address: string;
+  };
+};
+
+type CreateVirtualAccountBody = {
+  source: {
+    currency: string;
+  };
+  destination: {
+    address: string;
+    currency: string;
+    payment_rail: string;
+  };
+};
+
+type UpdateVirtualAccountBody = {
+  destination: {
+    address: string;
+    currency?: string;
+    payment_rail?: string;
+  };
+};
+
 export type {
   BridgePaymentRail,
   BridgeCurrency,
@@ -52,6 +97,9 @@ export type {
   CreatePrefundedAccountTransferBody,
   CreatePrefundedAccountTransferResponse,
   GetComplianceStatusResponse,
+  GetVirtualAccountResponse,
+  CreateVirtualAccountBody,
+  UpdateVirtualAccountBody,
 };
 
 export { BridgeCurrencyEnum };

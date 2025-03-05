@@ -15,6 +15,8 @@ import type {
   GetInviteResponse,
   RedeemInviteInput,
   RedeemInviteResponse,
+  PasskeyRegistrationOptionsResponse,
+  Passkey,
 } from '@/api/_types/auth';
 
 class Auth {
@@ -30,6 +32,22 @@ class Auth {
     const response = await axios.get<{ data: GenerateChallengeResponse }>(
       `${this.apiUrl}/passkey/challenge`
     );
+    return response.data.data;
+  }
+
+  async getPasskeyRegistrationOptions(
+    email: string
+  ): Promise<PasskeyRegistrationOptionsResponse> {
+    const response = await axios.get<{
+      data: PasskeyRegistrationOptionsResponse;
+    }>(`${this.apiUrl}/passkey/options?email=${encodeURIComponent(email)}`);
+    return response.data.data;
+  }
+
+  async getPasskeys(email: string): Promise<Passkey[]> {
+    const response = await axios.get<{
+      data: Passkey[];
+    }>(`${this.apiUrl}/passkey?email=${encodeURIComponent(email)}`);
     return response.data.data;
   }
 
@@ -92,7 +110,7 @@ class Auth {
     return response.data;
   }
 
-  // BACK OFFICE
+  // NEYNAR
 
   async generateFarcasterJWT(data: FarcasterJWTData): Promise<MessageResponse> {
     const response = await axios.post<MessageResponse>(
@@ -155,6 +173,34 @@ class Auth {
       { withCredentials: true }
     );
     return response.data.data.success;
+  }
+
+  // MAGIC LINK
+
+  async issueMagicLink(email: string): Promise<MessageResponse> {
+    const response = await axios.post<{ data: MessageResponse }>(
+      `${this.apiUrl}/magic_link`,
+      { email }
+    );
+    return response.data.data;
+  }
+
+  async verifyMagicLink(token: string): Promise<MessageResponse> {
+    const response = await axios.post<{ data: MessageResponse }>(
+      `${this.apiUrl}/magic_link/verify?token=${token}`,
+      {},
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  async exchangeMagicLinkToken(token: string): Promise<MessageResponse> {
+    const response = await axios.post<{ data: MessageResponse }>(
+      `${this.apiUrl}/magic_link/exchange`,
+      { token },
+      { withCredentials: true }
+    );
+    return response.data.data;
   }
 }
 

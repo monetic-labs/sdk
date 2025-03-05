@@ -184,10 +184,7 @@ enum TransferStatus {
 
 enum PersonRole {
   MEMBER = 'MEMBER',
-  DEVELOPER = 'DEVELOPER',
-  BOOKKEEPER = 'BOOKKEEPER',
-  ADMIN = 'ADMIN',
-  SUPER_ADMIN = 'SUPER_ADMIN',
+  OWNER = 'OWNER',
 }
 
 enum Network {

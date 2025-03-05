@@ -20,8 +20,8 @@ import type {
   MerchantRainCompanyStatusOutput,
   MerchantRainCompanyUpdateInput,
   MerchantRainCompanyUpdateOutput,
-  MerchantSettlementAccountGetOutput,
-  MerchantSettlementAccountUpdateInput,
+  MerchantAccountGetOutput,
+  MerchantAccountUpdateInput,
   MerchantUserCreateInput,
   MerchantUserGetOutput,
   MerchantUserUpdateInput,
@@ -41,6 +41,10 @@ import type {
   MerchantTelegramMessageCreateInput,
   MerchantFileUploadInput,
   MerchantUserGetByIdOutput,
+  MerchantAccountCreateInput,
+  MerchantRainCardBalanceOutput,
+  MerchantAccountRainCardWithdrawalRequestInput,
+  MerchantAccountRainCardWithdrawalRequestOutput,
 } from '@/api/_types/merchant';
 
 class Merchant {
@@ -101,20 +105,54 @@ class Merchant {
     return response.data.data;
   }
 
-  async getSettlementAccount() {
+  async getAccounts() {
     const response = await axios.get<{
-      data: MerchantSettlementAccountGetOutput;
-    }>(`${this.apiUrl}/settlement`, { withCredentials: true });
+      data: MerchantAccountGetOutput[];
+    }>(`${this.apiUrl}/accounts`, { withCredentials: true });
     return response.data.data;
   }
 
-  async updateSettlementAccount(data: MerchantSettlementAccountUpdateInput) {
+  async createAccount(data: MerchantAccountCreateInput) {
+    const response = await axios.post<{
+      data: MerchantAccountGetOutput;
+    }>(`${this.apiUrl}/accounts`, data, { withCredentials: true });
+    return response.data.data;
+  }
+
+  async updateAccount(accountId: string, data: MerchantAccountUpdateInput) {
+    const response = await axios.put<{
+      data: MerchantAccountGetOutput;
+    }>(`${this.apiUrl}/accounts/${accountId}`, data, {
+      withCredentials: true,
+    });
+    return response.data.data;
+  }
+
+  async getSettlementAccount() {
+    const response = await axios.get<{
+      data: MerchantAccountGetOutput[];
+    }>(`${this.apiUrl}/accounts`, { withCredentials: true });
+    return response.data.data.find((account) => account.isSettlement);
+  }
+
+  async setSettlementAccount(accountId: string) {
     const response = await axios.put<{ data: { success: boolean } }>(
-      `${this.apiUrl}/settlement`,
-      data,
+      `${this.apiUrl}/accounts/${accountId}/settlement`,
+      {},
       { withCredentials: true }
     );
     return response.data.data.success;
+  }
+
+  async requestWithdrawalSignatureForRainAccount(
+    data: MerchantAccountRainCardWithdrawalRequestInput
+  ) {
+    const response = await axios.post<{
+      data: MerchantAccountRainCardWithdrawalRequestOutput;
+    }>(`${this.apiUrl}/accounts/withdrawal/signature`, data, {
+      withCredentials: true,
+    });
+    return response.data.data;
   }
 
   // RAIN CARDS
@@ -193,6 +231,13 @@ class Merchant {
       `${this.apiUrl}/cards/rain/${body.cardId}/pin`,
       { withCredentials: true }
     );
+    return response.data.data;
+  }
+
+  async getRainCardBalance() {
+    const response = await axios.get<{
+      data: MerchantRainCardBalanceOutput;
+    }>(`${this.apiUrl}/cards/rain/balance`, { withCredentials: true });
     return response.data.data;
   }
 
