@@ -447,11 +447,7 @@ type MerchantUserGetOutput = {
   walletAddress?: string;
   phone?: string;
   username?: string;
-  registeredPasskeys: {
-    credentialId: string;
-    displayName: string;
-    publicKey: string;
-  }[];
+  registeredPasskeys: MerchantUserPasskey[];
 };
 
 type MerchantUserCreateInput = {
@@ -472,6 +468,14 @@ type MerchantUserUpdateInput = {
   walletAddress?: string;
   phone?: string;
   username?: string;
+};
+
+type MerchantUserPasskey = {
+  credentialId: string;
+  displayName: string;
+  publicKey: string;
+  lastUsedAt: string;
+  counter: number;
 };
 
 type MerchantUserGetByIdOutput = {
@@ -512,11 +516,7 @@ type MerchantUserGetByIdOutput = {
   phone: string;
   walletAddress: string;
   username: string;
-  registeredPasskeys: {
-    credentialId: string;
-    displayName: string;
-    publicKey: string;
-  }[];
+  registeredPasskeys: MerchantUserPasskey[];
 };
 
 type MerchantDisbursementCreateInput = {

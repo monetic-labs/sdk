@@ -45,6 +45,7 @@ type PasskeyMetadata = {
   clientDataJSON: string;
   typeIndex: number;
   userVerificationRequired: boolean;
+  signCount?: number;
 };
 
 type PasskeySignature = {
@@ -93,6 +94,7 @@ type RegisterPasskeyInput = {
   credentialId: string;
   publicKey: string;
   displayName?: string;
+  counter?: number;
 };
 
 type RegisterPasskeyResponse = {
