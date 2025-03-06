@@ -447,11 +447,6 @@ type MerchantUserGetOutput = {
   walletAddress?: string;
   phone?: string;
   username?: string;
-  pendingInvite: {
-    id: string;
-    isUsed: boolean;
-    expiresAt: string;
-  } | null;
   registeredPasskeys: {
     credentialId: string;
     displayName: string;

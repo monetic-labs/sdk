@@ -10,11 +10,6 @@ import type {
   RegisterPasskeyInput,
   AuthenticatePasskeyInput,
   AuthenticatePasskeyResponse,
-  IssueInviteInput,
-  IssueInviteResponse,
-  GetInviteResponse,
-  RedeemInviteInput,
-  RedeemInviteResponse,
   PasskeyRegistrationOptionsResponse,
   Passkey,
 } from '@/api/_types/auth';
@@ -35,15 +30,6 @@ class Auth {
     return response.data.data;
   }
 
-  async getPasskeyRegistrationOptions(
-    email: string
-  ): Promise<PasskeyRegistrationOptionsResponse> {
-    const response = await axios.get<{
-      data: PasskeyRegistrationOptionsResponse;
-    }>(`${this.apiUrl}/passkey/options?email=${encodeURIComponent(email)}`);
-    return response.data.data;
-  }
-
   async getPasskeys(email: string): Promise<Passkey[]> {
     const response = await axios.get<{
       data: Passkey[];
@@ -57,6 +43,19 @@ class Auth {
     const response = await axios.post<{ data: RegisterPasskeyResponse }>(
       `${this.apiUrl}/passkey/register`,
       data
+    );
+    return response.data.data;
+  }
+
+  async getPasskeyRegistrationOptions(
+    email: string
+  ): Promise<PasskeyRegistrationOptionsResponse> {
+    const response = await axios.get<{
+      data: PasskeyRegistrationOptionsResponse;
+    }>(
+      `${this.apiUrl}/passkey/register/options?email=${encodeURIComponent(
+        email
+      )}`
     );
     return response.data.data;
   }
@@ -126,53 +125,6 @@ class Auth {
       withCredentials: true,
     });
     return response.data;
-  }
-
-  // INVITE
-
-  async issueInvite(data: IssueInviteInput): Promise<IssueInviteResponse> {
-    const response = await axios.post<{ data: IssueInviteResponse }>(
-      `${this.apiUrl}/invite`,
-      data,
-      { withCredentials: true }
-    );
-    return response.data.data;
-  }
-
-  async getInvite(bearerToken: string): Promise<GetInviteResponse> {
-    const response = await axios.get<{ data: GetInviteResponse }>(
-      `${this.apiUrl}/invite`,
-      {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      }
-    );
-    return response.data.data;
-  }
-
-  async redeemInvite(
-    bearerToken: string,
-    data: RedeemInviteInput
-  ): Promise<RedeemInviteResponse> {
-    const response = await axios.post<{ data: RedeemInviteResponse }>(
-      `${this.apiUrl}/invite/redeem`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      }
-    );
-    return response.data.data;
-  }
-
-  async cancelInvite(inviteId: string): Promise<boolean> {
-    const response = await axios.delete<{ data: { success: boolean } }>(
-      `${this.apiUrl}/invite/${inviteId}`,
-      { withCredentials: true }
-    );
-    return response.data.data.success;
   }
 
   // MAGIC LINK

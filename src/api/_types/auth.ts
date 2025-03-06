@@ -1,5 +1,3 @@
-import { PersonRole } from '../_enums/merchant';
-
 type AccessTokenResponse = {
   token: string;
 };
@@ -118,52 +116,6 @@ type AuthenticatePasskeyResponse = {
   publicKey: string;
 };
 
-type IssueInviteInput = {
-  invites: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: string;
-  }[];
-};
-
-type IssueInviteResponse = {
-  success: boolean;
-  invitedUsers: {
-    id: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    role: PersonRole;
-    expiresAt: string;
-  }[];
-};
-
-type GetInviteResponse = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: PersonRole;
-  merchantId: number;
-  merchant: string;
-};
-
-type RedeemInviteInput = {
-  walletAddress: string;
-  phoneNumber: string;
-  passkeyId: string;
-};
-
-type RedeemInviteResponse = {
-  success: boolean;
-  user: {
-    id: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
-};
-
 export type {
   AccessTokenResponse,
   UserResponse,
@@ -179,9 +131,4 @@ export type {
   RegisterPasskeyResponse,
   AuthenticatePasskeyInput,
   AuthenticatePasskeyResponse,
-  IssueInviteInput,
-  IssueInviteResponse,
-  GetInviteResponse,
-  RedeemInviteInput,
-  RedeemInviteResponse,
 };

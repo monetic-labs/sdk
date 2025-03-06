@@ -7,9 +7,7 @@ import { Environment, PylonConfig } from '../_types';
 import type {
   AuthenticatePasskeyInput,
   FarcasterJWTData,
-  IssueInviteInput,
   IssueOTP,
-  RedeemInviteInput,
   RegisterPasskeyInput,
   VerifyOTP,
 } from '@/api/_types/auth';
@@ -118,23 +116,6 @@ class Pylon {
 
   async authenticatePasskey(data: AuthenticatePasskeyInput) {
     return this.auth.authenticatePasskey(data);
-  }
-
-  // INVITE AUTH METHODS
-  async issueInvite(data: IssueInviteInput) {
-    return this.auth.issueInvite(data);
-  }
-
-  async getInvite(bearerToken: string) {
-    return this.auth.getInvite(bearerToken);
-  }
-
-  async redeemInvite(bearerToken: string, data: RedeemInviteInput) {
-    return this.auth.redeemInvite(bearerToken, data);
-  }
-
-  async cancelInvite(inviteId: string) {
-    return this.auth.cancelInvite(inviteId);
   }
 
   // MAGIC LINK AUTH METHODS
