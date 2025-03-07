@@ -160,8 +160,8 @@ class Pylon {
   }
 
   // MERCHANT METHODS
-  async createMerchant(data: MerchantCreateInput) {
-    return this.merchant.createMerchant(data);
+  async createMerchant(token: string, data: MerchantCreateInput) {
+    return this.merchant.createMerchant(token, data);
   }
 
   async createApiKey({ apiKeyName }: { apiKeyName: string }) {

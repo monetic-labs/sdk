@@ -53,12 +53,12 @@ class Merchant {
   constructor(baseUrl: string) {
     this.apiUrl = `${baseUrl}/v1/merchant`;
   }
-
   async createMerchant(
+    token: string,
     data: MerchantCreateInput
   ): Promise<MerchantCreateOutput> {
     const response = await axios.post<MerchantCreateOutput>(
-      `${this.apiUrl}/`,
+      `${this.apiUrl}?token=${token}`,
       data,
       { withCredentials: true }
     );
