@@ -42,7 +42,8 @@ class Auth {
   ): Promise<RegisterPasskeyResponse> {
     const response = await axios.post<{ data: RegisterPasskeyResponse }>(
       `${this.apiUrl}/passkey/register`,
-      data
+      data,
+      { withCredentials: true }
     );
     return response.data.data;
   }
@@ -55,7 +56,8 @@ class Auth {
     }>(
       `${this.apiUrl}/passkey/register/options?email=${encodeURIComponent(
         email
-      )}`
+      )}`,
+      { withCredentials: true }
     );
     return response.data.data;
   }

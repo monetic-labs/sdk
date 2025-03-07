@@ -84,6 +84,7 @@ type PasskeyRegistrationOptionsResponse = {
   };
   timeout: number;
   attestation: AttestationConveyancePreference;
+  excludeCredentials: string[];
   extensions: {
     credProps: boolean;
     minPinLength: boolean;
@@ -93,6 +94,8 @@ type PasskeyRegistrationOptionsResponse = {
 type RegisterPasskeyInput = {
   credentialId: string;
   publicKey: string;
+  transports: string[];
+  challenge: string;
   displayName?: string;
   counter?: number;
 };
