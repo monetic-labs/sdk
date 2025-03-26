@@ -45,7 +45,9 @@ import type {
   MerchantRainCardBalanceOutput,
   MerchantAccountRainCardWithdrawalRequestInput,
   MerchantAccountRainCardWithdrawalRequestOutput,
+  MerchantChatEvent,
 } from '@/api/_types/merchant';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
 class Merchant {
   protected apiUrl: string;
@@ -383,6 +385,28 @@ class Merchant {
       };
     }>(`${this.apiUrl}/chat/file/upload`, body, { withCredentials: true });
     return response.data.data;
+  }
+
+  async getChatEvents(callback: (data: MerchantChatEvent) => void) {
+    const eventSource = new EventSourcePolyfill(`${this.apiUrl}/chat/events`, {
+      heartbeatTimeout: 4 * 60 * 60 * 1000, // 4 hours
+      withCredentials: true,
+    });
+
+    eventSource.onmessage = (event) => {
+      const data: MerchantChatEvent = JSON.parse(event.data);
+      callback(data);
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('EventSource failed:', error);
+      eventSource.close();
+    };
+
+    // Return a function to close the connection when needed
+    return () => {
+      eventSource.close();
+    };
   }
 }
 

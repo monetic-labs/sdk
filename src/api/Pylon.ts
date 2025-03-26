@@ -38,6 +38,7 @@ import type {
   MerchantFileUploadInput,
   MerchantAccountCreateInput,
   MerchantAccountRainCardWithdrawalRequestInput,
+  MerchantChatEvent,
 } from '@/api/_types/merchant';
 import type {
   CreateOrderLinkInput,
@@ -301,6 +302,10 @@ class Pylon {
 
   async getFileUploadUrl(body: MerchantFileUploadInput) {
     return this.merchant.getFileUploadUrl(body);
+  }
+
+  async getChatEvents(callback: (data: MerchantChatEvent) => void) {
+    return this.merchant.getChatEvents(callback);
   }
 
   // TRANSACTION METHODS

@@ -679,6 +679,28 @@ type MerchantFileUploadInput = {
   mimeType: string;
 };
 
+type MerchantChatMessageEvent = {
+  type: 'chat_message';
+  data: {
+    messageId: number;
+    text: string;
+    from: {
+      id: number;
+      is_bot: boolean;
+      first_name: string;
+      username: string;
+    };
+    timestamp: string;
+  };
+};
+
+type MerchantChatConnectionEvent = {
+  connectionId: string;
+  merchantId: string;
+};
+
+type MerchantChatEvent = MerchantChatMessageEvent | MerchantChatConnectionEvent;
+
 export type {
   MerchantFileUploadInput,
   GetMerchantCardPinOutput,
@@ -752,4 +774,5 @@ export type {
   MerchantDisbursementContactGetAllInput,
   MerchantDisbursementContactGetOutput,
   MerchantTelegramMessageCreateInput,
+  MerchantChatEvent,
 };
