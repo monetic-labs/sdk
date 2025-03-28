@@ -9,6 +9,7 @@ import type {
   FarcasterJWTData,
   IssueOTP,
   RegisterPasskeyInput,
+  UpdatePasskeyInput,
   VerifyOTP,
 } from '@/api/_types/auth';
 import type {
@@ -117,6 +118,10 @@ class Pylon {
 
   async authenticatePasskey(data: AuthenticatePasskeyInput) {
     return this.auth.authenticatePasskey(data);
+  }
+
+  async updatePasskeyDisplayName(passkeyId: string, data: UpdatePasskeyInput) {
+    return this.auth.updatePasskeyDisplayName(passkeyId, data);
   }
 
   // MAGIC LINK AUTH METHODS

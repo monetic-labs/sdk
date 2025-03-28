@@ -12,6 +12,7 @@ import type {
   AuthenticatePasskeyResponse,
   PasskeyRegistrationOptionsResponse,
   Passkey,
+  UpdatePasskeyInput,
 } from '@/api/_types/auth';
 
 class Auth {
@@ -69,6 +70,15 @@ class Auth {
       { withCredentials: true }
     );
     return response.data.data;
+  }
+
+  async updatePasskeyDisplayName(passkeyId: string, data: UpdatePasskeyInput) {
+    const response = await axios.patch<{ data: { success: boolean } }>(
+      `${this.apiUrl}/passkey/${passkeyId}`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data.data.success;
   }
 
   // SERVICES

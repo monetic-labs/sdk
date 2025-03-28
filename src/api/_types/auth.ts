@@ -121,6 +121,10 @@ type AuthenticatePasskeyResponse = {
   publicKey: string;
 };
 
+type UpdatePasskeyInput = {
+  displayName: string;
+};
+
 export type {
   AccessTokenResponse,
   UserResponse,
@@ -136,4 +140,5 @@ export type {
   RegisterPasskeyResponse,
   AuthenticatePasskeyInput,
   AuthenticatePasskeyResponse,
+  UpdatePasskeyInput,
 };
