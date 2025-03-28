@@ -25,6 +25,7 @@ import {
   BridgeComplianceKycStatus,
   BridgeComplianceTosStatus,
 } from '../_enums/bridge';
+import { PasskeyMetadata } from './auth';
 
 type Pagination = {
   hasNextPage: boolean;
@@ -471,11 +472,13 @@ type MerchantUserUpdateInput = {
 };
 
 type MerchantUserPasskey = {
+  id: string;
   credentialId: string;
   displayName: string;
   publicKey: string;
   lastUsedAt: string;
   counter: number;
+  metadata?: PasskeyMetadata;
 };
 
 type MerchantUserGetByIdOutput = {

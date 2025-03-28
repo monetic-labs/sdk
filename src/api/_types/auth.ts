@@ -34,9 +34,11 @@ type MessageResponse = {
 };
 
 type Passkey = {
+  id: string;
   credentialId: string;
   publicKey?: string;
   displayName?: string;
+  metadata?: PasskeyMetadata;
 };
 
 type PasskeyMetadata = {
@@ -140,5 +142,6 @@ export type {
   RegisterPasskeyResponse,
   AuthenticatePasskeyInput,
   AuthenticatePasskeyResponse,
+  PasskeyMetadata,
   UpdatePasskeyInput,
 };
