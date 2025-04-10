@@ -5,6 +5,7 @@ export * from './api/_types/bridge';
 export * from './api/_types/merchant';
 export * from './api/_types/transaction';
 export * from './api/_types/recovery';
+export * from './api/_types/naics';
 export * from './api/_enums/merchant';
 export * from './api/_enums/rain';
 export * from './api/_enums/bridge';

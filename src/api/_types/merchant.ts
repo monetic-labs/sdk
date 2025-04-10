@@ -59,11 +59,12 @@ type RainInitialUser = RainPerson & {
 };
 type RainEntity = {
   name: string;
-  type?: CardCompanyType;
+  description: string;
+  industry: string;
   registrationNumber: string;
-  description?: string;
   taxId: string;
   website: string;
+  type?: CardCompanyType;
   expectedSpend?: string;
 };
 
@@ -108,14 +109,8 @@ type ShippingAddress = Address & {
   lastName: string;
 };
 
-type Company = {
-  name: string;
+type Company = RainEntity & {
   email: string;
-  website: string;
-  registrationNumber: string;
-  taxId: string;
-  type?: CardCompanyType;
-  description?: string;
   registeredAddress: RegisteredAddress;
   controlOwner: RainInitialUser;
   ultimateBeneficialOwners: RainPerson[];
