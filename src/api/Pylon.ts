@@ -59,8 +59,8 @@ class Pylon {
   private recovery: Recovery;
 
   private static readonly DEFAULT_URLS: Record<Environment, string> = {
-    staging: 'https://staging-api.backpack.network',
-    production: 'https://api.backpack.network',
+    staging: 'https://api.staging.monetic.xyz',
+    production: 'https://api.monetic.xyz',
   };
 
   constructor(config: PylonConfig) {

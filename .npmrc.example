@@ -1,6 +1,6 @@
 
 To install and run the SDK you need this line in your .npmrc file:
-@backpack-fux:registry=https://npm.pkg.github.com
+@monetic-labs:registry=https://npm.pkg.github.com
 
 If you want to publish the SDK you need this line in your .npmrc file and you can get the PAT from your GitHub account settings:
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+//npm.pkg.github.com/:_authToken=${YOUR_GITHUB_PAT}

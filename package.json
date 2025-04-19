@@ -1,13 +1,13 @@
 {
-  "name": "@backpack-fux/pylon-sdk",
-  "version": "0.2.986",
-  "description": "Pylon SDK",
-  "author": "Backpack",
+  "name": "@monetic-labs/sdk",
+  "version": "0.3.0",
+  "description": "Monetic SDK",
+  "author": "Monetic",
   "license": "UNLICENSED",
   "keywords": [
     "api",
     "client",
-    "pylon"
+    "monetic"
   ],
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

@@ -16,7 +16,7 @@ Before installing, you need to set up authentication for the package registry:
 2. Create or edit your `.npmrc` file in your project root:
 
 ```
-@backpack-fux:registry=https://npm.pkg.github.com
+@monetic-labs:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:authToken=YOUR_GITHUB_PAT
 ```
 
@@ -25,7 +25,7 @@ Before installing, you need to set up authentication for the package registry:
 Now you can install the Pylon SDK, use pnpm you heathen:
 
 ```
-pnpm install pylon-sdk
+bun install sdk
 ```
 
 ## Usage
