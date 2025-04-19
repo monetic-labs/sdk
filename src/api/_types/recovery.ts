@@ -1,7 +1,7 @@
 enum RecoveryWalletMethod {
   EMAIL = 'EMAIL',
   PHONE = 'PHONE',
-  BACKPACK = 'BACKPACK',
+  MONETIC = 'MONETIC',
 }
 
 enum RecoveryWalletCustodialProvider {
