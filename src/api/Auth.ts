@@ -81,6 +81,14 @@ class Auth {
     return response.data.data.success;
   }
 
+  async deletePasskey(passkeyId: string) {
+    const response = await axios.delete<{ data: { success: boolean } }>(
+      `${this.apiUrl}/passkey/${passkeyId}`,
+      { withCredentials: true }
+    );
+    return response.data.data.success;
+  }
+
   // SERVICES
 
   async generateAccessToken(): Promise<AccessTokenResponse> {

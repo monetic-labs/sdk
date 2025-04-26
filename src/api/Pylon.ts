@@ -124,6 +124,10 @@ class Pylon {
     return this.auth.updatePasskeyDisplayName(passkeyId, data);
   }
 
+  async deletePasskey(passkeyId: string) {
+    return this.auth.deletePasskey(passkeyId);
+  }
+
   // MAGIC LINK AUTH METHODS
   async issueMagicLink(email: string) {
     return this.auth.issueMagicLink(email);

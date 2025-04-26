@@ -772,5 +772,6 @@ export type {
   MerchantDisbursementContactGetAllInput,
   MerchantDisbursementContactGetOutput,
   MerchantTelegramMessageCreateInput,
+  MerchantUserPasskey,
   MerchantChatEvent,
 };
