@@ -9,10 +9,6 @@ import type {
   MerchantCardTransactionGetOutput,
   MerchantCreateInput,
   MerchantCreateOutput,
-  MerchantDisbursementCreateInput,
-  MerchantDisbursementCreateOutput,
-  MerchantDisbursementUpdateOutput,
-  MerchantDisbursementUpdateInput,
   MerchantPhysicalCardCreateInput,
   MerchantPhysicalCardCreateOutput,
   MerchantRainCompanyCreateInput,
@@ -28,10 +24,6 @@ import type {
   MerchantVirtualCardCreateInput,
   MerchantVirtualCardCreateOutput,
   MerchantVirtualCardDecryptOutput,
-  MerchantDisbursementEventsOutput,
-  MerchantDisbursementEventsInput,
-  MerchantDisbursementContactGetAllInput,
-  MerchantDisbursementContactGetOutput,
   UpdateMerchantCardDataInput,
   UpdateMerchantCardDataOutput,
   UpdateMerchantCardPinInput,
@@ -47,6 +39,16 @@ import type {
   MerchantAccountRainCardWithdrawalRequestOutput,
   MerchantChatEvent,
 } from '@/api/_types/merchant';
+import type {
+  MerchantDisbursementCreateInput,
+  MerchantDisbursementCreateOutput,
+  MerchantDisbursementUpdateOutput,
+  MerchantDisbursementUpdateInput,
+  MerchantDisbursementEventsOutput,
+  MerchantDisbursementEventsInput,
+  MerchantDisbursementContactGetAllInput,
+  MerchantDisbursementContactGetOutput,
+} from '@/api/_types/disbursement';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
 class Merchant {

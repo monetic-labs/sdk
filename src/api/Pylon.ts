@@ -28,10 +28,6 @@ import type {
   MerchantRainCompanyUpdateInput,
   MerchantUserCreateInput,
   MerchantUserUpdateInput,
-  MerchantDisbursementUpdateInput,
-  MerchantDisbursementCreateInput,
-  MerchantDisbursementEventsInput,
-  MerchantDisbursementContactGetAllInput,
   UpdateMerchantCardDataInput,
   UpdateMerchantCardPinInput,
   GetMerchantCardPinInput,
@@ -47,7 +43,14 @@ import type {
   TransactionProcessInput,
   TransactionProcessRefundInput,
 } from '@/api/_types/transaction';
+import type {
+  MerchantDisbursementUpdateInput,
+  MerchantDisbursementCreateInput,
+  MerchantDisbursementEventsInput,
+  MerchantDisbursementContactGetAllInput,
+} from '@/api/_types/disbursement';
 import { RecoveryWalletGenerateInput } from './_types/recovery';
+import Disbursement from './Disbursement';
 
 class Pylon {
   private apiUrl: string;
@@ -57,6 +60,7 @@ class Pylon {
   private merchant: Merchant;
   private transaction: Transaction;
   private recovery: Recovery;
+  private disbursement: Disbursement;
 
   private static readonly DEFAULT_URLS: Record<Environment, string> = {
     staging: 'https://api.staging.monetic.xyz',
@@ -72,6 +76,7 @@ class Pylon {
     this.merchant = new Merchant(this.apiUrl);
     this.transaction = new Transaction(this.apiUrl);
     this.recovery = new Recovery(this.apiUrl);
+    this.disbursement = new Disbursement(this.apiUrl);
   }
 
   // GENERAL AUTH METHODS
@@ -284,27 +289,29 @@ class Pylon {
     return this.merchant.getUserById();
   }
 
+  // DISBURSEMENT METHODS
   async initiateNewDisbursement(data: MerchantDisbursementCreateInput) {
-    return this.merchant.initiateNewDisbursement(data);
+    return this.disbursement.initiateNewDisbursement(data);
   }
 
   async initiateExistingDisbursement(
     disbursementId: string,
     data: MerchantDisbursementUpdateInput
   ) {
-    return this.merchant.initiateExistingDisbursement(disbursementId, data);
+    return this.disbursement.initiateExistingDisbursement(disbursementId, data);
   }
 
   async getDisbursementEvents(queryParams: MerchantDisbursementEventsInput) {
-    return this.merchant.getDisbursementEvents(queryParams);
+    return this.disbursement.getDisbursementEvents(queryParams);
   }
 
   async getDisbursementContacts(
     queryParams: MerchantDisbursementContactGetAllInput
   ) {
-    return this.merchant.getDisbursementContacts(queryParams);
+    return this.disbursement.getDisbursementContacts(queryParams);
   }
 
+  // TELEGRAM METHODS
   async createTelegramMessage(body: MerchantTelegramMessageCreateInput) {
     return this.merchant.createTelegramMessage(body);
   }
