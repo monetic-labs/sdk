@@ -472,19 +472,35 @@ type MerchantUserPasskey = {
   metadata?: PasskeyMetadata;
 };
 
+type MerchantUserCompliance = {
+  id: number;
+  provider: string;
+  status: string;
+};
+
+type MerchantUserAccount = {
+  id: string;
+  name: string;
+  ledgerAddress: string;
+  network: Network;
+  currency: StableCurrency;
+  isSettlement: boolean;
+};
+
 type MerchantUserGetByIdOutput = {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
+  walletAddress: string;
+  hasMigratedPasskey: boolean;
   role: PersonRole;
+  phone: string;
+  username: string;
   createdAt: string;
   updatedAt: string;
-  Compliance: {
-    id: number;
-    provider: string;
-    status: string;
-  }[];
+  registeredPasskeys: MerchantUserPasskey[];
+  compliance: MerchantUserCompliance[];
   merchant: {
     id: number;
     bridgeCustomerId: string;
@@ -493,24 +509,9 @@ type MerchantUserGetByIdOutput = {
       name: string;
       email: string;
     };
-    compliance: {
-      id: number;
-      provider: string;
-      status: string;
-    }[];
-    accounts: {
-      id: string;
-      name: string;
-      ledgerAddress: string;
-      network: Network;
-      currency: StableCurrency;
-      isSettlement: boolean;
-    }[];
+    compliance: MerchantUserCompliance[];
+    accounts: MerchantUserAccount[];
   };
-  phone: string;
-  walletAddress: string;
-  username: string;
-  registeredPasskeys: MerchantUserPasskey[];
 };
 
 type UpdateMerchantCardDataInput = {
@@ -642,6 +643,8 @@ export type {
   MerchantUserGetOutput,
   MerchantUserUpdateInput,
   MerchantUserGetByIdOutput,
+  MerchantUserCompliance,
+  MerchantUserAccount,
   MerchantTelegramMessageCreateInput,
   MerchantUserPasskey,
   MerchantChatEvent,
