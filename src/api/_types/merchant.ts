@@ -467,6 +467,7 @@ type MerchantUserPasskey = {
   credentialId: string;
   displayName: string;
   publicKey: string;
+  rpId: string;
   lastUsedAt: string;
   counter: number;
   metadata?: PasskeyMetadata;
