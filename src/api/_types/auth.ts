@@ -36,6 +36,7 @@ type MessageResponse = {
 type Passkey = {
   id: string;
   credentialId: string;
+  rpId: string;
 };
 
 type PasskeyMetadata = {
