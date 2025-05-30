@@ -1,5 +1,5 @@
 import { BillingAddress, ShippingAddress } from './merchant';
-import { ISO4217Currency } from '../_enums/merchant';
+import { ISO4217Currency, StableCurrency } from '../_enums/merchant';
 
 type PaymentProcessor = 'WORLDPAY';
 type TransactionStatus = 'SUCCESS' | 'FAILURE' | 'PENDING';
@@ -169,13 +169,13 @@ type TransactionProcessRefundOutput = {
 };
 
 type CreateOrderLinkInput = {
-  customer: {
-    email: string;
-    phone: string;
-  };
   order: {
     subtotal: number;
     currency: ISO4217Currency;
+  };
+  customer?: {
+    email: string;
+    phone: string;
   };
 };
 
@@ -183,17 +183,21 @@ type GetOrderLinkOutput = {
   merchant: {
     name: string;
     fee: string;
+    settlement: {
+      address: string;
+      currency: StableCurrency;
+    };
   };
   order: {
     subtotal: number;
     currency: ISO4217Currency;
   };
-  customer: {
+  expiresAt: string;
+  paymentToken: string;
+  customer?: {
     email: string;
     phone: string;
   };
-  expiresAt: string;
-  paymentToken: string;
 };
 
 type CreateOrderLinkOutput = {
@@ -203,15 +207,15 @@ type CreateOrderLinkOutput = {
 
 type GetOrderLinksOutput = {
   id: string;
+  expiresAt: string;
   order: {
     subtotal: number;
     currency: ISO4217Currency;
   };
-  customer: {
+  customer?: {
     email: string;
     phone: string;
   };
-  expiresAt: string;
 };
 
 type DeleteOrderLinkOutput = {
