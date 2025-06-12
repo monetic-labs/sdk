@@ -50,6 +50,7 @@ import type {
   MerchantDisbursementContactGetOutput,
 } from '@/api/_types/disbursement';
 import { EventSourcePolyfill } from 'event-source-polyfill';
+import { PaymentSSEEventType } from './_enums/payment';
 
 class Merchant {
   protected apiUrl: string;
@@ -391,21 +392,50 @@ class Merchant {
 
   async getChatEvents(callback: (data: MerchantChatEvent) => void) {
     const eventSource = new EventSourcePolyfill(`${this.apiUrl}/chat/events`, {
-      heartbeatTimeout: 4 * 60 * 60 * 1000, // 4 hours
+      heartbeatTimeout: 4 * 60 * 60 * 1000,
       withCredentials: true,
     });
 
-    eventSource.onmessage = (event) => {
-      const data: MerchantChatEvent = JSON.parse(event.data);
-      callback(data);
+    const connectedListener = (event: MessageEvent) => {
+      try {
+        const parsedData = JSON.parse(event.data);
+        callback({
+          type: PaymentSSEEventType.CONNECTED,
+          status: 'ok',
+          channel: parsedData.channel,
+        });
+      } catch (error) {
+        console.error('Error parsing CONNECTED event:', error, event);
+      }
     };
+
+    const chatMessageListener = (event: MessageEvent) => {
+      try {
+        const parsedData = JSON.parse(event.data);
+        callback({
+          type: PaymentSSEEventType.CHAT_MESSAGE,
+          data: parsedData,
+        });
+      } catch (error) {
+        console.error('Error parsing CHAT_MESSAGE event:', error, event);
+      }
+    };
+
+    eventSource.addEventListener(
+      PaymentSSEEventType.CONNECTED,
+      connectedListener as any
+    );
+    eventSource.addEventListener(
+      PaymentSSEEventType.CHAT_MESSAGE,
+      chatMessageListener as any
+    );
 
     eventSource.onerror = (error) => {
       console.error('EventSource failed:', error);
       eventSource.close();
     };
 
-    // Return a function to close the connection when needed
+    // Return a function to close the connection
     return () => {
       eventSource.close();
     };

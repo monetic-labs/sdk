@@ -1,7 +1,6 @@
 import Auth from './Auth';
 import Bridge from './Bridge';
 import Merchant from './Merchant';
-import Transaction from './Transaction';
 import Recovery from './Recovery';
 import { Environment, PylonConfig } from '../_types';
 import type {
@@ -38,11 +37,10 @@ import type {
   MerchantChatEvent,
 } from '@/api/_types/merchant';
 import type {
-  CreateOrderLinkInput,
-  TransactionListOutput,
-  TransactionProcessInput,
-  TransactionProcessRefundInput,
-} from '@/api/_types/transaction';
+  CreatePaymentLinkInput,
+  PaymentListOutput,
+} from '@/api/_types/payment';
+import type { OnRampProcessInput } from '@/api/_types/onramp';
 import type {
   MerchantDisbursementUpdateInput,
   MerchantDisbursementCreateInput,
@@ -51,6 +49,8 @@ import type {
 } from '@/api/_types/disbursement';
 import { RecoveryWalletGenerateInput } from './_types/recovery';
 import Disbursement from './Disbursement';
+import Payment from './Payment';
+import Onramp from './Onramp';
 
 class Pylon {
   private apiUrl: string;
@@ -58,7 +58,8 @@ class Pylon {
   private auth: Auth;
   private bridge: Bridge;
   private merchant: Merchant;
-  private transaction: Transaction;
+  private payment: Payment;
+  private onramp: Onramp;
   private recovery: Recovery;
   private disbursement: Disbursement;
 
@@ -74,7 +75,8 @@ class Pylon {
     this.auth = new Auth(this.apiUrl);
     this.bridge = new Bridge(this.apiUrl);
     this.merchant = new Merchant(this.apiUrl);
-    this.transaction = new Transaction(this.apiUrl);
+    this.payment = new Payment(this.apiUrl);
+    this.onramp = new Onramp(this.apiUrl);
     this.recovery = new Recovery(this.apiUrl);
     this.disbursement = new Disbursement(this.apiUrl);
   }
@@ -324,37 +326,30 @@ class Pylon {
     return this.merchant.getChatEvents(callback);
   }
 
-  // TRANSACTION METHODS
-  async processTransaction(data: TransactionProcessInput, bearerToken: string) {
-    return this.transaction.processTransaction(data, bearerToken);
+  // PAYMENT METHODS
+  async getPaymentList(callback: (data: PaymentListOutput) => void) {
+    return this.payment.getPaymentList(callback);
   }
 
-  async getTransactionStatus(transferId: string) {
-    return this.transaction.getTransactionStatus(transferId);
+  async getPaymentLinks() {
+    return this.payment.getPaymentLinks();
   }
 
-  async getTransactionList(callback: (data: TransactionListOutput) => void) {
-    return this.transaction.getTransactionList(callback);
+  async createPaymentLink(data: CreatePaymentLinkInput) {
+    return this.payment.createPaymentLink(data);
   }
 
-  async processRefund(data: TransactionProcessRefundInput) {
-    return this.transaction.processRefund(data);
+  async getPaymentLink(paymentLinkId: string) {
+    return this.payment.getPaymentLink(paymentLinkId);
   }
 
-  async getOrderLinks() {
-    return this.transaction.getOrderLinks();
+  async deletePaymentLink(paymentLinkId: string) {
+    return this.payment.deletePaymentLink(paymentLinkId);
   }
 
-  async createOrderLink(data: CreateOrderLinkInput) {
-    return this.transaction.createOrderLink(data);
-  }
-
-  async getOrderLink(orderLinkId: string) {
-    return this.transaction.getOrderLink(orderLinkId);
-  }
-
-  async deleteOrderLink(orderLinkId: string) {
-    return this.transaction.deleteOrderLink(orderLinkId);
+  // ONRAMP METHODS
+  async processOnRamp(data: OnRampProcessInput, apiToken: string) {
+    return this.onramp.processOnRamp(data, apiToken);
   }
 
   // RECOVERY METHODS

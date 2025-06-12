@@ -22,6 +22,7 @@ import {
   BridgeComplianceTosStatus,
 } from '../_enums/bridge';
 import { PasskeyMetadata } from './auth';
+import { PaymentSSEEventType } from '../_enums/payment';
 
 type Pagination = {
   hasNextPage: boolean;
@@ -560,7 +561,7 @@ type MerchantFileUploadInput = {
 };
 
 type MerchantChatMessageEvent = {
-  type: 'chat_message';
+  type: PaymentSSEEventType.CHAT_MESSAGE;
   data: {
     messageId: number;
     text: string;
@@ -575,11 +576,23 @@ type MerchantChatMessageEvent = {
 };
 
 type MerchantChatConnectionEvent = {
-  connectionId: string;
-  merchantId: string;
+  type: PaymentSSEEventType.CONNECTED;
+  status: 'ok';
+  channel: string;
 };
 
 type MerchantChatEvent = MerchantChatMessageEvent | MerchantChatConnectionEvent;
+
+type Customer = {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  username?: string;
+  walletAddress: string;
+  passkeys?: MerchantUserPasskey[];
+};
 
 export type {
   MerchantFileUploadInput,
@@ -648,5 +661,8 @@ export type {
   MerchantUserAccount,
   MerchantTelegramMessageCreateInput,
   MerchantUserPasskey,
+  MerchantChatConnectionEvent,
+  MerchantChatMessageEvent,
   MerchantChatEvent,
+  Customer,
 };
