@@ -182,6 +182,7 @@ type ApiKeyUpdateInput = {
 type ApiKeyGetOutput = {
   name: string;
   key: string;
+  whitelistedDomains: string[];
   createdAt: string;
   lastUsed: string | null;
 };
