@@ -7,20 +7,22 @@ const config = [
   {
     input: {
       index: 'src/index.ts',
-      hooks: 'src/hooks/index.ts',
-      api: 'src/api/index.ts',
-      components: 'src/components/index.ts',
+      'api/index': 'src/api/index.ts',
+      'api/_enums/index': 'src/api/_enums/index.ts',
+      'api/_types/index': 'src/api/_types/index.ts',
     },
     output: [
       {
         dir: 'dist',
         format: 'cjs',
         sourcemap: true,
+        entryFileNames: '[name].js',
       },
       {
         dir: 'dist',
         format: 'esm',
         sourcemap: true,
+        entryFileNames: '[name].esm.js',
       },
     ],
     plugins: [
@@ -40,11 +42,9 @@ const config = [
   {
     input: {
       index: 'src/index.ts',
-      hooks: 'src/hooks/index.ts',
-      api: 'src/api/index.ts',
-      enums: 'src/api/_enums/index.ts',
-      types: 'src/api/_types/index.ts',
-      components: 'src/components/index.ts',
+      'api/index': 'src/api/index.ts',
+      'api/_enums/index': 'src/api/_enums/index.ts',
+      'api/_types/index': 'src/api/_types/index.ts',
     },
     output: [{ dir: 'dist', format: 'es' }],
     plugins: [dts({ tsconfig: './tsconfig.json' })],
