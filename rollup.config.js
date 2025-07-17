@@ -42,6 +42,8 @@ const config = [
       index: 'src/index.ts',
       hooks: 'src/hooks/index.ts',
       api: 'src/api/index.ts',
+      enums: 'src/api/_enums/index.ts',
+      types: 'src/api/_types/index.ts',
       components: 'src/components/index.ts',
     },
     output: [{ dir: 'dist', format: 'es' }],
