@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.14](https://github.com/monetic-labs/sdk/compare/v0.2.966...v0.3.14) (2025-07-17)
+
+
+### Features
+
+* add rpid to staging ([6dddcf8](https://github.com/monetic-labs/sdk/commit/6dddcf891d99e8f7b250b5de431fca5a46e14331))
+* allow whitelisted domains to api keys ([fe39a4b](https://github.com/monetic-labs/sdk/commit/fe39a4b12e68a733d56aee4b1bb483e0ac7cdd04))
+* company registration number ([4546c5a](https://github.com/monetic-labs/sdk/commit/4546c5a1ecc8a58913047bd944299ad387e46d9d))
+* company registration number ([b69ef93](https://github.com/monetic-labs/sdk/commit/b69ef93bef749af3a9f5b05484991d6e117cdf02))
+* counter ([0eea1fb](https://github.com/monetic-labs/sdk/commit/0eea1fb77fad9bae5a1076e0a91291f764aafbae))
+* delete passkey ([8db4507](https://github.com/monetic-labs/sdk/commit/8db45078aa43840de759c26f34b9ef450ed6d480))
+* disbursement + sse ([77737ad](https://github.com/monetic-labs/sdk/commit/77737ad0728c76db1845a119a9fa5d29aea77376))
+* expose rpid to client ([26e12db](https://github.com/monetic-labs/sdk/commit/26e12dbcac2a39708e856fa9f8fc3c39ae029827))
+* magic links and passkeys ([2017d7e](https://github.com/monetic-labs/sdk/commit/2017d7eda2793610366b2f265ffc8ebbfbf33ae0))
+* naics codes ([c8e746c](https://github.com/monetic-labs/sdk/commit/c8e746ce6b53756ad127162615b5550af8363a8a))
+* passkey invites + user mngt ([316c8d3](https://github.com/monetic-labs/sdk/commit/316c8d3e6ac1402ae27dcc9644728e1905db9f1b))
+* passkey name ([ab810a9](https://github.com/monetic-labs/sdk/commit/ab810a9bc786ef570f5ee6f7977c94196bbcfb61))
+* recovery ([cc8d3d8](https://github.com/monetic-labs/sdk/commit/cc8d3d84ed0b52fe367295c97f41da0c527c1390))
+* sse on support ([55b9df3](https://github.com/monetic-labs/sdk/commit/55b9df3a9efd525d06c46954bf9a40cd28236415))
+* support undefined customer obj ([160afd0](https://github.com/monetic-labs/sdk/commit/160afd0f23509f7a94e367407e673c62cefd5e87))
+* telegram message create ([e139c59](https://github.com/monetic-labs/sdk/commit/e139c59caa59d9adc55f484a9595d2cc801aec57))
+* user id ext ([39056bd](https://github.com/monetic-labs/sdk/commit/39056bdc48133fc87c74a201f3dad166ce004ba0))
+
+
+### Bug Fixes
+
+* add unknown state to rain ([8fbcaa5](https://github.com/monetic-labs/sdk/commit/8fbcaa5d3f3ca8fc31b495fb37922fc30dad096a))
+* file endpoint upload ([c6e2459](https://github.com/monetic-labs/sdk/commit/c6e24593b946c08d39578ffa745b7ee9f0ba6b67))
+* pass token to merchant create ([41d8bee](https://github.com/monetic-labs/sdk/commit/41d8beee3029b9485e923746830b8eb0186693f7))
+* passkey input params ([edd652a](https://github.com/monetic-labs/sdk/commit/edd652ab8c3e70e25381e17e2d6423ce95d922ff))
+* register options url ([a465c26](https://github.com/monetic-labs/sdk/commit/a465c262bae6fa88f215d79c5f41f2c43c286be0))
+
 ### 0.2.966 (2024-12-07)
 
 
