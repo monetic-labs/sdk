@@ -160,8 +160,14 @@ type MerchantCreateOutput = {
   cardProvider: MerchantCardProvider;
 };
 
+type ApiKeyCreateInput = {
+  name: string;
+  whitelistedDomains?: string[];
+};
+
 type ApiKeyCreateOutput = {
   name: string;
+  whitelistedDomains: string[];
   key: string;
   createdAt: string;
   lastUsed: string | null;
@@ -170,9 +176,7 @@ type ApiKeyCreateOutput = {
 
 type ApiKeyUpdateInput = {
   name?: string;
-  walletAddress?: string;
-  network?: Network;
-  currency?: StableCurrency;
+  whitelistedDomains?: string[];
 };
 
 type ApiKeyGetOutput = {
@@ -618,6 +622,7 @@ export type {
   Compliance,
   MerchantCreateInput,
   MerchantCreateOutput,
+  ApiKeyCreateInput,
   ApiKeyCreateOutput,
   ApiKeyUpdateInput,
   ApiKeyGetOutput,

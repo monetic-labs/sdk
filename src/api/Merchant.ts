@@ -38,6 +38,7 @@ import type {
   MerchantAccountRainCardWithdrawalRequestInput,
   MerchantAccountRainCardWithdrawalRequestOutput,
   MerchantChatEvent,
+  ApiKeyCreateInput,
 } from '@/api/_types/merchant';
 import type {
   MerchantDisbursementCreateInput,
@@ -70,13 +71,11 @@ class Merchant {
     return response.data;
   }
 
-  async createApiKey({ apiKeyName }: { apiKeyName: string }) {
+  async createApiKey(data: ApiKeyCreateInput) {
     const response = await axios.post<{ data: ApiKeyCreateOutput }>(
-      `${this.apiUrl}/settlement/key/${apiKeyName}`,
-      {},
-      {
-        withCredentials: true,
-      }
+      `${this.apiUrl}/settlement/key`,
+      data,
+      { withCredentials: true }
     );
     return response.data.data;
   }

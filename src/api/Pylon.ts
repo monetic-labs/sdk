@@ -35,6 +35,7 @@ import type {
   MerchantAccountCreateInput,
   MerchantAccountRainCardWithdrawalRequestInput,
   MerchantChatEvent,
+  ApiKeyCreateInput,
 } from '@/api/_types/merchant';
 import type {
   CreatePaymentLinkInput,
@@ -181,8 +182,8 @@ class Pylon {
     return this.merchant.createMerchant(token, data);
   }
 
-  async createApiKey({ apiKeyName }: { apiKeyName: string }) {
-    return this.merchant.createApiKey({ apiKeyName });
+  async createApiKey(data: ApiKeyCreateInput) {
+    return this.merchant.createApiKey(data);
   }
 
   async deleteApiKey(apiKey: string) {
