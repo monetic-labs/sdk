@@ -59,7 +59,7 @@ type PaymentListResponse = {
  */
 type PaymentListOutput =
   | {
-      type: PaymentSSEEventType.INITIAL_LIST;
+      type: PaymentSSEEventType.PAYMENT_INITIAL_LIST;
       data: PaymentListResponse;
     }
   | {
@@ -67,7 +67,7 @@ type PaymentListOutput =
       data: PaymentListItem;
     }
   | {
-      type: PaymentSSEEventType.KEEP_ALIVE;
+      type: PaymentSSEEventType.HEARTBEAT;
     }
   | {
       type: PaymentSSEEventType.ERROR;

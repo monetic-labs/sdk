@@ -24,18 +24,18 @@ class Payment {
     });
 
     // Listener for the initial list of transactions
-    eventSource.addEventListener(SSEEventType.INITIAL_LIST, (event) => {
+    eventSource.addEventListener(SSEEventType.PAYMENT_INITIAL_LIST, (event) => {
       try {
         const messageEvent = event as MessageEvent;
         const parsedData = JSON.parse(messageEvent.data);
         const output: PaymentListOutput = {
-          type: SSEEventType.INITIAL_LIST,
+          type: SSEEventType.PAYMENT_INITIAL_LIST,
           data: parsedData,
         };
         callback(output);
       } catch (error) {
         console.error(
-          `Error parsing ${SSEEventType.INITIAL_LIST} event:`,
+          `Error parsing ${SSEEventType.PAYMENT_INITIAL_LIST} event:`,
           error,
           event
         );
@@ -62,8 +62,8 @@ class Payment {
     });
 
     // Listener for keep-alive messages (if server sends a specific event type)
-    eventSource.addEventListener(SSEEventType.KEEP_ALIVE, () => {
-      const output: PaymentListOutput = { type: SSEEventType.KEEP_ALIVE };
+    eventSource.addEventListener(SSEEventType.HEARTBEAT, () => {
+      const output: PaymentListOutput = { type: SSEEventType.HEARTBEAT };
       callback(output);
     });
 
