@@ -50,7 +50,7 @@ type PaymentListPagination = {
  * Type for the standard REST response for the payment list.
  */
 type PaymentListResponse = {
-  payments: PaymentListItem[];
+  list: PaymentListItem[];
   meta: PaymentListPagination;
 };
 

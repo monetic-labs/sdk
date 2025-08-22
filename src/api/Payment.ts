@@ -67,21 +67,6 @@ class Payment {
       callback(output);
     });
 
-    // Optional: Listener for the 'connected' message if you need the connectionId client-side
-    eventSource.addEventListener(SSEEventType.CONNECTED, (event) => {
-      try {
-        const messageEvent = event as MessageEvent;
-        const connectionData = JSON.parse(messageEvent.data);
-        console.log('SSE Connected, ID:', connectionData.connectionId);
-      } catch (error) {
-        console.error(
-          `Error parsing ${SSEEventType.CONNECTED} event:`,
-          error,
-          event
-        );
-      }
-    });
-
     // Generic message handler (optional, catches events without specific listeners)
     eventSource.onmessage = (event) => {
       console.log('Generic SSE message received:', event.type, event.data);
