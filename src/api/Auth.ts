@@ -13,6 +13,12 @@ import type {
   PasskeyRegistrationOptionsResponse,
   Passkey,
   UpdatePasskeyInput,
+  AddEmailToBetaListInput,
+  AddMultipleEmailsToBetaListInput,
+  BetaListResponse,
+  AddEmailToBetaListResponse,
+  AddMultipleEmailsToBetaListResponse,
+  RemoveEmailFromBetaListResponse,
 } from '@/api/_types/auth';
 
 class Auth {
@@ -172,6 +178,47 @@ class Auth {
       { token },
       { withCredentials: true }
     );
+    return response.data.data;
+  }
+
+  // BETA LIST
+
+  async addEmailToBetaList(
+    data: AddEmailToBetaListInput
+  ): Promise<AddEmailToBetaListResponse> {
+    const response = await axios.post<{ data: AddEmailToBetaListResponse }>(
+      `${this.apiUrl}/beta-list`,
+      data,
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  async addMultipleEmailsToBetaList(
+    data: AddMultipleEmailsToBetaListInput
+  ): Promise<AddMultipleEmailsToBetaListResponse> {
+    const response = await axios.post<{
+      data: AddMultipleEmailsToBetaListResponse;
+    }>(`${this.apiUrl}/beta-list/bulk`, data, { withCredentials: true });
+    return response.data.data;
+  }
+
+  async getBetaList(): Promise<BetaListResponse> {
+    const response = await axios.get<{ data: BetaListResponse }>(
+      `${this.apiUrl}/beta-list`,
+      { withCredentials: true }
+    );
+    return response.data.data;
+  }
+
+  async removeEmailFromBetaList(
+    email: string
+  ): Promise<RemoveEmailFromBetaListResponse> {
+    const response = await axios.delete<{
+      data: RemoveEmailFromBetaListResponse;
+    }>(`${this.apiUrl}/beta-list/${encodeURIComponent(email)}`, {
+      withCredentials: true,
+    });
     return response.data.data;
   }
 }

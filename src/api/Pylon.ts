@@ -10,6 +10,8 @@ import type {
   RegisterPasskeyInput,
   UpdatePasskeyInput,
   VerifyOTP,
+  AddEmailToBetaListInput,
+  AddMultipleEmailsToBetaListInput,
 } from '@/api/_types/auth';
 import type {
   CreatePrefundedAccountTransferBody,
@@ -147,6 +149,23 @@ class Pylon {
 
   async exchangeMagicLinkToken(token: string) {
     return this.auth.exchangeMagicLinkToken(token);
+  }
+
+  // BETA LIST AUTH METHODS
+  async addEmailToBetaList(data: AddEmailToBetaListInput) {
+    return this.auth.addEmailToBetaList(data);
+  }
+
+  async addMultipleEmailsToBetaList(data: AddMultipleEmailsToBetaListInput) {
+    return this.auth.addMultipleEmailsToBetaList(data);
+  }
+
+  async getBetaList() {
+    return this.auth.getBetaList();
+  }
+
+  async removeEmailFromBetaList(email: string) {
+    return this.auth.removeEmailFromBetaList(email);
   }
 
   // BRIDGE METHODS

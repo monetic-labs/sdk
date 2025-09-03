@@ -125,6 +125,44 @@ type UpdatePasskeyInput = {
   displayName: string;
 };
 
+type AddEmailToBetaListInput = {
+  email: string;
+};
+
+type AddMultipleEmailsToBetaListInput = {
+  emails: string[];
+};
+
+type BetaListEntry = {
+  id: string;
+  email: string;
+  isUsed: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type BetaListResponse = {
+  betaList: BetaListEntry[];
+  count: number;
+};
+
+type AddEmailToBetaListResponse = {
+  message: string;
+  email: string;
+};
+
+type AddMultipleEmailsToBetaListResponse = {
+  message: string;
+  results: { email: string; status: 'added' | 'exists' | 'invalid' }[];
+  summary: { added: number; existing: number; invalid: number; total: number };
+};
+
+type RemoveEmailFromBetaListResponse = {
+  message: string;
+  email: string;
+  wasUsed: boolean;
+};
+
 export type {
   AccessTokenResponse,
   UserResponse,
@@ -142,4 +180,11 @@ export type {
   AuthenticatePasskeyResponse,
   PasskeyMetadata,
   UpdatePasskeyInput,
+  AddEmailToBetaListInput,
+  AddMultipleEmailsToBetaListInput,
+  BetaListEntry,
+  BetaListResponse,
+  AddEmailToBetaListResponse,
+  AddMultipleEmailsToBetaListResponse,
+  RemoveEmailFromBetaListResponse,
 };
