@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.157](https://github.com/monetic-labs/sdk/compare/v0.3.153...v0.3.157) (2025-09-03)
+
+
+### Features
+
+* update sse event listener ([682cd8c](https://github.com/monetic-labs/sdk/commit/682cd8cb25b8efaff963ddcca04237059540b576))
+
+
+### Bug Fixes
+
+* return domains from getter ([c71cb72](https://github.com/monetic-labs/sdk/commit/c71cb729784591aaaf4903695b03473190f1f03a))
+
 ### [0.3.153](https://github.com/monetic-labs/sdk/compare/v0.3.152...v0.3.153) (2025-07-17)
 
 ### [0.3.152](https://github.com/monetic-labs/sdk/compare/v0.3.151...v0.3.152) (2025-07-17)
