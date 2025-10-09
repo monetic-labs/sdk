@@ -11,6 +11,7 @@ type PaymentListInput = {
   after?: string;
   before?: string;
   search?: string;
+  status?: PaymentType;
 };
 
 type PaymentListItem = {

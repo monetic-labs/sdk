@@ -42,6 +42,7 @@ import type {
 import type {
   ConfirmPaymentRefundInput,
   CreatePaymentLinkInput,
+  PaymentListInput,
   PaymentListOutput,
 } from '@/api/_types/payment';
 import type { OnRampProcessInput } from '@/api/_types/onramp';
@@ -348,8 +349,11 @@ class Pylon {
   }
 
   // PAYMENT METHODS
-  async getPaymentList(callback: (data: PaymentListOutput) => void) {
-    return this.payment.getPaymentList(callback);
+  async getPaymentList(
+    params: PaymentListInput = {},
+    callback: (data: PaymentListOutput) => void
+  ) {
+    return this.payment.getPaymentList(params, callback);
   }
 
   async getPaymentLinks() {
@@ -368,7 +372,10 @@ class Pylon {
     return this.payment.deletePaymentLink(paymentLinkId);
   }
 
-  async confirmRefundPayment(paymentId: string, data: ConfirmPaymentRefundInput) {
+  async confirmRefundPayment(
+    paymentId: string,
+    data: ConfirmPaymentRefundInput
+  ) {
     return this.payment.refundPayment(paymentId, data);
   }
 

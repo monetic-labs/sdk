@@ -6,6 +6,7 @@ import type {
   GetPaymentLinkDetailsOutput,
   PaymentListItem,
   PaymentListOutput,
+  PaymentListInput,
   ConfirmPaymentRefundInput,
   ConfirmPaymentRefundOutput,
 } from '@/api/_types/payment';
@@ -19,8 +20,24 @@ class Payment {
     this.apiUrl = `${baseUrl}/v1/payment`;
   }
 
-  async getPaymentList(callback: (data: PaymentListOutput) => void) {
-    const eventSource = new EventSourcePolyfill(`${this.apiUrl}/`, {
+  async getPaymentList(
+    params: PaymentListInput = {},
+    callback: (data: PaymentListOutput) => void
+  ) {
+    const queryParams = new URLSearchParams();
+
+    if (params.limit) queryParams.append('limit', params.limit.toString());
+    if (params.after) queryParams.append('after', params.after);
+    if (params.before) queryParams.append('before', params.before);
+    if (params.search) queryParams.append('search', params.search);
+    if (params.status) queryParams.append('status', params.status);
+
+    const queryString = queryParams.toString();
+    const url = queryString
+      ? `${this.apiUrl}/?${queryString}`
+      : `${this.apiUrl}/`;
+
+    const eventSource = new EventSourcePolyfill(url, {
       heartbeatTimeout: 4 * 60 * 60 * 1000, // 4 hours
       withCredentials: true,
     });
