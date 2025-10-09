@@ -40,6 +40,7 @@ import type {
   ApiKeyCreateInput,
 } from '@/api/_types/merchant';
 import type {
+  ConfirmPaymentRefundInput,
   CreatePaymentLinkInput,
   PaymentListOutput,
 } from '@/api/_types/payment';
@@ -365,6 +366,10 @@ class Pylon {
 
   async deletePaymentLink(paymentLinkId: string) {
     return this.payment.deletePaymentLink(paymentLinkId);
+  }
+
+  async confirmRefundPayment(paymentId: string, data: ConfirmPaymentRefundInput) {
+    return this.payment.refundPayment(paymentId, data);
   }
 
   // ONRAMP METHODS
