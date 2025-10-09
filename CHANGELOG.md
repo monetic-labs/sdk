@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.163](https://github.com/monetic-labs/sdk/compare/v0.3.162...v0.3.163) (2025-10-09)
+
+
+### Bug Fixes
+
+* change payment enum ([e5e1313](https://github.com/monetic-labs/sdk/commit/e5e13130c20ba45b6434c0485a63e468ec85a2bb))
+
 ### [0.3.162](https://github.com/monetic-labs/sdk/compare/v0.3.161...v0.3.162) (2025-10-09)
 
 ### [0.3.161](https://github.com/monetic-labs/sdk/compare/v0.3.160...v0.3.161) (2025-10-09)
