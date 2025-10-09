@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.160](https://github.com/monetic-labs/sdk/compare/v0.3.159...v0.3.160) (2025-10-09)
+
+
+### Features
+
+* add confirm refund to pylon sdk ([2601941](https://github.com/monetic-labs/sdk/commit/26019413c6878261cc9ca8611aa19ebe99ccaa58))
+
 ### [0.3.159](https://github.com/monetic-labs/sdk/compare/v0.3.158...v0.3.159) (2025-10-09)
 
 
