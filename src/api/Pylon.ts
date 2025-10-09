@@ -379,6 +379,10 @@ class Pylon {
     return this.payment.refundPayment(paymentId, data);
   }
 
+  async getPaymentRefunds(paymentId: string) {
+    return this.payment.getPaymentRefunds(paymentId);
+  }
+
   // ONRAMP METHODS
   async processOnRamp(data: OnRampProcessInput, apiToken: string) {
     return this.onramp.processOnRamp(data, apiToken);

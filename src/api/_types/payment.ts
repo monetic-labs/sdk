@@ -151,6 +151,12 @@ type ConfirmPaymentRefundOutput = {
   success: boolean;
 };
 
+type GetPaymentRefundsOutput = {
+  refunds: PaymentListItem[];
+  totalRefunded: string;
+  refundCount: number;
+};
+
 export type {
   PaymentListInput,
   PaymentListItem,
@@ -166,4 +172,5 @@ export type {
   DeletePaymentLinkOutput,
   ConfirmPaymentRefundInput,
   ConfirmPaymentRefundOutput,
+  GetPaymentRefundsOutput,
 };

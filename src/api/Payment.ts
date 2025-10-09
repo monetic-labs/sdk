@@ -9,6 +9,7 @@ import type {
   PaymentListInput,
   ConfirmPaymentRefundInput,
   ConfirmPaymentRefundOutput,
+  GetPaymentRefundsOutput,
 } from '@/api/_types/payment';
 import { PaymentSSEEventType as SSEEventType } from '@/api/_enums/payment';
 import { EventSourcePolyfill } from 'event-source-polyfill';
@@ -155,6 +156,16 @@ class Payment {
     const response = await axios.post<{ data: ConfirmPaymentRefundOutput }>(
       `${this.apiUrl}/${paymentId}/refund`,
       data,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data.data;
+  }
+
+  async getPaymentRefunds(paymentId: string) {
+    const response = await axios.get<{ data: GetPaymentRefundsOutput }>(
+      `${this.apiUrl}/${paymentId}/refunds`,
       {
         withCredentials: true,
       }
