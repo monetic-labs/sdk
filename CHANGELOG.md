@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.165](https://github.com/monetic-labs/sdk/compare/v0.3.164...v0.3.165) (2025-10-09)
+
 ### [0.3.164](https://github.com/monetic-labs/sdk/compare/v0.3.163...v0.3.164) (2025-10-09)
 
 ### [0.3.163](https://github.com/monetic-labs/sdk/compare/v0.3.162...v0.3.163) (2025-10-09)
