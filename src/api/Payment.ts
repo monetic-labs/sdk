@@ -6,6 +6,8 @@ import type {
   GetPaymentLinkDetailsOutput,
   PaymentListItem,
   PaymentListOutput,
+  ConfirmPaymentRefundInput,
+  ConfirmPaymentRefundOutput,
 } from '@/api/_types/payment';
 import { PaymentSSEEventType as SSEEventType } from '@/api/_enums/payment';
 import { EventSourcePolyfill } from 'event-source-polyfill';
@@ -125,6 +127,17 @@ class Payment {
   async deletePaymentLink(paymentLinkId: string) {
     const response = await axios.delete<{ data: DeletePaymentLinkOutput }>(
       `${this.apiUrl}/link/${paymentLinkId}`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data.data;
+  }
+
+  async refundPayment(paymentId: string, data: ConfirmPaymentRefundInput) {
+    const response = await axios.post<{ data: ConfirmPaymentRefundOutput }>(
+      `${this.apiUrl}/${paymentId}/refund`,
+      data,
       {
         withCredentials: true,
       }

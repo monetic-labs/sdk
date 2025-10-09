@@ -138,6 +138,18 @@ type DeletePaymentLinkOutput = {
   success: boolean;
 };
 
+// =================================================================
+// Payment Refund
+// =================================================================
+
+type ConfirmPaymentRefundInput = {
+  transactionHash: string;
+};
+
+type ConfirmPaymentRefundOutput = {
+  success: boolean;
+};
+
 export type {
   PaymentListInput,
   PaymentListItem,
@@ -151,4 +163,6 @@ export type {
   ConfirmPaymentLinkInput,
   ConfirmPaymentLinkOutput,
   DeletePaymentLinkOutput,
+  ConfirmPaymentRefundInput,
+  ConfirmPaymentRefundOutput,
 };
