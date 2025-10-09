@@ -9,7 +9,9 @@ enum PaymentSSEEventType {
 }
 
 enum PaymentType {
-  SALE = 'SALE',
+  COMPLETED = 'COMPLETED',
+  PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED',
+  FULLY_REFUNDED = 'FULLY_REFUNDED',
 }
 
 export { PaymentSSEEventType, PaymentType };
