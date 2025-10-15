@@ -250,11 +250,6 @@ type CardShippingDetails = RainAddress & {
 type MerchantVirtualCardCreateInput = {
   displayName: string;
   status: CardStatus;
-  owner: {
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
   limit: {
     amount: number;
     frequency: CardLimitFrequency;
@@ -282,31 +277,6 @@ type MerchantVirtualCardCreateOutput = {
   createdAt: string;
   updatedAt: string;
   cardShippingDetailsId: string | null;
-  cardOwnerId: string;
-};
-
-type MerchantPhysicalCardCreateInput = {
-  status: CardStatus;
-  displayName: string;
-  owner: {
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
-  limit: {
-    amount: number;
-    frequency: CardLimitFrequency;
-  };
-  shipping: CardShippingDetails;
-};
-
-type MerchantPhysicalCardCreateOutput = {
-  id: string;
-  providerCardId: string;
-  version: number;
-  displayName: string;
-  limit: number;
-  limitFrequency: CardLimitFrequency;
 };
 
 type MerchantCard = {
@@ -317,19 +287,8 @@ type MerchantCard = {
   expirationYear: string;
   status: CardStatus;
   createdAt: string;
-  cardOwner: MerchantCardOwner;
-  cardShippingDetails?: CardShippingDetails;
   limit: number;
   limitFrequency: CardLimitFrequency;
-};
-
-type MerchantCardOwner = {
-  id: bigint;
-  rainId: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  version: number;
 };
 
 type MerchantCardTransaction = {
@@ -643,13 +602,10 @@ export type {
   CardShippingDetails,
   CardCompanyStatus,
   CardCompanyType,
-  MerchantCardOwner,
   MerchantCardTransaction,
   MerchantVirtualCardCreateInput,
   MerchantVirtualCardCreateOutput,
   MerchantVirtualCardDecryptOutput,
-  MerchantPhysicalCardCreateInput,
-  MerchantPhysicalCardCreateOutput,
   MerchantCardGetInput,
   MerchantCardGetOutput,
   MerchantCardTransactionGetInput,

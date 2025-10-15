@@ -24,7 +24,6 @@ import type {
   MerchantCardTransactionGetInput,
   MerchantCreateInput,
   MerchantRainCompanyCreateInput,
-  MerchantPhysicalCardCreateInput,
   MerchantVirtualCardCreateInput,
   MerchantRainCompanyUpdateInput,
   MerchantUserCreateInput,
@@ -239,10 +238,6 @@ class Pylon {
     data: MerchantAccountRainCardWithdrawalRequestInput
   ) {
     return this.merchant.requestWithdrawalSignatureForRainAccount(data);
-  }
-
-  async createPhysicalCard(data: MerchantPhysicalCardCreateInput) {
-    return this.merchant.createPhysicalCard(data);
   }
 
   async createVirtualCard(data: MerchantVirtualCardCreateInput) {

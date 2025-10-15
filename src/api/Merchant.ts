@@ -9,8 +9,6 @@ import type {
   MerchantCardTransactionGetOutput,
   MerchantCreateInput,
   MerchantCreateOutput,
-  MerchantPhysicalCardCreateInput,
-  MerchantPhysicalCardCreateOutput,
   MerchantRainCompanyCreateInput,
   MerchantRainCompanyCreateOutput,
   MerchantRainCompanyStatusOutput,
@@ -160,15 +158,6 @@ class Merchant {
   }
 
   // RAIN CARDS
-
-  async createPhysicalCard(body: MerchantPhysicalCardCreateInput) {
-    const response = await axios.post<{
-      data: MerchantPhysicalCardCreateOutput;
-    }>(`${this.apiUrl}/cards/rain/physical`, body, {
-      withCredentials: true,
-    });
-    return response.data.data;
-  }
 
   async createVirtualCard(body: MerchantVirtualCardCreateInput) {
     const response = await axios.post<{
