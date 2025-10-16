@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.168](https://github.com/monetic-labs/sdk/compare/v0.3.167...v0.3.168) (2025-10-16)
+
+
+### Features
+
+* remove physical, update virtual ([dabae44](https://github.com/monetic-labs/sdk/commit/dabae44f733ad9b5b249678dc231c2f675c2af56))
+
 ### [0.3.167](https://github.com/monetic-labs/sdk/compare/v0.3.166...v0.3.167) (2025-10-15)
 
 
