@@ -205,6 +205,23 @@ enum FiatCurrency {
   USD = 'USD',
 }
 
+enum ComplianceStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  ACTIVE = 'ACTIVE',
+  REJECTED = 'REJECTED',
+  NEEDS_INFORMATION = 'NEEDS_INFORMATION',
+  NEEDS_VERIFICATION = 'NEEDS_VERIFICATION',
+  MANUAL_REVIEW = 'MANUAL_REVIEW',
+  DENIED = 'DENIED',
+  LOCKED = 'LOCKED',
+  CANCELED = 'CANCELED',
+  NOT_STARTED = 'NOT_STARTED',
+  INCOMPLETE = 'INCOMPLETE',
+  AWAITING_UBO = 'AWAITING_UBO',
+  UNDER_REVIEW = 'UNDER_REVIEW',
+}
+
 export {
   SortOrder,
   ISO3166Alpha2Country,
@@ -216,4 +233,5 @@ export {
   Network,
   StableCurrency,
   FiatCurrency,
+  ComplianceStatus,
 };

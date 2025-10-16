@@ -1,7 +1,4 @@
-import {
-  BridgeComplianceKycStatus,
-  BridgeComplianceTosStatus,
-} from '@/api/_enums/bridge';
+import { ComplianceStatus } from '../_enums';
 
 enum BridgeCurrencyEnum {
   USD = 'usd',
@@ -42,9 +39,7 @@ type CreatePrefundedAccountTransferResponse = any;
 
 type GetComplianceStatusResponse = {
   kycLink: string;
-  tosLink: string;
-  kycStatus: BridgeComplianceKycStatus;
-  tosStatus: BridgeComplianceTosStatus;
+  kycStatus: ComplianceStatus;
 };
 
 type GetVirtualAccountResponse = {

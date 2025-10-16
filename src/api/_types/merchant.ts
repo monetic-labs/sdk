@@ -6,6 +6,7 @@ import {
   StableCurrency,
   ISO3166Alpha2State,
   ISO3166Alpha3Country,
+  ComplianceStatus,
 } from '../_enums/merchant';
 import {
   CardType,
@@ -17,10 +18,6 @@ import {
   CardCompanyStatus,
   CardCompanyType,
 } from '../_enums/rain';
-import {
-  BridgeComplianceKycStatus,
-  BridgeComplianceTosStatus,
-} from '../_enums/bridge';
 import { PasskeyMetadata } from './auth';
 import { PaymentSSEEventType } from '../_enums/payment';
 
@@ -125,9 +122,7 @@ type Representative = {
 
 type Compliance = {
   kycLink: string;
-  tosLink: string;
-  kycStatus: BridgeComplianceKycStatus;
-  tosStatus: BridgeComplianceTosStatus;
+  kycStatus: ComplianceStatus;
 };
 
 type MerchantBillPayProvider = {
@@ -254,6 +249,7 @@ type MerchantVirtualCardCreateInput = {
     amount: number;
     frequency: CardLimitFrequency;
   };
+  ownerMerchantUserId: string;
 };
 
 type MerchantVirtualCardDecryptOutput = {
